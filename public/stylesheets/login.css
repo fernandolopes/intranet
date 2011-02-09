@@ -1,0 +1,22 @@
+body {
+	background: #B00000 url(../images/padrao02.png) top center no-repeat;
+}
+
+.tela2 {
+	background-color: #FFF;
+	height: 395px;
+	width: 630px;
+	left: 377px;
+	position:relative;
+	top:181px;
+}
+
+#tela {
+	width: 300px;
+	height: 200px;
+	background: url(../images/pgm.jpg) no-repeat;
+	position: absolute;
+	padding: 100px;
+	left: 342px;
+	top: 153px;
+}

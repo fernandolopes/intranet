@@ -1,0 +1,335 @@
+/*
+    Document   : template_html.css
+    Author     : Rodrigo Petry
+    Description:
+        Estilos principais do template da área administrativa: layout e elementos html do template;
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: none;
+}
+
+body, a, input, textarea, select {
+    color: #000;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    font-size:	11px;
+}
+
+a {
+    text-decoration:none;
+    color:#0066CC;
+}
+
+/* unvisited link */
+a:link {
+    color: blue;
+}
+
+/* visited link */
+a:visited {
+   text-decoration:none;
+   color:#0066CC;
+}
+
+/* mouse over link */
+a:hover {
+    text-decoration: underline;
+    color:#FF9900;
+}
+
+/* selected link */
+a:active {
+    color: #6600CC;
+}
+
+ul {
+    margin:0;
+    padding:0;
+}
+
+/* float canceler div */
+div.clear {
+    clear: both;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+/* -------- grid ---------------- */
+
+a.grid_link {
+    display: block;
+    padding: 5px;
+    position: relative;
+    float: left;
+}
+
+a.grid_link img {
+    float:left;
+    margin-right: 3px;
+}
+
+table.grid {
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    clear: both;
+}
+
+table.grid td {
+    padding: 4px;
+    border: 1px solid #D7E5F2;
+}
+
+table.grid .grid_title {
+    color: #000;
+    background-color: #EDF3FA;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 20px;
+}
+
+table.grid .grid_label {
+    color: #102132;
+    background-color: #F9FBFD;
+	font-weight: bold;
+}
+
+table.grid .grid_label.center{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table.grid .grid_value {
+    background-color: #FFF;
+    font-weight: normal;
+}
+
+table.grid .grid_action {
+    background-color: #F2F7FB;
+    font-weight: normal;
+}
+
+table.grid .grid_footer {
+    background-color: #EDF3FA;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: right;
+}
+
+
+/* -------- tableform ----------- */
+
+table.form {
+    margin-bottom: 15px;
+    border-collapse: collapse;
+    clear: both;
+}
+
+table.form td {
+    padding: 4px;
+    border: 1px solid #D7E5F2;
+}
+
+table.form .form_title {
+    color: #000;
+    background-color: #EDF3FA;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 20px;
+}
+
+table.form .form_label {
+    color: #102132;
+    background-color: #F9FBFD;
+}
+
+table.form .form_field {
+    background-color: #F2F7FB;
+}
+
+table.form .form_value {
+    background-color: #FFF;
+}
+
+table.form .form_footer {
+    background-color: #EDF3FA;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: right;
+}
+
+table.form .form_field input, table.form .form_field select,
+table.form .form_field  textarea {
+    background-color: #D7E5F2;
+    color: #102132;
+    border: 1px solid #284279;
+}
+
+table.form .form_field input.focus {
+    background-color: #F7FBD7;
+}
+
+table.form .form_label.right {
+    padding-left: 10px;
+}
+
+table.form .form_label.center {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+table.form .form_label.center a {
+    color: #000;
+    font-weight: bold;
+}
+
+span.required_field {
+    display: inline-block;
+    width: 10px;
+    padding: 0px;
+    vertical-align: top;
+    color: red;
+}
+
+div.error_positioner {
+    position:relative;
+    float: right;
+}
+
+div.error_positioner span {
+    position: absolute;
+    display: block;
+    background: url("public/images/seta_esquerda.jpg") left center no-repeat;
+    left: 10px;
+    padding-left: 17px;
+    top: 0;
+}
+
+div.error_positioner span table {
+    background-color: #E60000;
+    color: #FFFFFF;
+}
+
+div.error_positioner span table td {
+    background-color: #E60000;
+    padding: 0px 5px;
+    border: none;
+}
+
+
+/*--------------------------------------------*/
+
+/* ------- filter form --------- */
+
+.form_filter {
+
+}
+
+.form_filter .input_container {
+    display: block;
+    float: left;
+    margin: 5px 0;
+    height: 19px;
+    line-height: 19px;
+    padding-right: 12px;
+}
+
+.form_filter label {
+    margin-right: 3px;
+    font-weight: bold;
+}
+
+.form_filter input, .form_filter textarea, .form_filter select {
+    border: 1px solid #284279;
+}
+
+.form_filter input.text_input {
+    width: 100px;
+}
+
+.form_filter input.date_input {
+    width: 60px;
+}
+
+.form_filter input.integer_input {
+    width: 60px;
+}
+
+.form_container br {
+    clear: both;
+}
+
+/* ------- form fields ----------- */
+
+table.form .form_double_input {
+	text-align: right;
+}
+
+/* ------- system message -------- */
+
+
+div.system_message {
+	margin: 7px 0;
+}
+
+div.system_message div {
+	height: 25px;
+	line-height: 25px;
+	padding-left: 25px;
+}
+
+div.error_message {
+	border: 1px solid red;
+	background: #FFE0E0 url("public/images/icons/delete.png") 5px center no-repeat;
+	color: red;
+}
+
+div.success_message {
+	border: 1px solid #43701B;
+	background: #D8F3CB url("public/images/icons/accept.png") 5px center no-repeat;
+	color: #43701B;
+}
+
+table.form .form_field input.focus, table.form .form_field select.focus,
+table.form .form_field  textarea.focus, .focus {
+    background-color: #F7FBD7;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.asc_dir {
+    background-image: url(public/images/asc_dir.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+.desc_dir {
+    background-image: url(public/images/desc_dir.png);
+    background-position:  right center;
+    background-repeat: no-repeat;
+}
