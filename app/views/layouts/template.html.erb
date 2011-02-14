@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Intranet</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div id="container">
+
+    <div id="header">
+
+        <!--<h1>Intranet da Procuradoria Geral do Município</h1>-->
+
+    </div> <!-- header -->
+    <div class="clear"></div>
+
+    <div id="barra_tarefas">
+
+        <div id="menu">
+            <%= link_to "Início", home_index_path %>
+            <%= link_to "Fichário", "#" %>
+            <%= link_to "Usuários", "#" %>
+            <%= link_to "Frequência", "#" %>
+
+            <div class="clear"></div>
+        </div>
+
+        <div id="session_info">
+          <%= link_to image_tag("/images/icons/status_online.png")+current_usuario.email,
+                      destroy_usuario_session_path %>
+          <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
+                      destroy_usuario_session_path %>
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="clear"></div>
+
+    </div> <!-- barra_tarefas -->
+    <div class="clear"></div>
+
+    <div id="main">
+
+		<p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+
+    </div> <!-- main -->
+
+    <div id="footer">
+				Copyright <%= Time.now.strftime("%Y") %> PGM - Procuradoria Geral do Municipio - Fortaleza, todos os direitos reservados
+    </div> <!-- footer -->
+
+</div> <!-- container -->
+
+</body>
+</html>

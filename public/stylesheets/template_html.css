@@ -1,4 +1,4 @@
-/*
+/* 
     Document   : template_html.css
     Author     : Rodrigo Petry
     Description:
@@ -17,6 +17,16 @@ form {
 
 img {
     border: none;
+}
+
+.notice {
+    text-align:center;
+    color:#b22222;
+}
+
+.alert {
+    text-align:center;
+    color:#b22222; 
 }
 
 body, a, input, textarea, select {
@@ -210,7 +220,7 @@ div.error_positioner {
 div.error_positioner span {
     position: absolute;
     display: block;
-    background: url("public/images/seta_esquerda.jpg") left center no-repeat;
+    background: url("../images/seta_esquerda.jpg") left center no-repeat;
     left: 10px;
     padding-left: 17px;
     top: 0;
@@ -233,7 +243,7 @@ div.error_positioner span table td {
 /* ------- filter form --------- */
 
 .form_filter {
-
+    
 }
 
 .form_filter .input_container {
@@ -291,13 +301,13 @@ div.system_message div {
 
 div.error_message {
 	border: 1px solid red;
-	background: #FFE0E0 url("public/images/icons/delete.png") 5px center no-repeat;
+	background: #FFE0E0 url("../images/icons/delete.png") 5px center no-repeat;
 	color: red;
 }
 
 div.success_message {
 	border: 1px solid #43701B;
-	background: #D8F3CB url("public/images/icons/accept.png") 5px center no-repeat;
+	background: #D8F3CB url("../images/icons/accept.png") 5px center no-repeat;
 	color: #43701B;
 }
 
@@ -323,13 +333,13 @@ table.form .form_field  textarea.focus, .focus {
 }
 
 .asc_dir {
-    background-image: url(public/images/asc_dir.png);
+    background-image: url(../images/asc_dir.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
 .desc_dir {
-    background-image: url(public/images/desc_dir.png);
+    background-image: url(../images/desc_dir.png);
     background-position:  right center;
     background-repeat: no-repeat;
 }

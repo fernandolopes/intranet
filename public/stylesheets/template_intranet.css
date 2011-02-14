@@ -1,0 +1,171 @@
+/* 
+    Document   : template_admin.css
+    Author     : Rodrigo Petry
+    Description:
+        Estilos principais do template da área administrativa: layout e elementos html do template;
+*/
+
+
+/* 100% height solution */
+
+html,body {
+	margin:0;
+	padding:0;
+	height:100%; /* needed for container min-height */
+}
+
+
+div#container {
+	position:relative; /* needed for footer positioning*/
+	margin-top: 0;
+	margin-bottom: 0;
+	height:auto !important; /* real browsers */
+	height:100%; /* IE6: treaded as min-height*/
+
+	min-height:100%; /* real browsers */
+
+	background-color: #FFF;
+}
+
+
+
+div#main {
+	padding: 10px;
+	padding-bottom: 40px; /* bottom padding for footer */
+	
+}
+
+div#footer {
+	position:absolute;
+	height: 20px;
+	width:100%;
+	bottom:0; /* stick to bottom */
+	background: #B5100E ;
+	color: #FFFFFF;
+	font: bold 11px "Trebuchet MS",Arial,Helvetica,sans-serif;
+	padding: 2px 0 0 20px;
+}
+
+/* ---------- layout elements ---------- */
+body {
+	background-color: #E6E6E6;
+}
+
+div#header h1 {
+	margin: 0;
+	padding: 7px 0 0 18px;
+	color: white;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+div#header {
+	height: 100px;
+	background: #B5100E url("../images/tela-intranet.png") left top no-repeat;
+}
+
+div#main h2 {
+	margin: 0;
+	padding-bottom: 15px;
+	color: #000;
+}
+
+div#barra_tarefas {
+	border: 1px solid #333;
+	padding: 0px 10px;
+	background: #FFF url("../images/menu_background.jpg") left bottom repeat-x;
+}
+
+div#menu {
+	display: block;
+	float:left;
+}
+
+div#menu a {
+	display: block;
+	float: left;
+	padding: 4px 8px;
+	color: #000;
+}
+
+div#session_info {
+	display: block;
+	float: right;
+}
+
+div#session_info a {
+	display: block;
+	float: left;
+	padding: 4px 6px;
+	color: #000;
+}
+
+div#session_info a img {
+	float: left;
+	margin: -2px 3px -2px 0;
+	
+}
+
+div#session_info a:hover {
+	text-decoration: underline;
+}
+
+/* -------------------- */
+
+p.paginacao {
+	margin: 0;
+}
+
+.paginacao a {
+    background:url("../images/bg-list-pag.png") repeat-x;
+    border:1px solid #DEDEDE;
+    padding:2px 7px 2px 7px;
+    margin:0 1px 0 1px;
+    height:22px;
+}
+
+.paginacao a:hover {
+    background-image:none;
+    background-color:#0066CC;
+    color:#FFFFFF;
+    border:1px solid #666666;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.paginacao span.sel {
+    font-family: Arial,Helvetica,sans-serif;
+	font-size: 13px;
+    font-weight: bold;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	background-image: none;
+	border: 1px solid #434343;
+	color: #434343;
+	margin: 0 1px;
+	padding: 2px 7px;
+}
+
+p.paginacao span.digg_reticencias {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 13px;
+    font-weight: bold;
+	text-decoration: none;
+	background-color: #FFFFFF;
+	background-image: none;
+	border: 1px solid #434343;
+	color: #434343;
+	margin: 0 1px;
+	padding: 2px 4px;
+}
+
+.b {
+	font-weight: bold;
+}
+
+.a13 {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+}
+
+/*----fim teste de paginacao-----*/

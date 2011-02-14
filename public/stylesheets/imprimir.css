@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+#corpo {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color:#FF0000;
+}
+
+#corpo div.header {
+	height: 130px;
+	width: 800px;
+	padding: 0 0 0 0;
+}
+
+#corpo table.tabela{
+        border: 1px solid;
+}
+
+#corpo div.subheader1 {
+	background: url(images/padrao01.png) no-repeat left;
+	height: 103px;
+	width: 250px;
+	padding: 0 0 0 0;
+}
+#corpo td.subheader2 {
+	width: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#000000;
+	font-weight: bold;
+}
+#corpo td.subheader3 {
+	width: 190px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#000000;
+}
+
+#corpo td.subheader4{
+	width: 600px;
+	font-size: 14px;
+	color: #000000;
+	text-align: right;
+	font-weight: bold;
+}
+
+#corpo td.subheader4 h3{
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+#corpo div.body{
+	width: 800px;
+	height: 80px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:#000000;
+}
+
+#corpo td.subbody1{
+	width: 60px;
+	font-weight: bold;
+}
+
+#corpo td.subbody2{
+	width: 170px
+}
+
+#corpo div.botton{
+	width: 800px;
+	color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+

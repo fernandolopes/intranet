@@ -1,5 +1,4 @@
-Intranet::Application.routes.draw do
-  resources :logins
+Intranet::Application.routes.draw do  resources :home
 
   get "login/index"
 
@@ -7,8 +6,8 @@ Intranet::Application.routes.draw do
 
   get "login/create"
 
-  devise_for :usuarios, :path_names => { :sign_in => "login"}
-  devise_for :logins, :controllers => { :sessions => "sessions" }
+  devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar"}
+  #devise_for :logins, :controllers => { :sessions => "sessions" }
 
 
   # The priority is based upon order of creation:
@@ -60,7 +59,7 @@ Intranet::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => "logins#index"
+   root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"
 

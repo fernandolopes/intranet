@@ -11,6 +11,19 @@
         <tr>
           <td class="form_title" colspan="2">Informações de Login</td>
         </tr>
+        <% if alert %>
+            <tr>
+              <td colspan="2" class="alert">
+                <%= alert %>
+              </td>
+            </tr>
+        <% elsif notice %>
+            <tr>
+              <td colspan="2" class="notice">
+                <%= notice %>
+              </td>
+            </tr>
+        <% end %>
         <tr>
           <td class="form_label right">Nome de Usuário:</td>
           <td class="form_field">
