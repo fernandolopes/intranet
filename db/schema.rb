@@ -10,7 +10,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110208162754) do
+ActiveRecord::Schema.define(:version => 20110215180803) do
+
+  create_table "assuntos", :force => true do |t|
+    t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fichario_fichas", :force => true do |t|
+    t.date     "pja"
+    t.string   "interessado", :limit => 50
+    t.string   "processo",    :limit => 30
+    t.string   "cpf",         :limit => 11
+    t.date     "entrada"
+    t.string   "fone",        :limit => 10
+    t.string   "celular",     :limit => 10
+    t.string   "matricula",   :limit => 30
+    t.integer  "assunto_id"
+    t.integer  "origens_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "origens", :force => true do |t|
+    t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

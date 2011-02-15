@@ -1,0 +1,23 @@
+<h1>Listing assuntos</h1>
+
+<table>
+  <tr>
+    <th>Descricao</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @assuntos.each do |assunto| %>
+  <tr>
+    <td><%= assunto.descricao %></td>
+    <td><%= link_to 'Show', assunto %></td>
+    <td><%= link_to 'Edit', edit_assunto_path(assunto) %></td>
+    <td><%= link_to 'Destroy', assunto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Assunto', new_assunto_path %>
