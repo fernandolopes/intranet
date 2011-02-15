@@ -6,7 +6,7 @@ Intranet::Application.routes.draw do  resources :home
 
   get "login/create"
 
-  devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar"}
+  devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair"}
   #devise_for :logins, :controllers => { :sessions => "sessions" }
 
 
