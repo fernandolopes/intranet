@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pja: 2011-02-15
+  interessado: MyString
+  processo: MyString
+  cpf: MyString
+  entrada: 2011-02-15
+  fone: MyString
+  celular: MyString
+  matricula: MyString
+  assunto: 
+  origens: 
+
+two:
+  pja: 2011-02-15
+  interessado: MyString
+  processo: MyString
+  cpf: MyString
+  entrada: 2011-02-15
+  fone: MyString
+  celular: MyString
+  matricula: MyString
+  assunto: 
+  origens: 

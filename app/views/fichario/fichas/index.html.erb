@@ -1,0 +1,41 @@
+<h1>Listing fichario_fichas</h1>
+
+<table>
+  <tr>
+    <th>Pja</th>
+    <th>Interessado</th>
+    <th>Processo</th>
+    <th>Cpf</th>
+    <th>Entrada</th>
+    <th>Fone</th>
+    <th>Celular</th>
+    <th>Matricula</th>
+    <th>Assunto</th>
+    <th>Origens</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fichario_fichas.each do |fichario_ficha| %>
+  <tr>
+    <td><%= fichario_ficha.pja %></td>
+    <td><%= fichario_ficha.interessado %></td>
+    <td><%= fichario_ficha.processo %></td>
+    <td><%= fichario_ficha.cpf %></td>
+    <td><%= fichario_ficha.entrada %></td>
+    <td><%= fichario_ficha.fone %></td>
+    <td><%= fichario_ficha.celular %></td>
+    <td><%= fichario_ficha.matricula %></td>
+    <td><%= fichario_ficha.assunto %></td>
+    <td><%= fichario_ficha.origens %></td>
+    <td><%= link_to 'Show', fichario_ficha %></td>
+    <td><%= link_to 'Edit', edit_fichario_ficha_path(fichario_ficha) %></td>
+    <td><%= link_to 'Destroy', fichario_ficha, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ficha', new_fichario_ficha_path %>

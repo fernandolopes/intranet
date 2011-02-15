@@ -1,0 +1,57 @@
+<%= form_for(@fichario_ficha) do |f| %>
+  <% if @fichario_ficha.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fichario_ficha.errors.count, "error") %> prohibited this fichario_ficha from being saved:</h2>
+
+      <ul>
+      <% @fichario_ficha.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pja %><br />
+    <%= f.date_select :pja %>
+  </div>
+  <div class="field">
+    <%= f.label :interessado %><br />
+    <%= f.text_field :interessado %>
+  </div>
+  <div class="field">
+    <%= f.label :processo %><br />
+    <%= f.text_field :processo %>
+  </div>
+  <div class="field">
+    <%= f.label :cpf %><br />
+    <%= f.text_field :cpf %>
+  </div>
+  <div class="field">
+    <%= f.label :entrada %><br />
+    <%= f.date_select :entrada %>
+  </div>
+  <div class="field">
+    <%= f.label :fone %><br />
+    <%= f.text_field :fone %>
+  </div>
+  <div class="field">
+    <%= f.label :celular %><br />
+    <%= f.text_field :celular %>
+  </div>
+  <div class="field">
+    <%= f.label :matricula %><br />
+    <%= f.text_field :matricula %>
+  </div>
+  <div class="field">
+    <%= f.label :assunto %><br />
+    <%= f.text_field :assunto %>
+  </div>
+  <div class="field">
+    <%= f.label :origens %><br />
+    <%= f.text_field :origens %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

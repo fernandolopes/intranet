@@ -1,0 +1,2 @@
+module Fichario::FichasHelper
+end
