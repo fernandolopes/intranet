@@ -76,6 +76,11 @@ div#barra_tarefas {
 	background: #FFF url("../images/menu_background.jpg") left bottom repeat-x;
 }
 
+div#barra_tarefas a:hover{
+    color: #FFF;
+    background-color: #2080D0;
+}
+
 div#menu {
 	display: block;
 	float:left;

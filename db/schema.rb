@@ -10,9 +10,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215180803) do
+ActiveRecord::Schema.define(:version => 20110217164337) do
 
-  create_table "assuntos", :force => true do |t|
+  create_table "fichario_assuntos", :force => true do |t|
     t.string   "descricao"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -20,20 +20,23 @@ ActiveRecord::Schema.define(:version => 20110215180803) do
 
   create_table "fichario_fichas", :force => true do |t|
     t.date     "pja"
-    t.string   "interessado", :limit => 50
-    t.string   "processo",    :limit => 30
-    t.string   "cpf",         :limit => 11
+    t.string   "interessado"
+    t.string   "processo"
+    t.string   "cpf"
     t.date     "entrada"
-    t.string   "fone",        :limit => 10
-    t.string   "celular",     :limit => 10
-    t.string   "matricula",   :limit => 30
+    t.string   "fone"
+    t.string   "celular"
+    t.string   "matricula"
     t.integer  "assunto_id"
-    t.integer  "origens_id"
+    t.integer  "origem_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "origens", :force => true do |t|
+  add_index "fichario_fichas", ["assunto_id"], :name => "index_fichario_fichas_on_assunto_id"
+  add_index "fichario_fichas", ["origem_id"], :name => "index_fichario_fichas_on_origem_id"
+
+  create_table "fichario_origens", :force => true do |t|
     t.string   "descricao"
     t.datetime "created_at"
     t.datetime "updated_at"

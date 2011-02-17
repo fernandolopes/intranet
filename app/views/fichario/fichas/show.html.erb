@@ -42,12 +42,13 @@
 
 <p>
   <b>Assunto:</b>
-  <%= @fichario_ficha.assunto %>
+  <%#= raise @fichario_ficha.inspect %>
+  <%= @fichario_ficha.assunto.descricao %>
 </p>
 
 <p>
   <b>Origens:</b>
-  <%= @fichario_ficha.origens %>
+  <%= @fichario_ficha.origem.descricao %>
 </p>
 
 

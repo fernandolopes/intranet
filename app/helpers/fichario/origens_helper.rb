@@ -1,0 +1,2 @@
+module Fichario::OrigensHelper
+end

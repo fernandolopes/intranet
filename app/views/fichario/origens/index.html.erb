@@ -1,0 +1,23 @@
+<h1>Listing fichario_origens</h1>
+
+<table>
+  <tr>
+    <th>Descricao</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fichario_origens.each do |fichario_origem| %>
+  <tr>
+    <td><%= fichario_origem.descricao %></td>
+    <td><%= link_to 'Show', fichario_origem %></td>
+    <td><%= link_to 'Edit', edit_fichario_origem_path(fichario_origem) %></td>
+    <td><%= link_to 'Destroy', fichario_origem, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Origem', new_fichario_origem_path %>

@@ -1,6 +1,11 @@
-<h1>Editing fichario_ficha</h1>
-
+<script type="text/javascript" src="/javascripts/calendar/calendar.js"></script>
+<script type="text/javascript" src="/javascripts/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="/javascripts/calendar/lang/calendar-br.js"></script>
+<link type="text/css" rel="stylesheet" media="screen" href="/javascripts/calendar/calendar-blue.css">
+<fieldset>
+  <legend><strong>Editar ficha</strong></legend>
 <%= render 'form' %>
-
-<%= link_to 'Show', @fichario_ficha %> |
-<%= link_to 'Back', fichario_fichas_path %>
+</fieldset>
+<br />
+<%= link_to 'Mostrar', @fichario_ficha %> |
+<%= link_to 'Voltar', fichario_fichas_path %>

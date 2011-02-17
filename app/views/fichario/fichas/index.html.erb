@@ -1,24 +1,25 @@
-<h1>Listing fichario_fichas</h1>
 
-<table>
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="13">Lista de fichas</td>
+  </tr>
   <tr>
-    <th>Pja</th>
-    <th>Interessado</th>
-    <th>Processo</th>
-    <th>Cpf</th>
-    <th>Entrada</th>
-    <th>Fone</th>
-    <th>Celular</th>
-    <th>Matricula</th>
-    <th>Assunto</th>
-    <th>Origens</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="grid_label center">Pja</th>
+    <th class="grid_label center">Interessado</th>
+    <th class="grid_label center">Processo</th>
+    <th class="grid_label center">Cpf</th>
+    <th class="grid_label center">Entrada</th>
+    <th class="grid_label center">Fone</th>
+    <th class="grid_label center">Celular</th>
+    <th class="grid_label center">Matrícula</th>
+    <th class="grid_label center">Assunto</th>
+    <th class="grid_label center">Origem</th>
+    <th class="grid_label center" colspan="3">Ações</th>
+
   </tr>
 
-<% @fichario_fichas.each do |fichario_ficha| %>
-  <tr>
+<% @fichario_ficha.each do |fichario_ficha| %>
+  <tr class="grid_value">
     <td><%= fichario_ficha.pja %></td>
     <td><%= fichario_ficha.interessado %></td>
     <td><%= fichario_ficha.processo %></td>
@@ -27,15 +28,18 @@
     <td><%= fichario_ficha.fone %></td>
     <td><%= fichario_ficha.celular %></td>
     <td><%= fichario_ficha.matricula %></td>
-    <td><%= fichario_ficha.assunto %></td>
-    <td><%= fichario_ficha.origens %></td>
-    <td><%= link_to 'Show', fichario_ficha %></td>
-    <td><%= link_to 'Edit', edit_fichario_ficha_path(fichario_ficha) %></td>
-    <td><%= link_to 'Destroy', fichario_ficha, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= fichario_ficha.assunto.descricao %></td>
+    <td><%= fichario_ficha.origem.descricao %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_ficha %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_ficha_path(fichario_ficha) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
   </tr>
 <% end %>
+  <tr>
+    <td class="grid_footer" colspan="13">&nbsp;</td>
+  </tr>
 </table>
 
 <br />
 
-<%= link_to 'New Ficha', new_fichario_ficha_path %>
+<%= link_to 'Nova Ficha', new_fichario_ficha_path %>

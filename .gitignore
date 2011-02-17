@@ -12,3 +12,5 @@ doc/
 nbproject/**/*
 .idea
 .idea/**/*
+config/database.yml
+database.yml

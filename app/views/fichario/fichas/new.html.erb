@@ -1,5 +1,12 @@
-<h1>New fichario_ficha</h1>
+<script type="text/javascript" src="/javascripts/calendar/calendar.js"></script>
+<script type="text/javascript" src="/javascripts/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="/javascripts/calendar/lang/calendar-br.js"></script>
+<link type="text/css" rel="stylesheet" media="screen" href="/javascripts/calendar/calendar-blue.css">
+<fieldset>
+  <legend><strong>Nova ficha</strong></legend>
+  <%= render 'form' %>
+</fieldset>
+<br />
 
-<%= render 'form' %>
+<%= link_to 'Voltar', fichario_fichas_path %>
 
-<%= link_to 'Back', fichario_fichas_path %>

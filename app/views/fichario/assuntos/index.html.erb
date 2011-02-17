@@ -1,0 +1,23 @@
+<h1>Listing fichario_assuntos</h1>
+
+<table>
+  <tr>
+    <th>Descricao</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @fichario_assuntos.each do |fichario_assunto| %>
+  <tr>
+    <td><%= fichario_assunto.descricao %></td>
+    <td><%= link_to 'Show', fichario_assunto %></td>
+    <td><%= link_to 'Edit', edit_fichario_assunto_path(fichario_assunto) %></td>
+    <td><%= link_to 'Destroy', fichario_assunto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Assunto', new_fichario_assunto_path %>

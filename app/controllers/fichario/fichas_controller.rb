@@ -1,8 +1,9 @@
-class Fichario::FichasController < ApplicationController
+class Fichario::FichasController < TemplateController
+  before_filter :authenticate_usuario!
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
-    @fichario_fichas = Fichario::Ficha.all
+    @fichario_ficha = Fichario::Ficha.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +26,8 @@ class Fichario::FichasController < ApplicationController
   # GET /fichario/fichas/new.xml
   def new
     @fichario_ficha = Fichario::Ficha.new
+    @assuntos = Fichario::Assunto.all
+    @origens  = Fichario::Origem.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +38,8 @@ class Fichario::FichasController < ApplicationController
   # GET /fichario/fichas/1/edit
   def edit
     @fichario_ficha = Fichario::Ficha.find(params[:id])
+    @assuntos = Fichario::Assunto.all
+    @origens  = Fichario::Origem.all
   end
 
   # POST /fichario/fichas

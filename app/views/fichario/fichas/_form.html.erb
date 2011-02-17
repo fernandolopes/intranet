@@ -1,4 +1,4 @@
-<%= form_for(@fichario_ficha) do |f| %>
+<%= form_for(@fichario_ficha, :html => {:name => 'form1'}) do |f| %>
   <% if @fichario_ficha.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@fichario_ficha.errors.count, "error") %> prohibited this fichario_ficha from being saved:</h2>
@@ -10,48 +10,82 @@
       </ul>
     </div>
   <% end %>
-
+<div id="esquerda">
   <div class="field">
-    <%= f.label :pja %><br />
-    <%= f.date_select :pja %>
+    <%= f.label :pja, "PJA" %><br />
+    <input type="text" id="fichario_ficha_pja" name="fichario_ficha[pja]" maxlength="10" onKeyPress="formataCampo(form1.fichario_ficha_pja, '00/00/0000', event);">
+    <img src="/images/icons/calendar_view_month.png" id="trigger_fichario_ficha_pja"
+         style ="margin: 0 0 -4px 3px;  cursor: pointer;"
+         onmouseover="this.style.background='#F7FBD7';"
+		 onmouseout="this.style.background='';"
+         alt="calendario" title="Selecione a data">
+    <script type="text/javascript">
+      Calendar.setup({
+            inputField     :    "fichario_ficha_pja",         // id of the input field
+            ifFormat       :    "dd/mm/y",                    // format of the input field
+            button         :    "trigger_fichario_ficha_pja", // trigger for the calendar (button ID)
+            singleClick    :    true                          // double-click mode
+        });
+    </script>
   </div>
   <div class="field">
     <%= f.label :interessado %><br />
-    <%= f.text_field :interessado %>
+    <%= f.text_field :interessado, :size => 40 %>
   </div>
   <div class="field">
     <%= f.label :processo %><br />
-    <%= f.text_field :processo %>
+    <%= f.  text_field :processo, :size => 14 %>
   </div>
   <div class="field">
-    <%= f.label :cpf %><br />
-    <%= f.text_field :cpf %>
+    <%= f.label :cpf, "CPF" %><br />
+    <%= f.text_field :cpf, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_cpf, '000.000.000-00', event);"  %>
   </div>
   <div class="field">
     <%= f.label :entrada %><br />
-    <%= f.date_select :entrada %>
+    <input type="text" id="fichario_ficha_entrada" name="fichario_ficha[entrada]" maxlength="10" onKeyPress="formataCampo(form1.fichario_ficha_entrada, '00/00/0000', event);">
+    <img src="/images/icons/calendar_view_month.png" id="trigger_fichario_ficha_entrada"
+         style ="margin: 0 0 -4px 3px;  cursor: pointer;"
+         onmouseover="this.style.background='#F7FBD7';"
+		 onmouseout="this.style.background='';"
+         alt="calendario" title="Selecione a data">
+    <script type="text/javascript">
+      Calendar.setup({
+            inputField     :    "fichario_ficha_entrada",         // id of the input field
+            ifFormat       :    "dd/mm/y",                        // format of the input field
+            button         :    "trigger_fichario_ficha_entrada", // trigger for the calendar (button ID)
+            singleClick    :    true                              // double-click mode
+        });
+    </script>
   </div>
+<div class="field" style="text-align: right;">
+      <%= f.submit 'Salvar' %>
+    </div>
+</div>
+
+
+<div id="direita">
   <div class="field">
     <%= f.label :fone %><br />
-    <%= f.text_field :fone %>
+    <%= f.text_field :fone, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_fone, '(00) 0000-0000', event);" %>
   </div>
   <div class="field">
     <%= f.label :celular %><br />
-    <%= f.text_field :celular %>
+    <%= f.text_field :celular, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_celular, '(00) 0000-0000', event);"  %>
   </div>
   <div class="field">
     <%= f.label :matricula %><br />
-    <%= f.text_field :matricula %>
+    <%= f.text_field :matricula, :size => 14 %>
   </div>
   <div class="field">
-    <%= f.label :assunto %><br />
-    <%= f.text_field :assunto %>
+    <%= f.label :assunto_id %><br />
+    <%= f.select :assunto_id, @assuntos.collect{|a| [a.descricao, a.id]}, :include_blank => true %>
   </div>
   <div class="field">
-    <%= f.label :origens %><br />
-    <%= f.text_field :origens %>
+    <%= f.label :origem_id %><br />
+    <%= f.select :origem_id, @origens.collect{|o| [o.descricao, o.id]}, :include_blank => true %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+</div>
+
+
 <% end %>

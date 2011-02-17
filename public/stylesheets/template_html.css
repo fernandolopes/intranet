@@ -24,6 +24,24 @@ img {
     color:#b22222;
 }
 
+fieldset{
+    width: 500px;
+    padding: 20px;
+}
+
+#esquerda{
+    float: left;
+}
+
+#direita{
+    float:right;
+
+}
+
+label{
+    font-weight:bold;
+}
+
 .alert {
     text-align:center;
     color:#b22222; 

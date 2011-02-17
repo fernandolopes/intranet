@@ -1,13 +1,17 @@
 Intranet::Application.routes.draw do  resources :home
 
-  get "login/index"
+  get "fichario/index/index"
 
-  get "login/new"
+  namespace :fichario do
+    resources :fichas
+    resources :assuntos
+    resources :origens
+  end
 
-  get "login/create"
+  match 'fichario' => "fichario/Index#index"
 
   devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair"}
-  #devise_for :logins, :controllers => { :sessions => "sessions" }
+
 
 
   # The priority is based upon order of creation:

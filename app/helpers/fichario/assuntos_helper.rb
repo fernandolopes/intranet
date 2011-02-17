@@ -1,0 +1,2 @@
+module Fichario::AssuntosHelper
+end
