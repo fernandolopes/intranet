@@ -14,3 +14,5 @@ nbproject/**/*
 .idea/**/*
 config/database.yml
 database.yml
+.redcar
+.redcar/**/*

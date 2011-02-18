@@ -1,5 +1,8 @@
 class Fichario::FichasController < TemplateController
   before_filter :authenticate_usuario!
+  before_filter :load_assuntos, :only => [:new, :edit, :create, :update]
+  before_filter :load_origens, :only => [:new, :edit, :create, :update]
+  
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
@@ -26,8 +29,6 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas/new.xml
   def new
     @fichario_ficha = Fichario::Ficha.new
-    @assuntos = Fichario::Assunto.all
-    @origens  = Fichario::Origem.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,12 +39,6 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas/1/edit
   def edit
     @fichario_ficha = Fichario::Ficha.find(params[:id])
-
-#   @fichario_ficha.pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
-#raise @fichario_ficha.inspect
-
-    @assuntos = Fichario::Assunto.all
-    @origens  = Fichario::Origem.all
   end
 
   # POST /fichario/fichas
@@ -88,5 +83,14 @@ class Fichario::FichasController < TemplateController
       format.html { redirect_to(fichario_fichas_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def load_assuntos
+    @assuntos = Fichario::Assunto.all.collect { |a| [a.descricao, a.id] }
+  end
+  
+  def load_origens
+    @origens  = Fichario::Origem.all.collect { |a| [a.descricao, a.id] }
   end
 end
