@@ -103,11 +103,11 @@
   </div>
   <div class="field">
     <%= f.label :assunto_id %><br />
-    <%= f.select :assunto_id, @assuntos.collect{|a| [a.descricao, a.id]}, :include_blank => true %>
+    <%= f.select :assunto_id, @assuntos, :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :origem_id %><br />
-    <%= f.select :origem_id, @origens.collect{|o| [o.descricao, o.id]}, :include_blank => true %>
+    <%= f.select :origem_id, @origens, :include_blank => true %>
   </div>
 
 </div>
