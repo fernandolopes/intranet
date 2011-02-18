@@ -1,23 +1,26 @@
-<h1>Listing fichario_origens</h1>
-
-<table>
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="4">Lista de origens</td>
+  </tr>
   <tr>
-    <th>Descricao</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="grid_label center">Descrição</th>
+    <th class="grid_label center" colspan="3">Ações</th>
+
   </tr>
 
 <% @fichario_origens.each do |fichario_origem| %>
-  <tr>
+  <tr class="grid_value">
     <td><%= fichario_origem.descricao %></td>
-    <td><%= link_to 'Show', fichario_origem %></td>
-    <td><%= link_to 'Edit', edit_fichario_origem_path(fichario_origem) %></td>
-    <td><%= link_to 'Destroy', fichario_origem, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_origem %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_origem_path(fichario_origem) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_origem, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
   </tr>
 <% end %>
+  <tr>
+    <td class="grid_footer" colspan="4">&nbsp;</td>
+  </tr>
 </table>
 
 <br />
 
-<%= link_to 'New Origem', new_fichario_origem_path %>
+<%= link_to 'Novo Origem', new_fichario_origem_path %>

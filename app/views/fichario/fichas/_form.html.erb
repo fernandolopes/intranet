@@ -12,19 +12,29 @@
   <% end %>
 <div id="esquerda">
   <div class="field">
-    <%
-    if @fichario_ficha.pja
-       pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
-    end
-    if @fichario_ficha.entrada
-       entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
-    end
-    if @fichario_ficha.cpf
-      cpf = @fichario_ficha.cpf
-			cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
-      cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
-    end
-    %>
+            <%     #Mascaras
+				if @fichario_ficha.pja
+				   pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
+				end
+				if @fichario_ficha.entrada
+				   entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
+				end
+				if @fichario_ficha.cpf
+				  cpf = @fichario_ficha.cpf
+				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
+				  cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
+				end
+				if @fichario_ficha.fone
+				  fone = @fichario_ficha.fone
+				  fone =~ /(\d{2})(\d{4})(\d{4})/
+				  fone = "(#{$1}) #{$2}-#{$3}"
+				end
+				if @fichario_ficha.celular
+				  cel = @fichario_ficha.celular
+				  cel =~ /(\d{2})(\d{4})(\d{4})/
+				  cel = "(#{$1}) #{$2}-#{$3}"
+				end
+             %>
     <%= f.label :pja, "PJA" %><br />
     <%= f.text_field :pja, :value => pja, :maxlength => 10, :onKeyPress => "formataCampo(form1.fichario_ficha_pja, '00/00/0000', event);" %>
     
@@ -81,11 +91,11 @@
 <div id="direita">
   <div class="field">
     <%= f.label :fone %><br />
-    <%= f.text_field :fone, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_fone, '(00) 0000-0000', event);" %>
+    <%= f.text_field :fone, :value => fone, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_fone, '(00) 0000-0000', event);" %>
   </div>
   <div class="field">
     <%= f.label :celular %><br />
-    <%= f.text_field :celular, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_celular, '(00) 0000-0000', event);"  %>
+    <%= f.text_field :celular, :value => cel, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_celular, '(00) 0000-0000', event);"  %>
   </div>
   <div class="field">
     <%= f.label :matricula %><br />

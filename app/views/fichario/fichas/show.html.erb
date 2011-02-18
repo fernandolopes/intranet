@@ -1,8 +1,30 @@
 <p id="notice"><%= notice %></p>
-
+             <%     #Mascaras
+				if @fichario_ficha.pja
+				   pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
+				end
+				if @fichario_ficha.entrada
+				   entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
+				end
+				if @fichario_ficha.cpf
+				  cpf = @fichario_ficha.cpf
+				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
+				  cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
+				end
+				if @fichario_ficha.fone
+				  fone = @fichario_ficha.fone
+				  fone =~ /(\d{2})(\d{4})(\d{4})/
+				  fone = "(#{$1}) #{$2}-#{$3}"
+				end
+				if @fichario_ficha.celular
+				  cel = @fichario_ficha.celular
+				  cel =~ /(\d{2})(\d{4})(\d{4})/
+				  cel = "(#{$1}) #{$2}-#{$3}"
+				end
+             %>
 <p>
   <b>Pja:</b>
-  <%= @fichario_ficha.pja %>
+  <%= pja %>
 </p>
 
 <p>
@@ -17,22 +39,22 @@
 
 <p>
   <b>Cpf:</b>
-  <%= @fichario_ficha.cpf %>
+  <%= cpf %>
 </p>
 
 <p>
   <b>Entrada:</b>
-  <%= @fichario_ficha.entrada %>
+  <%= entrada %>
 </p>
 
 <p>
   <b>Fone:</b>
-  <%= @fichario_ficha.fone %>
+  <%= fone %>
 </p>
 
 <p>
   <b>Celular:</b>
-  <%= @fichario_ficha.celular %>
+  <%= cel %>
 </p>
 
 <p>
@@ -52,5 +74,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_fichario_ficha_path(@fichario_ficha) %> |
-<%= link_to 'Back', fichario_fichas_path %>
+<%= link_to 'Editar', edit_fichario_ficha_path(@fichario_ficha) %> |
+<%= link_to 'Voltar', fichario_fichas_path %>

@@ -10,7 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217164337) do
+ActiveRecord::Schema.define(:version => 20110218194813) do
+
+  create_table "fichario_andamentos", :force => true do |t|
+    t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "fichario_assuntos", :force => true do |t|
     t.string   "descricao"

@@ -49,11 +49,14 @@ class Fichario::FichasController < TemplateController
   # POST /fichario/fichas
   # POST /fichario/fichas.xml
   def create
+    params[:fichario_ficha][:fone].gsub!(/\-|\.|\/|\(|\)| /,"")
+    params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
+    params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
     @fichario_ficha = Fichario::Ficha.new(params[:fichario_ficha])
 
     respond_to do |format|
       if @fichario_ficha.save
-        format.html { redirect_to(@fichario_ficha, :notice => 'Ficha was successfully created.') }
+        format.html { redirect_to(@fichario_ficha, :notice => 'Ficha foi criada com sucesso.') }
         format.xml  { render :xml => @fichario_ficha, :status => :created, :location => @fichario_ficha }
       else
         format.html { render :action => "new" }
@@ -65,11 +68,14 @@ class Fichario::FichasController < TemplateController
   # PUT /fichario/fichas/1
   # PUT /fichario/fichas/1.xml
   def update
+    params[:fichario_ficha][:fone].gsub!(/\-|\.|\/|\(|\)| /,"")
+    params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
+    params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
     @fichario_ficha = Fichario::Ficha.find(params[:id])
 
     respond_to do |format|
       if @fichario_ficha.update_attributes(params[:fichario_ficha])
-        format.html { redirect_to(@fichario_ficha, :notice => 'Ficha was successfully updated.') }
+        format.html { redirect_to(@fichario_ficha, :notice => 'Ficha foi atualizada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

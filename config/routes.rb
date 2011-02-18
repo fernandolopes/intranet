@@ -6,6 +6,7 @@ Intranet::Application.routes.draw do  resources :home
     resources :fichas
     resources :assuntos
     resources :origens
+    resources :andamentos
   end
 
   match 'fichario' => "fichario/Index#index"

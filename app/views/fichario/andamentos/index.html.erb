@@ -1,0 +1,26 @@
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="4">Lista de andamentos</td>
+  </tr>
+  <tr>
+    <th class="grid_label center">Descrição</th>
+    <th class="grid_label center" colspan="3">Ações</th>
+
+  </tr>
+
+<% @fichario_andamentos.each do |fichario_andamento| %>
+  <tr class="grid_value">
+    <td><%= fichario_andamento.descricao %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_path(fichario_andamento) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="4">&nbsp;</td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Novo Andamento', new_fichario_andamento_path %>
