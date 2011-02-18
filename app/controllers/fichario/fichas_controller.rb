@@ -38,6 +38,10 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas/1/edit
   def edit
     @fichario_ficha = Fichario::Ficha.find(params[:id])
+
+#   @fichario_ficha.pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
+#raise @fichario_ficha.inspect
+
     @assuntos = Fichario::Assunto.all
     @origens  = Fichario::Origem.all
   end
