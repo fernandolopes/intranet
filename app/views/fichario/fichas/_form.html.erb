@@ -20,7 +20,9 @@
        entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
     end
     if @fichario_ficha.cpf
-       cpf = @fichario_ficha.cpf.gsub(/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})/,/\d{3}\.\d{3}\.\d{3}-\d{2}/)
+      cpf = @fichario_ficha.cpf
+			cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
+      cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
     end
     %>
     <%= f.label :pja, "PJA" %><br />
