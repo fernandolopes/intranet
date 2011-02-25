@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 gem 'devise', '1.1.5'
 gem 'pg', '0.10.1'
+gem 'capistrano'
+gem 'whenever'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
