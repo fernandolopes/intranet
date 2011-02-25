@@ -1,4 +1,6 @@
-et :repository, "git://github.com/fernandolopes/intranet.git"
+set :application, 'intranet'
+
+set :repository, "git://github.com/fernandolopes/intranet.git"
 
 set :user, "pgm"
 set :use_sudo, false
