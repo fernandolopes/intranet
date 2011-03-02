@@ -3,7 +3,7 @@ class Fichario::AssuntosController < TemplateController
   # GET /fichario/assuntos
   # GET /fichario/assuntos.xml
   def index
-    @fichario_assuntos = Fichario::Assunto.all
+    @fichario_assuntos = Fichario::Assunto.order('created_at DESC').paginate :page => params[:page], :per_page => 5
 
     respond_to do |format|
       format.html # index.html.erb

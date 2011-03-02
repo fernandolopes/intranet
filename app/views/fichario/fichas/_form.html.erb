@@ -1,7 +1,7 @@
 <%= form_for(@fichario_ficha, :html => {:name => 'form1'}) do |f| %>
   <% if @fichario_ficha.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@fichario_ficha.errors.count, "error") %> prohibited this fichario_ficha from being saved:</h2>
+      <h2><%= pluralize(@fichario_ficha.errors.count, "erro") %> Ficha não pode ser salvo:</h2>
 
       <ul>
       <% @fichario_ficha.errors.full_messages.each do |msg| %>

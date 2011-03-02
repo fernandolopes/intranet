@@ -1,0 +1,52 @@
+<%= form_for(@fichario_andamento_ficha, :html => {:name => 'form1'}) do |f| %>
+  <% if @fichario_andamento_ficha.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fichario_andamento_ficha.errors.count, "erro") %> Andamento não pode ser salvo:</h2>
+
+      <ul>
+      <% @fichario_andamento_ficha.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <% #Mascaras
+		if @fichario_andamento_ficha.data
+		   data = @fichario_andamento_ficha.data.strftime("%d/%m/%Y")
+		end
+    %>
+
+  <div class="field">
+    <%= f.label :ficha_id %><br />
+    <%= f.select :ficha_id, Fichario::Ficha.all.collect{|c| [c.processo, c.id] },:prompt => "Selecione uma matricula"  %>
+  </div>
+  <div class="field">
+    <%= f.label :andamento_id %><br />
+    <%= f.select :andamento_id, Fichario::Andamento.all.collect{|c| [c.descricao, c.id] }, :prompt => "Selecione um tipo de andamento"  %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %><br />
+    <%= f.text_field :descricao %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br />
+    <%= f.text_field :data, :value => data, :maxlength => 10, :onKeyPress => "formataCampo(form1.fichario_andamento_ficha_data, '00/00/0000', event);" %>
+
+    <img src="/images/icons/calendar_view_month.png" id="trigger_fichario_andamento_ficha_data"
+         style ="margin: 0 0 -4px 3px;  cursor: pointer;"
+         onmouseover="this.style.background='#F7FBD7';"
+		 onmouseout="this.style.background='';"
+         alt="calendario" title="Selecione a data">
+    <script type="text/javascript">
+      Calendar.setup({
+            inputField     :    "fichario_andamento_ficha_data",         // id of the input field
+            ifFormat       :    "dd/mm/y",                               // format of the input field
+            button         :    "trigger_fichario_andamento_ficha_data", // trigger for the calendar (button ID)
+            singleClick    :    true                                     // double-click mode
+        });
+    </script>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

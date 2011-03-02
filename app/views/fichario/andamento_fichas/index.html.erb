@@ -1,0 +1,33 @@
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="8">Lista de andamentos</td>
+  </tr>
+  <tr>
+    <th class="grid_label center">Ficha</th>
+    <th class="grid_label center">Andamento</th>
+    <th class="grid_label center">Descrição</th>
+    <th class="grid_label center">Data</th>
+    <th class="grid_label center">Interessado</th>
+    <th colspan="8" class="grid_label center">Ações</th>
+  </tr>
+
+<% @fichario_andamento_fichas.each do |fichario_andamento_ficha| %>
+  <tr class="grid_value">
+    <td><%= fichario_andamento_ficha.ficha.processo %></td>
+    <td><%= fichario_andamento_ficha.andamento.descricao %></td>
+    <td><%= fichario_andamento_ficha.descricao %></td>
+    <td><%= (fichario_andamento_ficha.data)? fichario_andamento_ficha.data.strftime("%d/%m/%Y") : "Nulo" %></td>
+    <td><%= fichario_andamento_ficha.ficha.interessado %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento_ficha %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_ficha_path(fichario_andamento_ficha) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="9"><%= raw (@fichario_andamento_fichas.count >= 5)? will_paginate( @fichario_andamento_fichas, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Novo andamentos', new_fichario_andamento_ficha_path %>

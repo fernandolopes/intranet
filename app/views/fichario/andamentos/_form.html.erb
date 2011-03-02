@@ -1,7 +1,7 @@
 <%= form_for(@fichario_andamento) do |f| %>
   <% if @fichario_andamento.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@fichario_andamento.errors.count, "error") %> prohibited this fichario_andamento from being saved:</h2>
+      <h2><%= pluralize(@fichario_andamento.errors.count, "erro") %> Tipo de andamento não pode ser salvo:</h2>
 
       <ul>
       <% @fichario_andamento.errors.full_messages.each do |msg| %>

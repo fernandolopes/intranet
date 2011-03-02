@@ -1,8 +1,9 @@
 class Fichario::AndamentosController < TemplateController
+  before_filter :authenticate_usuario!
   # GET /fichario/andamentos
   # GET /fichario/andamentos.xml
   def index
-    @fichario_andamentos = Fichario::Andamento.all
+    @fichario_andamentos = Fichario::Andamento.order('created_at DESC').paginate :page => params[:page], :per_page => 5
 
     respond_to do |format|
       format.html # index.html.erb

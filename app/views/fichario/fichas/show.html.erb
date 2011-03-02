@@ -1,11 +1,5 @@
 <p id="notice"><%= notice %></p>
              <%     #Mascaras
-				if @fichario_ficha.pja
-				   pja = @fichario_ficha.pja.strftime("%d/%m/%Y")
-				end
-				if @fichario_ficha.entrada
-				   entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
-				end
 				if @fichario_ficha.cpf
 				  cpf = @fichario_ficha.cpf
 				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
@@ -24,7 +18,7 @@
              %>
 <p>
   <b>Pja:</b>
-  <%= pja %>
+  <%= (@fichario_ficha.pja)? @fichario_ficha.pja.strftime("%d/%m/%Y") : "Nulo" %>
 </p>
 
 <p>
@@ -44,7 +38,7 @@
 
 <p>
   <b>Entrada:</b>
-  <%= entrada %>
+  <%= (@fichario_ficha.entrada)? @fichario_ficha.entrada.strftime("%d/%m/%Y") : "Nulo" %>
 </p>
 
 <p>

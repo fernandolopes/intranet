@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110218194813) do
+ActiveRecord::Schema.define(:version => 20110225183525) do
+
+  create_table "fichario_andamento_fichas", :force => true do |t|
+    t.integer  "ficha_id"
+    t.integer  "andamento_id"
+    t.date     "data"
+    t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fichario_andamento_fichas", ["andamento_id"], :name => "index_fichario_andamento_fichas_on_andamento_id"
+  add_index "fichario_andamento_fichas", ["ficha_id"], :name => "index_fichario_andamento_fichas_on_ficha_id"
 
   create_table "fichario_andamentos", :force => true do |t|
     t.string   "descricao"

@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>Ficha:</b>
+  <%= @fichario_andamento_ficha.ficha.processo %>
+</p>
+<p>
+  <b>Andamento:</b>
+  <%= @fichario_andamento_ficha.andamento.descricao %>
+</p>
+<p>
+  <b>Descrição:</b>
+  <%= @fichario_andamento_ficha.descricao %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= (@fichario_andamento_ficha.data)? @fichario_andamento_ficha.data.strftime("%d/%m/%Y") : "Nulo" %>
+</p>
+
+
+<%= link_to 'Editar', edit_fichario_andamento_ficha_path(@fichario_andamento_ficha) %> |
+<%= link_to 'Voltar', fichario_andamento_fichas_path %>

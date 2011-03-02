@@ -49,6 +49,7 @@ class Fichario::FichasController < TemplateController
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
     @fichario_ficha = Fichario::Ficha.new(params[:fichario_ficha])
 
+
     respond_to do |format|
       if @fichario_ficha.save
         format.html { redirect_to(@fichario_ficha, :notice => 'Ficha foi criada com sucesso.') }
@@ -67,6 +68,10 @@ class Fichario::FichasController < TemplateController
     params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
     @fichario_ficha = Fichario::Ficha.find(params[:id])
+    @fichario_ficha.pja = data_americana(params[:fichario_ficha][:pja])
+    @fichario_ficha.entrada = data_americana(params[:fichario_ficha][:entrada])
+
+    raise @fichario_ficha.inspect
 
     respond_to do |format|
       if @fichario_ficha.update_attributes(params[:fichario_ficha])

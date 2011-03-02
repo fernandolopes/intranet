@@ -21,12 +21,6 @@
 
 <% @fichario_ficha.each do |fichario_ficha| %>
              <%     #Mascaras
-				if fichario_ficha.pja
-				   pja = fichario_ficha.pja.strftime("%d/%m/%Y")
-				end
-				if fichario_ficha.entrada
-				   entrada = fichario_ficha.entrada.strftime("%d/%m/%Y")
-				end
 				if fichario_ficha.cpf
 				  cpf = fichario_ficha.cpf
 				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
@@ -44,11 +38,11 @@
 				end
              %>
   <tr class="grid_value">
-    <td><%= pja %></td>
+    <td><%= (fichario_ficha.pja)? fichario_ficha.pja.strftime("%d/%m/%Y") : "Nulo" %></td>
     <td><%= fichario_ficha.interessado %></td>
     <td><%= fichario_ficha.processo %></td>
     <td><%= cpf %></td>
-    <td><%= entrada %></td>
+    <td><%= (fichario_ficha.entrada)? fichario_ficha.entrada.strftime("%d/%m/%Y") : "Nulo" %></td>
     <td><%= fone %></td>
     <td><%= cel %></td>
     <td><%= fichario_ficha.matricula %></td>

@@ -1,7 +1,7 @@
 <%= form_for(@fichario_origem) do |f| %>
   <% if @fichario_origem.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@fichario_origem.errors.count, "error") %> prohibited this fichario_origem from being saved:</h2>
+      <h2><%= pluralize(@fichario_origem.errors.count, "erro") %> Origem não pode ser salvo:</h2>
 
       <ul>
       <% @fichario_origem.errors.full_messages.each do |msg| %>

@@ -5,6 +5,8 @@ gem 'devise', '1.1.5'
 gem 'pg', '0.10.1'
 gem 'capistrano'
 gem 'whenever'
+gem "will_paginate", "~> 3.0.pre2"
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

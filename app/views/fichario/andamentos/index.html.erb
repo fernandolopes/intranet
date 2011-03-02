@@ -1,6 +1,6 @@
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="4">Lista de andamentos</td>
+    <td colspan="4">Lista do tipo de andamentos</td>
   </tr>
   <tr>
     <th class="grid_label center">Descrição</th>
@@ -17,10 +17,10 @@
   </tr>
 <% end %>
   <tr>
-    <td class="grid_footer" colspan="4">&nbsp;</td>
+    <td class="grid_footer" colspan="4"><%= raw (@fichario_andamentos.count >= 5)? will_paginate( @fichario_andamentos, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
   </tr>
 </table>
 
 <br />
 
-<%= link_to 'Novo Andamento', new_fichario_andamento_path %>
+<%= link_to 'Novo tipo de andamento', new_fichario_andamento_path %>

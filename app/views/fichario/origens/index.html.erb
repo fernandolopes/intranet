@@ -17,7 +17,7 @@
   </tr>
 <% end %>
   <tr>
-    <td class="grid_footer" colspan="4">&nbsp;</td>
+    <td class="grid_footer" colspan="4"><%= raw (@fichario_origens.count >= 5)? will_paginate( @fichario_origens, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
   </tr>
 </table>
 
