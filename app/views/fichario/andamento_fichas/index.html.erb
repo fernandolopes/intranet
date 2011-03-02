@@ -13,11 +13,11 @@
 
 <% @fichario_andamento_fichas.each do |fichario_andamento_ficha| %>
   <tr class="grid_value">
-    <td><%= fichario_andamento_ficha.ficha.processo %></td>
+    <td><%= fichario_andamento_ficha.ficha.processo if fichario_andamento_ficha.ficha %></td>
     <td><%= fichario_andamento_ficha.andamento.descricao %></td>
     <td><%= fichario_andamento_ficha.descricao %></td>
     <td><%= (fichario_andamento_ficha.data)? fichario_andamento_ficha.data.strftime("%d/%m/%Y") : "Nulo" %></td>
-    <td><%= fichario_andamento_ficha.ficha.interessado %></td>
+    <td><%= fichario_andamento_ficha.ficha.interessado if fichario_andamento_ficha.ficha %></td>
     <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento_ficha %></td>
     <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_ficha_path(fichario_andamento_ficha) %></td>
     <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>

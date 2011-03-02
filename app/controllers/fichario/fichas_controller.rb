@@ -48,6 +48,8 @@ class Fichario::FichasController < TemplateController
     params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
     @fichario_ficha = Fichario::Ficha.new(params[:fichario_ficha])
+    @fichario_ficha.pja = params[:fichario_ficha][:pja].to_date
+    @fichario_ficha.entrada = params[:fichario_ficha][:entrada].to_date
 
 
     respond_to do |format|
@@ -67,11 +69,10 @@ class Fichario::FichasController < TemplateController
     params[:fichario_ficha][:fone].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
+    params[:fichario_ficha][:pja] = params[:fichario_ficha][:pja].to_date
+    params[:fichario_ficha][:entrada] = params[:fichario_ficha][:entrada].to_date
     @fichario_ficha = Fichario::Ficha.find(params[:id])
-    @fichario_ficha.pja = data_americana(params[:fichario_ficha][:pja])
-    @fichario_ficha.entrada = data_americana(params[:fichario_ficha][:entrada])
 
-    raise @fichario_ficha.inspect
 
     respond_to do |format|
       if @fichario_ficha.update_attributes(params[:fichario_ficha])

@@ -6,6 +6,7 @@ gem 'pg', '0.10.1'
 gem 'capistrano'
 gem 'whenever'
 gem "will_paginate", "~> 3.0.pre2"
+gem "brdata"
 
 
 # Bundle edge Rails instead:

@@ -45,7 +45,7 @@ class Fichario::OrigensController < TemplateController
 
     respond_to do |format|
       if @fichario_origem.save
-        format.html { redirect_to(@fichario_origem, :notice => 'Origem was successfully created.') }
+        format.html { redirect_to(@fichario_origem, :notice => 'Origem criado com sucesso.') }
         format.xml  { render :xml => @fichario_origem, :status => :created, :location => @fichario_origem }
       else
         format.html { render :action => "new" }
@@ -61,7 +61,7 @@ class Fichario::OrigensController < TemplateController
 
     respond_to do |format|
       if @fichario_origem.update_attributes(params[:fichario_origem])
-        format.html { redirect_to(@fichario_origem, :notice => 'Origem was successfully updated.') }
+        format.html { redirect_to(@fichario_origem, :notice => 'Origem atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

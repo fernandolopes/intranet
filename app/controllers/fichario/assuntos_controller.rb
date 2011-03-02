@@ -45,7 +45,7 @@ class Fichario::AssuntosController < TemplateController
 
     respond_to do |format|
       if @fichario_assunto.save
-        format.html { redirect_to(@fichario_assunto, :notice => 'Assunto was successfully created.') }
+        format.html { redirect_to(@fichario_assunto, :notice => 'Assunto criado com sucesso.') }
         format.xml  { render :xml => @fichario_assunto, :status => :created, :location => @fichario_assunto }
       else
         format.html { render :action => "new" }
@@ -61,7 +61,7 @@ class Fichario::AssuntosController < TemplateController
 
     respond_to do |format|
       if @fichario_assunto.update_attributes(params[:fichario_assunto])
-        format.html { redirect_to(@fichario_assunto, :notice => 'Assunto was successfully updated.') }
+        format.html { redirect_to(@fichario_assunto, :notice => 'Assunto atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

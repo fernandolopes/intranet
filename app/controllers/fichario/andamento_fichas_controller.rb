@@ -41,8 +41,9 @@ class Fichario::AndamentoFichasController < TemplateController
   # POST /fichario/andamento_fichas
   # POST /fichario/andamento_fichas.xml
   def create
+    params[:fichario_andamento_ficha][:data] = params[:fichario_andamento_ficha][:data].to_date
     @fichario_andamento_ficha = Fichario::AndamentoFicha.new(params[:fichario_andamento_ficha])
-                       #  raise @fichario_andamento_ficha.inspect
+
     respond_to do |format|
       if @fichario_andamento_ficha.save
         format.html { redirect_to(@fichario_andamento_ficha, :notice => 'Andamento criado com sucesso.') }
@@ -57,6 +58,7 @@ class Fichario::AndamentoFichasController < TemplateController
   # PUT /fichario/andamento_fichas/1
   # PUT /fichario/andamento_fichas/1.xml
   def update
+    params[:fichario_andamento_ficha][:data] = params[:fichario_andamento_ficha][:data].to_date
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
 
     respond_to do |format|
