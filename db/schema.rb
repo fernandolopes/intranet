@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225183525) do
+ActiveRecord::Schema.define(:version => 20110310184832) do
 
   create_table "fichario_andamento_fichas", :force => true do |t|
     t.integer  "ficha_id"
@@ -60,6 +60,43 @@ ActiveRecord::Schema.define(:version => 20110225183525) do
     t.datetime "updated_at"
   end
 
+  create_table "frequencia_frequencias", :force => true do |t|
+    t.datetime "data"
+    t.string   "matricula"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frequencia_justificativas", :force => true do |t|
+    t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frequencia_orgaos", :force => true do |t|
+    t.string   "orgao"
+    t.text     "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frequencia_profissoes", :force => true do |t|
+    t.string   "profissao"
+    t.text     "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frequencia_setores", :force => true do |t|
+    t.integer  "orgao_id"
+    t.string   "setor"
+    t.text     "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "frequencia_setores", ["orgao_id"], :name => "index_frequencia_setores_on_orgao_id"
+
   create_table "usuarios", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
@@ -74,9 +111,15 @@ ActiveRecord::Schema.define(:version => 20110225183525) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nome"
+    t.integer  "setor_id"
+    t.integer  "profissao_id"
+    t.string   "matricula"
   end
 
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
+  add_index "usuarios", ["profissao_id"], :name => "index_usuarios_on_profissao_id"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
+  add_index "usuarios", ["setor_id"], :name => "index_usuarios_on_setor_id"
 
 end

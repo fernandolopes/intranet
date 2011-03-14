@@ -6,5 +6,7 @@
 #   inflect.plural /^(ox)$/i, '\1en'
 #   inflect.singular /^(ox)en/i, '\1'
    inflect.irregular 'origem', 'origens'
+   inflect.irregular 'setor', 'setores'
+   inflect.irregular 'profissao', 'profissoes'
 #   inflect.uncountable %w( fish sheep )
  end

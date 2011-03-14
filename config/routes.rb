@@ -10,6 +10,15 @@ Intranet::Application.routes.draw do  resources :home
     resources :andamento_fichas
   end
 
+  namespace :frequencia do
+    resources :orgaos
+    resources :setores
+    resources :profissoes
+    resources :justificativas
+    resources :frequencias
+  end
+
+  match 'frequencia' => "frequencia/Index#index"
   match 'fichario' => "fichario/Index#index"
 
   devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair"}

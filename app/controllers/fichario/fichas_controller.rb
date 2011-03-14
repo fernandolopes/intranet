@@ -6,7 +6,7 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
-    @fichario_ficha = Fichario::Ficha.all
+    @fichario_ficha = Fichario::Ficha.order('updated_at DESC').paginate :page => params[:page], :per_page => 10
 
     respond_to do |format|
       format.html # index.html.erb
