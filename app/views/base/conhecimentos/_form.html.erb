@@ -1,0 +1,29 @@
+<%= form_for(@base_conhecimento) do |f| %>
+  <% if @base_conhecimento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@base_conhecimento.errors.count, "erro") %> conhecimento não pôde ser salvo:</h2>
+
+      <ul>
+      <% @base_conhecimento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= include_tiny_mce_if_needed %>
+
+
+  <div class="field">
+    <%= f.label :titulo, "Título" %><br />
+    <%= f.text_field :titulo %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %><br />
+    <%= f.text_area :descricao, :class => "mceEditor" %>
+  </div>
+  <%= f.hidden_field :usuario_id, :value => current_usuario.id %>
+
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

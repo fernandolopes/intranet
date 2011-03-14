@@ -18,6 +18,10 @@ Intranet::Application.routes.draw do  resources :home
     resources :frequencias
   end
 
+  namespace :base do
+    resources :conhecimentos
+  end
+
   match 'frequencia' => "frequencia/Index#index"
   match 'fichario' => "fichario/Index#index"
 

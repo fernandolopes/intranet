@@ -1,0 +1,29 @@
+<style type="text/css">
+#total{width: 500px; background-color: beige ;border: 1px solid #5677B6; float: left;}
+#titulo{float: left; background-color: beige; border-bottom: 1px solid #5677B6; padding: 5px; margin: 0; width: 250px}
+#usuario {float: right; background-color: beige; border-left: 1px solid #5677B6; border-bottom: 1px solid #5677B6; padding: 5px; margin: 0; width: 229px}
+#descricao { padding: 5px; background-color: beige; float: left; width: 300px}
+#cabeca{background-color: #5677B6; color: white; text-align: center; }
+</style>
+
+<%= link_to image_tag("/images/icons/arrow_left.png")+'  Voltar', base_conhecimentos_path %>
+
+<p id="notice"><%= notice %></p>
+
+<div id="total">
+  <div id="cabeca">Banco de Conhecimento</div>
+  <div id="titulo">
+    <b>Título</b><br \>
+    <%= @base_conhecimento.titulo %>
+  </div>
+  <div id="usuario">
+    <b>Usuário:</b><br \>
+    <%= @base_conhecimento.usuario.nome %>
+  </div>
+  <div id="descricao">
+    <b>Descrição:</b><br \>
+    <%= raw @base_conhecimento.descricao %>
+  </div>
+</div>
+
+

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310184832) do
+ActiveRecord::Schema.define(:version => 20110314144459) do
+
+  create_table "base_conhecimentos", :force => true do |t|
+    t.string   "titulo"
+    t.text     "descricao"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "base_conhecimentos", ["usuario_id"], :name => "index_base_conhecimentos_on_usuario_id"
 
   create_table "fichario_andamento_fichas", :force => true do |t|
     t.integer  "ficha_id"
