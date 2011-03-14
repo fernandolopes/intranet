@@ -1,0 +1,25 @@
+<%= form_for(@frequencia_profissao) do |f| %>
+  <% if @frequencia_profissao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequencia_profissao.errors.count, "erro") %>profissao não pode ser salvo:</h2>
+
+      <ul>
+      <% @frequencia_profissao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :profissao, "Profissão" %><br />
+    <%= f.text_field :profissao %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %><br />
+    <%= f.text_area :descricao %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

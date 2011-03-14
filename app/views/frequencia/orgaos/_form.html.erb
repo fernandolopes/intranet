@@ -1,0 +1,25 @@
+<%= form_for(@frequencia_orgao) do |f| %>
+  <% if @frequencia_orgao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequencia_orgao.errors.count, "erro") %> orgão não pode ser salvo:</h2>
+
+      <ul>
+      <% @frequencia_orgao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :orgao, "Orgão" %><br />
+    <%= f.text_field :orgao %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %><br />
+    <%= f.text_area :descricao %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

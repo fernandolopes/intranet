@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Profissão:</b>
+  <%= @frequencia_profissao.profissao %>
+</p>
+
+<p>
+  <b>Descrição:</b>
+  <%= @frequencia_profissao.descricao %>
+</p>
+
+
+<%= link_to 'Editar', edit_frequencia_profissao_path(@frequencia_profissao) %> |
+<%= link_to 'Voltar', frequencia_profissoes_path %>

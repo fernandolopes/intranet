@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  data: 2011-03-10
+  matricula: MyString
+
+two:
+  data: 2011-03-10
+  matricula: MyString

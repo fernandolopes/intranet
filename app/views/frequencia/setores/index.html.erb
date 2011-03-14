@@ -1,0 +1,31 @@
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="13">Lista de setores</td>
+  </tr>
+  <tr>
+    <th class="grid_label center">Orgão</th>
+    <th class="grid_label center">Setor</th>
+    <th class="grid_label center">Descrição</th>
+    <th colspan="4" class="grid_label center">Ação</th>
+  </tr>
+
+<% @frequencia_setores.each do |frequencia_setor| %>
+  <tr class="grid_value">
+    <td><%= frequencia_setor.orgao.orgao %></td>
+    <td><%= frequencia_setor.setor %></td>
+    <td><%= frequencia_setor.descricao %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_setor %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_setor_path(frequencia_setor) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_setor, :confirm => 'Você tem certeza?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="6" style="text-align: center;">
+      <%= raw (@frequencia_setores.count >= 10)? will_paginate(@frequencia_setores, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Novo Setor', new_frequencia_setor_path %>

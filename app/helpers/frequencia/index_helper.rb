@@ -1,0 +1,2 @@
+module Frequencia::IndexHelper
+end

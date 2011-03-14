@@ -1,0 +1,21 @@
+<%= form_for(@frequencia_justificativa) do |f| %>
+  <% if @frequencia_justificativa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequencia_justificativa.errors.count, "erro") %> justificativa não pode ser salvo:</h2>
+
+      <ul>
+      <% @frequencia_justificativa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :descricao, 'Descrição' %><br />
+    <%= f.text_field :descricao %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

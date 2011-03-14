@@ -1,0 +1,35 @@
+  <%= link_to image_tag("/images/icons/add.png", :title => "Inserir")+" Enviar Arquivo", new_frequencia_frequencia_path %>
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="13">Lista de Frequências</td>
+  </tr>
+  <tr>
+    <th class="grid_label center">Usuário</th>
+    <th class="grid_label center">Setor</th>
+    <th class="grid_label center">Profissão</th>
+    <th class="grid_label center">Matricula</th>
+    <th class="grid_label center">Data</th>
+    <th class="grid_label center" colspan="3">Ações</th>
+  </tr>
+
+<% @frequencia_frequencias.each do |frequencia_frequencia| %>
+  <tr class="grid_value">
+    <% usuario = Usuario.find_by_matricula(frequencia_frequencia.matricula) %>
+    <td><%= usuario.nome %></td>
+    <td><%= usuario.setor.setor %></td>
+    <td><%= usuario.profissao.profissao %></td>
+    <td><%= frequencia_frequencia.matricula %></td>
+    <td><%= frequencia_frequencia.data.to_s_br %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_frequencia %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_frequencia_path(frequencia_frequencia) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_frequencia, :confirm => 'Você tem certeza?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="8" style="text-align: center;">
+      <%= raw (@frequencia_frequencias.count >= 10)? will_paginate(@frequencia_frequencias, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    </td>
+  </tr>
+</table>
+
+<br />

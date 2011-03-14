@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Orgão:</b>
+  <%= @frequencia_setor.orgao.orgao %>
+</p>
+
+<p>
+  <b>Setor:</b>
+  <%= @frequencia_setor.setor %>
+</p>
+
+<p>
+  <b>Descrição:</b>
+  <%= @frequencia_setor.descricao %>
+</p>
+
+
+<%= link_to 'Editar', edit_frequencia_setor_path(@frequencia_setor) %> |
+<%= link_to 'Voltar', frequencia_setores_path %>

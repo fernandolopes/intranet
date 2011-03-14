@@ -1,0 +1,29 @@
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="13">Lista de orgãos</td>
+  </tr>
+  <tr>
+    <th class="grid_label center">Orgão</th>
+    <th class="grid_label center">Descrição</th>
+    <th colspan="3" class="grid_label center">Ações</th>
+  </tr>
+
+<% @frequencia_orgaos.each do |frequencia_orgao| %>
+  <tr class="grid_value">
+    <td><%= frequencia_orgao.orgao %></td>
+    <td><%= frequencia_orgao.descricao %></td>
+    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_orgao %></td>
+    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_orgao_path(frequencia_orgao) %></td>
+    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_orgao, :confirm => 'Você tem certeza?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="6" style="text-align: center;">
+      <%= raw (@frequencia_orgaos.count >= 10)? will_paginate(@frequencia_orgaos, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Novo Orgão', new_frequencia_orgao_path %>

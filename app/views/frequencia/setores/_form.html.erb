@@ -1,0 +1,30 @@
+<%= form_for(@frequencia_setor) do |f| %>
+  <% if @frequencia_setor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequencia_setor.errors.count, "erro") %> setor não pode ser salvo:</h2>
+
+      <ul>
+      <% @frequencia_setor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :orgao_id, 'Orgão' %><br />
+    <%= f.select :orgao_id, Frequencia::Orgao.all.collect{|c| [c.orgao, c.id] },:prompt => "Selecione um orgão"  %>
+    <%#= f.text_field :orgao_id %>
+  </div>
+  <div class="field">
+    <%= f.label :setor %><br />
+    <%= f.text_field :setor %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, 'Descrição' %><br />
+    <%= f.text_area :descricao %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

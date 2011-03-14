@@ -1,0 +1,10 @@
+<%= form_for(:frequencia, :url => { :action => "create" }, :html => { :multipart => true }) do |f| %>
+
+  <div class="field">
+    <%= f.label :arquivo, "Arquivo TXT:" %><br />
+    <%= f.file_field :arquivo %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Enviar" %>
+  </div>
+<% end %>

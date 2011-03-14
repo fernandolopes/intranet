@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Orgão:</b>
+  <%= @frequencia_orgao.orgao %>
+</p>
+
+<p>
+  <b>Descrição:</b>
+  <%= @frequencia_orgao.descricao %>
+</p>
+
+
+<%= link_to 'Editar', edit_frequencia_orgao_path(@frequencia_orgao) %> |
+<%= link_to 'Voltar', frequencia_orgaos_path %>
