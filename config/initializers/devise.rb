@@ -1,9 +1,9 @@
-# Use this hook to configure devise mailer, warden hooks and so forth. The first
+# Use this hook to configure usuarios mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "please-change-me@config-initializers-devise.com"
+  config.mailer_sender = "please-change-me@config-initializers-usuarios.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -110,7 +110,7 @@ Devise.setup do |config|
   # config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
-  # devise role declared in your routes.
+  # usuarios role declared in your routes.
   # config.default_scope = :user
 
   # Configure sign_out behavior. 

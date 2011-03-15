@@ -30,7 +30,7 @@
 
         <div id="session_info">
           <%= link_to image_tag("/images/icons/status_online.png")+current_usuario.email,
-                      destroy_usuario_session_path %>
+                      edit_usuario_registration_path %>
           <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
                       destroy_usuario_session_path %>
 

@@ -25,7 +25,9 @@ Intranet::Application.routes.draw do  resources :home
   match 'frequencia' => "frequencia/Index#index"
   match 'fichario' => "fichario/Index#index"
 
-  devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair"}
+  #devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" }
+  devise_for :usuarios, :path_names => { :edit => "editar", :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" },
+             :controllers => { :sessions => "usuarios/sessions", :registrations => "usuarios/registrations" }
 
 
 
