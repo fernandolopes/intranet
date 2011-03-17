@@ -1,4 +1,4 @@
-<%= form_for(@fichario_ficha, :html => {:name => 'form1'}) do |f| %>
+    <%= form_for(@fichario_ficha, :html => {:name => 'form1'}) do |f| %>
   <% if @fichario_ficha.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@fichario_ficha.errors.count, "erro") %> Ficha não pode ser salvo:</h2>
@@ -18,11 +18,6 @@
 				end
 				if @fichario_ficha.entrada
 				   entrada = @fichario_ficha.entrada.strftime("%d/%m/%Y")
-				end
-				if @fichario_ficha.cpf
-				  cpf = @fichario_ficha.cpf
-				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
-				  cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
 				end
 				if @fichario_ficha.fone
 				  fone = @fichario_ficha.fone
@@ -62,7 +57,7 @@
   </div>
   <div class="field">
     <%= f.label :cpf, "CPF" %><br />
-    <%= f.text_field :cpf, :value => cpf, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_cpf, '000.000.000-00', event);"  %>
+    <%= f.text_field :cpf, :value => @fichario_ficha.cpf, :maxlength => 14, :onKeyPress => "formataCampo(form1.fichario_ficha_cpf, '000.000.000-00', event);"  %>
   </div>
   <div class="field">
     <%= f.label :entrada %><br />
@@ -103,11 +98,11 @@
   </div>
   <div class="field">
     <%= f.label :assunto_id %><br />
-    <%= f.select :assunto_id, @assuntos, :include_blank => true %>
+    <%= f.select :assunto_id, @assuntos, :prompt => 'Selecione um assunto' %>
   </div>
   <div class="field">
     <%= f.label :origem_id %><br />
-    <%= f.select :origem_id, @origens, :include_blank => true %>
+    <%= f.select :origem_id, @origens, :prompt => 'Selecione uma origem' %>
   </div>
 
 </div>

@@ -1,26 +1,32 @@
+<%= link_to image_tag('/images/icons/add.png')+' Novo Origem', new_fichario_origem_path %>   <br /><br />
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="4">Lista de origens</td>
+    <td colspan="3">Lista de origens</td>
   </tr>
   <tr>
-    <th class="grid_label center">Descrição</th>
-    <th class="grid_label center" colspan="3">Ações</th>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Ações</td>
 
   </tr>
 
 <% @fichario_origens.each do |fichario_origem| %>
-  <tr class="grid_value">
-    <td><%= fichario_origem.descricao %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_origem %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_origem_path(fichario_origem) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_origem, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  <tr>
+    <td class="grid_value center"><%= fichario_origem.id %></td>
+    <td class="grid_value center"><%= fichario_origem.descricao %></td>
+    <td class="grid_action center">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_origem %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_origem_path(fichario_origem) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_origem, :confirm => 'Deseja realmente apagar?', :method => :delete %>
+    </td>
   </tr>
 <% end %>
+  <% if paginacao = will_paginate( @fichario_origens, :next_label => "Próximo >", :previous_label => "< Anterior") %>
   <tr>
-    <td class="grid_footer" colspan="4"><%= raw (@fichario_origens.count >= 5)? will_paginate( @fichario_origens, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
+    <td class="grid_action center" colspan="3"><%= paginacao %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="3"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>
-
-<br />
-
-<%= link_to 'Novo Origem', new_fichario_origem_path %>

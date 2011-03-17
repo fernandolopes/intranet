@@ -1,27 +1,34 @@
+<%= link_to image_tag('/images/icons/add.png')+' Nova Justificativa', new_frequencia_justificativa_path %><br /><br />
+
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="13">Lista de Justificativas</td>
+    <td colspan="3">Lista de Justificativas</td>
   </tr>
   <tr>
-    <th class="grid_label center">Descrição</th>
-    <th colspan="3" class="grid_label center"></th>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @frequencia_justificativas.each do |frequencia_justificativa| %>
-  <tr class="grid_value">
-    <td><%= frequencia_justificativa.descricao %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_justificativa %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_justificativa_path(frequencia_justificativa) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_justificativa, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
   <tr>
-    <td class="grid_footer" colspan="6" style="text-align: center;">
-      <%= raw (@frequencia_justificativas.count >= 10)? will_paginate(@frequencia_justificativas, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    <td class="grid_value"><%= frequencia_justificativa.id %></td>
+    <td class="grid_value"><%= frequencia_justificativa.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_justificativa %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_justificativa_path(frequencia_justificativa) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_justificativa, :confirm => 'Você têm certeza?', :method => :delete %>
     </td>
   </tr>
+<% end %>
+ <% if paginacao = will_paginate(@frequencia_justificativas, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="3" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="3"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
 </table>
-
-<br />
-
-<%= link_to 'Nova Justificativa', new_frequencia_justificativa_path %>

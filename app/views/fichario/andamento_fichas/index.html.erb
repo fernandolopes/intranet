@@ -1,33 +1,41 @@
+<%= link_to image_tag('/images/icons/add.png')+' Novo andamentos', new_fichario_andamento_ficha_path %><br /><br />
+
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="8">Lista de andamentos</td>
+    <td colspan="7">Lista de andamentos</td>
   </tr>
   <tr>
-    <th class="grid_label center">Ficha</th>
-    <th class="grid_label center">Andamento</th>
-    <th class="grid_label center">Descrição</th>
-    <th class="grid_label center">Data</th>
-    <th class="grid_label center">Interessado</th>
-    <th colspan="8" class="grid_label center">Ações</th>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Ficha</td>
+    <td class="grid_label center">Andamento</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Data</td>
+    <td class="grid_label center">Interessado</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @fichario_andamento_fichas.each do |fichario_andamento_ficha| %>
-  <tr class="grid_value">
-    <td><%= fichario_andamento_ficha.ficha.processo if fichario_andamento_ficha.ficha %></td>
-    <td><%= fichario_andamento_ficha.andamento.descricao %></td>
-    <td><%= fichario_andamento_ficha.descricao %></td>
-    <td><%= (fichario_andamento_ficha.data)? fichario_andamento_ficha.data.strftime("%d/%m/%Y") : "Nulo" %></td>
-    <td><%= fichario_andamento_ficha.ficha.interessado if fichario_andamento_ficha.ficha %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento_ficha %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_ficha_path(fichario_andamento_ficha) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  <tr>
+    <td class="grid_value center"><%= fichario_andamento_ficha.id %></td>
+    <td class="grid_value center"><%= fichario_andamento_ficha.ficha.processo %></td>
+    <td class="grid_value center"><%= fichario_andamento_ficha.andamento.descricao %></td>
+    <td class="grid_value center"><%= fichario_andamento_ficha.descricao %></td>
+    <td class="grid_value center"><%= (fichario_andamento_ficha.data)? fichario_andamento_ficha.data.to_s_br : "Nulo" %></td>
+    <td class="grid_value center"><%= fichario_andamento_ficha.ficha.interessado %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento_ficha %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_ficha_path(fichario_andamento_ficha) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %>
+    </td>
   </tr>
 <% end %>
+  <% if paginacao = will_paginate( @fichario_andamento_fichas, :next_label => "Próximo >", :previous_label => "< Anterior") %>
   <tr>
-    <td class="grid_footer" colspan="9"><%= raw (@fichario_andamento_fichas.count >= 5)? will_paginate( @fichario_andamento_fichas, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
+    <td class="grid_footer" colspan="7"><%= paginacao %></td>
+  </tr>
+  <% end %>
+    <tr>
+    <td class="grid_footer" colspan="7"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>
 
-<br />
-
-<%= link_to 'Novo andamentos', new_fichario_andamento_ficha_path %>

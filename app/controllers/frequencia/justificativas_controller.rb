@@ -3,7 +3,8 @@ class Frequencia::JustificativasController < TemplateController
   # GET /frequencia/justificativas
   # GET /frequencia/justificativas.xml
   def index
-    @frequencia_justificativas = Frequencia::Justificativa.order('updated_at DESC').paginate :page => params[:page], :per_page => 10
+    @frequencia_justificativas = Frequencia::Justificativa.order('updated_at ASC').paginate :page => params[:page], :per_page => 10
+    @total = Frequencia::Justificativa.all.count
 
     respond_to do |format|
       format.html # index.html.erb

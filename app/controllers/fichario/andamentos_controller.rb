@@ -3,7 +3,8 @@ class Fichario::AndamentosController < TemplateController
   # GET /fichario/andamentos
   # GET /fichario/andamentos.xml
   def index
-    @fichario_andamentos = Fichario::Andamento.order('created_at DESC').paginate :page => params[:page], :per_page => 5
+    @fichario_andamentos = Fichario::Andamento.order('created_at ASC').paginate :page => params[:page], :per_page => 5
+    @total = Fichario::Andamento.all.count
 
     respond_to do |format|
       format.html # index.html.erb

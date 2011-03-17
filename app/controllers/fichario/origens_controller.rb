@@ -3,7 +3,8 @@ class Fichario::OrigensController < TemplateController
   # GET /fichario/origens
   # GET /fichario/origens.xml
   def index
-    @fichario_origens = Fichario::Origem.order('created_at DESC').paginate :page => params[:page], :per_page => 5
+    @fichario_origens = Fichario::Origem.order('created_at ASC').paginate :page => params[:page], :per_page => 10
+    @total =  Fichario::Origem.all.count
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,6 +59,7 @@ class Fichario::OrigensController < TemplateController
   # PUT /fichario/origens/1.xml
   def update
     @fichario_origem = Origem.find(params[:id])
+
 
     respond_to do |format|
       if @fichario_origem.update_attributes(params[:fichario_origem])

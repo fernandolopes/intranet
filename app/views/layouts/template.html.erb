@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :all %>
   <%= csrf_meta_tag %>
+  <link href="/favicon.ico" type="image/x-icon" rel="icon">
 </head>
 <body>
 <div id="container">
@@ -21,7 +22,7 @@
         <div id="menu">
             <%= link_to "Início", home_index_path %>
             <%= link_to "Fichário", fichario_index_index_path %>
-            <%= link_to "Usuários", "#" %>
+            <%= link_to "Usuários", usuarios_lista_path %>
             <%= link_to "Frequência", frequencia_path %>
             <%= link_to "Conhecimento", base_conhecimentos_path %>
 
@@ -43,10 +44,12 @@
     <div class="clear"></div>
 
     <div id="main">
-
-		<p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-
+      <% if notice or alert %>
+        <div class="system_message">
+            <% if notice %><div class="success_message"><%= notice %></div> <% end %>
+            <% if alert %><div class="error_message"><%= alert %></div> <% end %>
+        </div>
+      <% end %>
     <%= yield %>
 
     </div> <!-- main -->

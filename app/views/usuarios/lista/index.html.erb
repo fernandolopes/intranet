@@ -1,0 +1,37 @@
+
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="13">Lista de usuários</td>
+  </tr>
+  <tr>
+    <td class="grid_label center">Nome</td>
+    <td class="grid_label center">Matricula</td>
+    <td class="grid_label center">Email</td>
+    <td class="grid_label center">Setor</td>
+    <td class="grid_label center">Profissão</td>
+    <td class="grid_label center">Ações</td>
+
+  </tr>
+
+
+<% @usuarios.each do |usuario| %>
+
+  <tr>
+    <td class="grid_value"><%= usuario.nome %></td>
+    <td class="grid_value"><%= usuario.matricula %></td>
+    <td class="grid_value"><%= usuario.email %></td>
+    <td class="grid_value"><%= usuario.setor.setor  %></td>
+    <td class="grid_value"><%= usuario.profissao.profissao %></td>
+    <td class="grid_action" style="text-align:center;"><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), "/usuarios/#{usuario.id}/destroy", :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  </tr>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="13" style="text-align: center;">
+      <%= raw (@usuarios.count >= 10)? will_paginate(@usuarios, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Nova Ficha', new_usuario_registration_path %>

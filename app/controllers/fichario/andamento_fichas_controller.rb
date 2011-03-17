@@ -4,6 +4,7 @@ class Fichario::AndamentoFichasController < TemplateController
   # GET /fichario/andamento_fichas.xml
   def index
     @fichario_andamento_fichas = Fichario::AndamentoFicha.order('created_at DESC').paginate :page => params[:page], :per_page => 5
+    @total = Fichario::AndamentoFicha.all.count
 
     respond_to do |format|
       format.html # index.html.erb

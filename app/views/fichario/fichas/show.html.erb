@@ -1,10 +1,5 @@
-<p id="notice"><%= notice %></p>
+
              <%     #Mascaras
-				if @fichario_ficha.cpf
-				  cpf = @fichario_ficha.cpf
-				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
-				  cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
-				end
 				if @fichario_ficha.fone
 				  fone = @fichario_ficha.fone
 				  fone =~ /(\d{2})(\d{4})(\d{4})/
@@ -33,7 +28,7 @@
 
 <p>
   <b>Cpf:</b>
-  <%= cpf %>
+  <%= @fichario_ficha.cpf %>
 </p>
 
 <p>

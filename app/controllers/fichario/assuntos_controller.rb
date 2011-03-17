@@ -3,8 +3,8 @@ class Fichario::AssuntosController < TemplateController
   # GET /fichario/assuntos
   # GET /fichario/assuntos.xml
   def index
-    @fichario_assuntos = Fichario::Assunto.order('created_at DESC').paginate :page => params[:page], :per_page => 5
-
+    @fichario_assuntos = Fichario::Assunto.order('created_at ASC').paginate :page => params[:page], :per_page => 5
+    @total =  Fichario::Assunto.all.count
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @fichario_assuntos }

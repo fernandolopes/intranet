@@ -1,31 +1,38 @@
+<%= link_to image_tag("/images/icons/add.png")+' Adicionar Conhecimento', new_base_conhecimento_path %><br /><br />
+
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="13">Base de Conhecimento</td>
+    <td colspan="5">Base de Conhecimento</td>
   </tr>
   <tr>
-    <th class="grid_label center">título</th>
-    <th class="grid_label center">Usuário</th>
-    <th class="grid_label center">Data</th>
-    <th class="grid_label center" colspan="3">Ações</th>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">título</td>
+    <td class="grid_label center">Usuário</td>
+    <td class="grid_label center">Data</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @base_conhecimentos.each do |base_conhecimento| %>
-  <tr class="grid_value">
-    <td><%= base_conhecimento.titulo %></td>
-    <td><%= base_conhecimento.usuario.nome %></td>
-    <td><%= base_conhecimento.created_at.to_s_br %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), base_conhecimento %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_base_conhecimento_path(base_conhecimento) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), base_conhecimento, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
-  </tr>
-<% end %>
   <tr>
-    <td class="grid_footer" colspan="13" style="text-align: center;">
-      <%= raw (@base_conhecimentos.count >= 10)? will_paginate(@base_conhecimentos, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    <td class="grid_value"><%= base_conhecimento.id %></td>
+    <td class="grid_value"><%= base_conhecimento.titulo %></td>
+    <td class="grid_value"><%= base_conhecimento.usuario.nome %></td>
+    <td class="grid_value"><%= base_conhecimento.created_at.to_s_br %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), base_conhecimento %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_base_conhecimento_path(base_conhecimento) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), base_conhecimento, :confirm => 'Deseja realmente apagar?', :method => :delete %>
     </td>
   </tr>
+<% end %>
+ <% if paginacao = will_paginate(@base_conhecimentos, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="5" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="5"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
 </table>
-
-<br />
-
-<%= link_to image_tag("/images/icons/add.png")+' Adicionar Conhecimento', new_base_conhecimento_path %>

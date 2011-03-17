@@ -1,29 +1,36 @@
+<%= link_to image_tag('/images/icons/add.png')+' Nova Profissão', new_frequencia_profissao_path %><br /><br />
+
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="13">Lista de Profissões</td>
+    <td colspan="4">Lista de Profissões</td>
   </tr>
   <tr>
-    <th class="grid_label center">Profissão</th>
-    <th class="grid_label center">Descrição</th>
-    <th colspan="3" class="grid_label center">Ações</th>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Profissão</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @frequencia_profissoes.each do |frequencia_profissao| %>
-  <tr class="grid_value">
-    <td><%= frequencia_profissao.profissao %></td>
-    <td><%= frequencia_profissao.descricao %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_profissao %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_profissao_path(frequencia_profissao) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_profissao, :confirm => 'Você tem certeza?', :method => :delete %></td>
-  </tr>
-<% end %>
   <tr>
-    <td class="grid_footer" colspan="6" style="text-align: center;">
-      <%= raw (@frequencia_profissoes.count >= 10)? will_paginate(@frequencia_profissoes, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    <td class="grid_value"><%= frequencia_profissao.id %></td>
+    <td class="grid_value"><%= frequencia_profissao.profissao %></td>
+    <td class="grid_value"><%= frequencia_profissao.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_profissao %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_profissao_path(frequencia_profissao) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_profissao, :confirm => 'Você tem certeza?', :method => :delete %>
     </td>
   </tr>
+<% end %>
+ <% if paginacao = will_paginate(@frequencia_profissoes, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="4" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="4"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
 </table>
-
-<br />
-
-<%= link_to 'Nova Profissão', new_frequencia_profissao_path %>

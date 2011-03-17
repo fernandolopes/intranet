@@ -1,26 +1,31 @@
+<%= link_to image_tag('/images/icons/add.png')+' Novo tipo de andamento', new_fichario_andamento_path %><br /> <br />
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="4">Lista do tipo de andamentos</td>
+    <td colspan="3">Lista do tipo de andamentos</td>
   </tr>
   <tr>
-    <th class="grid_label center">Descrição</th>
-    <th class="grid_label center" colspan="3">Ações</th>
-
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @fichario_andamentos.each do |fichario_andamento| %>
-  <tr class="grid_value">
-    <td><%= fichario_andamento.descricao %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_path(fichario_andamento) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
+  <tr>
+    <td class="grid_value center"><%= fichario_andamento.id %></td>
+    <td class="grid_value center"><%= fichario_andamento.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_andamento %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_andamento_path(fichario_andamento) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_andamento, :confirm => 'Deseja realmente apagar?', :method => :delete %>
+    </td>
   </tr>
 <% end %>
+  <% if paginacao = will_paginate( @fichario_andamentos, :next_label => "Próximo >", :previous_label => "< Anterior") %>
   <tr>
-    <td class="grid_footer" colspan="4"><%= raw (@fichario_andamentos.count >= 5)? will_paginate( @fichario_andamentos, :next_label => "Próximo >", :previous_label => "< Anterior") : "&nbsp;" %></td>
+    <td class="grid_action center" style="text-align:center;" colspan="4"><%= paginacao %></td>
+  </tr>
+  <% end %>
+    <tr>
+    <td class="grid_footer" colspan="3"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>
-
-<br />
-
-<%= link_to 'Novo tipo de andamento', new_fichario_andamento_path %>

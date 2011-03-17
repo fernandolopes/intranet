@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Orgão:</b>
   <%= @frequencia_orgao.orgao %>
@@ -11,5 +9,5 @@
 </p>
 
 
-<%= link_to 'Editar', edit_frequencia_orgao_path(@frequencia_orgao) %> |
-<%= link_to 'Voltar', frequencia_orgaos_path %>
+<%= link_to image_tag('/images/icons/editar.png')+'Editar', edit_frequencia_orgao_path(@frequencia_orgao) %> |
+<%= link_to image_tag('/images/icons/arrow_left.png')+'Voltar', frequencia_orgaos_path %>

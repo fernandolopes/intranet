@@ -1,31 +1,27 @@
+<%= link_to image_tag('/images/icons/add.png')+' Nova Ficha', new_fichario_ficha_path %><br /><br />
 
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="13">Lista de fichas</td>
+    <td colspan="12">Lista de fichas</td>
   </tr>
   <tr>
-    <th class="grid_label center">Pja</th>
-    <th class="grid_label center">Interessado</th>
-    <th class="grid_label center">Processo</th>
-    <th class="grid_label center">Cpf</th>
-    <th class="grid_label center">Entrada</th>
-    <th class="grid_label center">Fone</th>
-    <th class="grid_label center">Celular</th>
-    <th class="grid_label center">Matrícula</th>
-    <th class="grid_label center">Assunto</th>
-    <th class="grid_label center">Origem</th>
-    <th class="grid_label center" colspan="3">Ações</th>
-
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Pja</td>
+    <td class="grid_label center">Interessado</td>
+    <td class="grid_label center">Processo</td>
+    <td class="grid_label center">Cpf</td>
+    <td class="grid_label center">Entrada</td>
+    <td class="grid_label center">Fone</td>
+    <td class="grid_label center">Celular</td>
+    <td class="grid_label center">Matrícula</td>
+    <td class="grid_label center">Assunto</td>
+    <td class="grid_label center">Origem</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 
 <% @fichario_ficha.each do |fichario_ficha| %>
              <%     #Mascaras
-				if fichario_ficha.cpf
-				  cpf = fichario_ficha.cpf
-				cpf =~ /(\d{3})\.?(\d{3})\.?(\d{3})-?(\d{2})/
-				  cpf = "#{$1}.#{$2}.#{$3}-#{$4}"
-				end
 				if fichario_ficha.fone
 				  fone = fichario_ficha.fone
 				  fone =~ /(\d{2})(\d{4})(\d{4})/
@@ -37,29 +33,33 @@
 				  cel = "(#{$1}) #{$2}-#{$3}"
 				end
              %>
-  <tr class="grid_value">
-    <td><%= (fichario_ficha.pja)? fichario_ficha.pja.strftime("%d/%m/%Y") : "Nulo" %></td>
-    <td><%= fichario_ficha.interessado %></td>
-    <td><%= fichario_ficha.processo %></td>
-    <td><%= cpf %></td>
-    <td><%= (fichario_ficha.entrada)? fichario_ficha.entrada.strftime("%d/%m/%Y") : "Nulo" %></td>
-    <td><%= fone %></td>
-    <td><%= cel %></td>
-    <td><%= fichario_ficha.matricula %></td>
-    <td><%= fichario_ficha.assunto.descricao %></td>
-    <td><%= fichario_ficha.origem.descricao %></td>
-    <td><%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_ficha %></td>
-    <td><%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_ficha_path(fichario_ficha) %></td>
-    <td><%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %></td>
-  </tr>
-<% end %>
   <tr>
-    <td class="grid_footer" colspan="13" style="text-align: center;">
-      <%= raw (@fichario_ficha.count >= 10)? will_paginate(@fichario_ficha, :previous_label => "< Anterior", :next_label => "Próximo") : "&nbsp;" %>
+    <td class="grid_value"><%= fichario_ficha.id %></td>
+    <td class="grid_value"><%= (fichario_ficha.pja)? fichario_ficha.pja.strftime("%d/%m/%Y") : "Nulo" %></td>
+    <td class="grid_value"><%= fichario_ficha.interessado %></td>
+    <td class="grid_value"><%= fichario_ficha.processo %></td>
+    <td class="grid_value"><%= fichario_ficha.cpf %></td>
+    <td class="grid_value"><%= (fichario_ficha.entrada)? fichario_ficha.entrada.strftime("%d/%m/%Y") : "Nulo" %></td>
+    <td class="grid_value"><%= fone %></td>
+    <td class="grid_value"><%= cel %></td>
+    <td class="grid_value"><%= fichario_ficha.matricula %></td>
+    <td class="grid_value"><%= fichario_ficha.assunto.descricao %></td>
+    <td class="grid_value"><%= fichario_ficha.origem.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), fichario_ficha %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_fichario_ficha_path(fichario_ficha) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), fichario_ficha, :confirm => 'Deseja realmente apagar?', :method => :delete %>
     </td>
   </tr>
+<% end %>
+  <% if paginacao = will_paginate(@fichario_ficha, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="12" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="12"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
 </table>
-
-<br />
-
-<%= link_to 'Nova Ficha', new_fichario_ficha_path %>

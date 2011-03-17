@@ -22,6 +22,11 @@ Intranet::Application.routes.draw do  resources :home
     resources :conhecimentos
   end
 
+  #match 'usuarios' => 'usuarios/Lista#index'
+  match 'usuarios/lista' => "usuarios/Lista#index"
+
+  match 'usuarios/:id(.:format)/destroy' => "usuarios/Lista#destroy"
+
   match 'frequencia' => "frequencia/Index#index"
   match 'fichario' => "fichario/Index#index"
 

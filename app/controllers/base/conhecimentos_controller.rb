@@ -4,7 +4,8 @@ class Base::ConhecimentosController < TemplateController
   # GET /base/conhecimentos
   # GET /base/conhecimentos.xml
   def index
-    @base_conhecimentos = Base::Conhecimento.order('updated_at DESC').paginate :page => params[:page], :per_page => 10
+    @base_conhecimentos = Base::Conhecimento.order('updated_at ASC').paginate :page => params[:page], :per_page => 10
+    @total = Base::Conhecimento.all.count
 
     respond_to do |format|
       format.html # index.html.erb

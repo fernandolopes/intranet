@@ -8,6 +8,8 @@ gem 'whenever'
 gem "will_paginate", "~> 3.0.pre2"
 gem "brdata"
 gem 'tiny_mce','0.1.4'
+gem 'brcpfcnpj'
+#gem 'brazilian-rails'
 
 
 # Bundle edge Rails instead:

@@ -31,6 +31,9 @@ GEM
     activesupport (3.0.3)
     arel (2.0.7)
     bcrypt-ruby (2.1.4)
+    brcpfcnpj (3.0.4)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     brdata (3.0.4)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -98,6 +101,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  brcpfcnpj
   brdata
   capistrano
   devise (= 1.1.5)

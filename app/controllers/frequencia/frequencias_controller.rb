@@ -3,7 +3,8 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    @frequencia_frequencias = Frequencia::Frequencia.all
+    @frequencia_frequencias = Frequencia::Frequencia.order('updated_at ASC').paginate :page => params[:page], :per_page => 10
+    @total = Frequencia::Frequencia.all.count
 
     respond_to do |format|
       format.html # index.html.erb

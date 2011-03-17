@@ -1,10 +1,8 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Descrição:</b>
   <%= @frequencia_justificativa.descricao %>
 </p>
 
 
-<%= link_to 'Editar', edit_frequencia_justificativa_path(@frequencia_justificativa) %> |
-<%= link_to 'Voltar', frequencia_justificativas_path %>
+<%= link_to image_tag('/images/icons/editar.png')+' Editar', edit_frequencia_justificativa_path(@frequencia_justificativa) %> |
+<%= link_to image_tag('/images/icons/arrow_left.png')+' Voltar', frequencia_justificativas_path %>
