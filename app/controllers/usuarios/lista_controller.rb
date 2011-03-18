@@ -4,7 +4,8 @@ class Usuarios::ListaController < TemplateController
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
-     @usuarios = Usuario.order('updated_at DESC').paginate :page => params[:page], :per_page => 10
+     @usuarios = Usuario.order('id ASC').paginate :page => params[:page], :per_page => 10
+     @total = Usuario.all.count
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,11 +1,17 @@
 class Frequencia::Frequencia < ActiveRecord::Base
 
-  validates :matricula, :presence => {:message => 'Não pode ser nulo'}
-  validate :data_field
-
-private
-	def data_field
-		errors.add("Data","inválida") unless Date.valid?(data)
-	end
+  def self.save(upload)
+      name =  upload['datafile'].original_filename
+      #if name == /^.*\.(txt)$/
+        directory = "public/txt"
+        # create the file path
+        path = File.join(directory, name)
+        # write the file
+        File.open(path, "w+") { |f| f.write(upload['datafile'].read) }
+      #else
+      #  errors.add_to_base("Arquivo","tipo inválido") unless datafile.empty?
+      #end
+  end
+  #validates_format_of :datafile ,:with => /^.*\.(txt)$/, :on => :create
 
 end

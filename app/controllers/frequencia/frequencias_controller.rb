@@ -27,7 +27,8 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias/new
   # GET /frequencia/frequencias/new.xml
   def new
-    @frequencia_frequencia = Frequencia::Frequencia.new
+
+   @frequencia_frequencia = Frequencia::Frequencia.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,19 +45,37 @@ class Frequencia::FrequenciasController < TemplateController
   # POST /frequencia/frequencias.xml
   def create
 
+    #Faz o upload do arquivo txt
+    post = Frequencia::Frequencia.save(params[:upload])
+    @path = "public/txt/#{params['upload']['datafile'].original_filename}"
 
+    #Quebra as linhas do arquivo.txt e as envia para um Array
+    file = []
+    File.open(@path) do |f|
+	    while line = f.gets
+		    file << line
+	    end
+    end
 
-#    @frequencia_frequencia = Frequencia::Frequencia.new(params[:frequencia_frequencia])
+    #Cria um hash com os campos data + hora e matricula (note que em matricula foi dado um strip para cortar os espaços em branco)
+    a = []
+    file.each do |c|
+      x = c.split("\,")
+      a << {"data" => mudar_data(x[0])+' '+x[1], "matricula" => x[3].strip}
+    end
 
-#    respond_to do |format|
-#      if @frequencia_frequencia.save
-#        format.html { redirect_to(@frequencia_frequencia, :notice => 'Frequencia criada com sucesso.') }
-#        format.xml  { render :xml => @frequencia_frequencia, :status => :created, :location => @frequencia_frequencia }
-#      else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @frequencia_frequencia.errors, :status => :unprocessable_entity }
-#      end
-#    end
+    #Aqui é salvo todas as linhas do hash
+    a.each do |l|
+      @frequencia = Frequencia::Frequencia.new(l)
+      @frequencia.save
+    end
+
+    #destroi o arquivo.txt
+    cleanup
+
+    respond_to do |format|
+      format.html { redirect_to(@frequencia, :notice => 'Lista de frequencia enviada com sucesso.') }
+    end
   end
 
   # PUT /frequencia/frequencias/1
@@ -85,5 +104,18 @@ class Frequencia::FrequenciasController < TemplateController
       format.html { redirect_to(frequencia_frequencias_url) }
       format.xml  { head :ok }
     end
+  end
+
+private
+  #muda a data para o padrão americano.
+  def mudar_data(data)
+    d = data
+		d =~ /(\d{2})\/(\d{2})\/(\d{2})/
+		d = "20#{$3}-#{$2}-#{$1}"
+  end
+
+  #destroi o arquivo.
+  def cleanup
+    File.delete(@path) if File.exist?(@path)
   end
 end
