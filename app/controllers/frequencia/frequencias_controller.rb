@@ -3,7 +3,7 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    @frequencia_frequencias = Frequencia::Frequencia.order('updated_at ASC').paginate :page => params[:page], :per_page => 10
+    @frequencia_frequencias = Frequencia::Frequencia.order('id ASC').paginate :page => params[:page], :per_page => 10
     @total = Frequencia::Frequencia.all.count
 
     respond_to do |format|
@@ -57,24 +57,27 @@ class Frequencia::FrequenciasController < TemplateController
 	    end
     end
 
-    #Cria um hash com os campos data + hora e matricula (note que em matricula foi dado um strip para cortar os espaços em branco)
+    #Cria um hash com os campos data + hora e matricula
+    #(note que em matricula foi dado um strip para cortar os espaços em branco)
     a = []
     file.each do |c|
       x = c.split("\,")
-      a << {"data" => mudar_data(x[0])+' '+x[1], "matricula" => x[3].strip}
+      y = mudar_data(x[0])+' '+x[1]
+      a << {"data" => y.to_datetime, "matricula" => x[3].strip}
     end
 
     #Aqui é salvo todas as linhas do hash
-    a.each do |l|
-      @frequencia = Frequencia::Frequencia.new(l)
-      @frequencia.save
+    a.each do |l|  
+      unless Frequencia::Frequencia.find(:all, :conditions => ["data = ?", l['data']]).count > 0
+        @frequencia = Frequencia::Frequencia.new(l)
+        @frequencia.save
+      end
     end
-
     #destroi o arquivo.txt
     cleanup
 
     respond_to do |format|
-      format.html { redirect_to(@frequencia, :notice => 'Lista de frequencia enviada com sucesso.') }
+      format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
     end
   end
 
