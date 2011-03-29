@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110314144459) do
+ActiveRecord::Schema.define(:version => 20110325140721) do
 
   create_table "base_conhecimentos", :force => true do |t|
     t.string   "titulo"
@@ -106,6 +106,23 @@ ActiveRecord::Schema.define(:version => 20110314144459) do
   end
 
   add_index "frequencia_setores", ["orgao_id"], :name => "index_frequencia_setores_on_orgao_id"
+
+  create_table "pontos", :force => true do |t|
+    t.date     "data"
+    t.time     "hora1"
+    t.time     "hora2"
+    t.time     "total1"
+    t.time     "hora3"
+    t.time     "hora4"
+    t.time     "total2"
+    t.time     "hora5"
+    t.time     "hora6"
+    t.time     "total3"
+    t.time     "total_geral"
+    t.string   "matricula"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
