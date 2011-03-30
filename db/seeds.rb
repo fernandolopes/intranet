@@ -44,6 +44,13 @@ tipo_andamentos = Fichario::Andamento.create([ {:descricao =>	'Distribuído p/ D
                                                {:descricao =>	'Ao Proc. Geral c/ Despacho'},
                                                {:descricao =>	'Retornou p/ reexame'},
                                                {:descricao =>	'Retornou do IMP p/ reexame'} ])
+orgao = Frequencia::Orgao.create([ {:orgao => 'PGM', :descricao => 'Procuradoria Geral do Município de Fortaleza'} ])
+
+setor = Frequencia::Setor.create([ { :orgao_id => '1', :setor => 'CPD', :descricao => 'Central de Processamentos de Dados' } ])
+
+profissao = Frequencia::Profissao.create([ { :profissao => 'Programador', :descricao => 'Desenvolvedor Web em Ruby'} ])
+
+
 
 
 

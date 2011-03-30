@@ -57,6 +57,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -64,7 +65,6 @@ GEM
     net-ssh (2.1.0)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
-    pg (0.10.1)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -105,7 +105,7 @@ DEPENDENCIES
   brdata
   capistrano
   devise (= 1.1.5)
-  pg (= 0.10.1)
+  mysql2
   rails (= 3.0.3)
   tiny_mce (= 0.1.4)
   whenever
