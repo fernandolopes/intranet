@@ -13,5 +13,13 @@ class Frequencia::Frequencia < ActiveRecord::Base
       #end
   end
   #validates_format_of :datafile ,:with => /^.*\.(txt)$/, :on => :create
+  before_save :antes
+
+  def antes
+    a = Ponto.find(:all, :conditions => ["data = #{data} and matricula = #{matricula}"])
+    if a
+      raise a.inspect
+    end
+  end
 
 end

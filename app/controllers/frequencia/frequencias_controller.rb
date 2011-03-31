@@ -60,7 +60,7 @@ class Frequencia::FrequenciasController < TemplateController
     #Cria um hash com os campos data + hora e matricula
     #(note que em matricula foi dado um strip para cortar os espaços em branco)
     a = []
-raise file.inspect
+
     file.each do |c|
       x = c.split("\,")
       y = mudar_data(x[0])+' '+x[1]
