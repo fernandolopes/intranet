@@ -3,8 +3,9 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    @frequencia_frequencias = Frequencia::Frequencia.order('id ASC').paginate :page => params[:page], :per_page => 10
-    @total = Frequencia::Frequencia.all.count
+    #@frequencia_frequencias = Frequencia::Frequencia.order('id ASC').paginate :page => params[:page], :per_page => 10
+    @frequencia_frequencias = Frequencia::Frequencia.sel_usuario(current_usuario.matricula)
+    @total = @frequencia_frequencias.count
 
     respond_to do |format|
       format.html # index.html.erb

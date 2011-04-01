@@ -13,13 +13,22 @@ class Frequencia::Frequencia < ActiveRecord::Base
       #end
   end
   #validates_format_of :datafile ,:with => /^.*\.(txt)$/, :on => :create
-  before_save :antes
 
-  def antes
-    a = Ponto.find(:all, :conditions => ["data = #{data} and matricula = #{matricula}"])
-    if a
-      raise a.inspect
+  def self.sel_usuario(matricula)
+    #a = Frequencia::Frequencia.where("matricula=?",matricula).group(:matricula).select(:matricula)
+
+    b = Frequencia::Frequencia.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
+    a = {:matricula => matricula, :hora1 => '', :hora2 => '', :total1 => '', :data => ''}
+    c = []
+    i = 0
+    b.each do |z|
+      i = i+1
+      a[("hora#{i}").to_sym] = z.data.strftime("%H:%M:%S")
+      a[:data] = z.data.strftime("%d/%m/%Y")
     end
+    c << a
+    return c
+    #raise a.inspect
   end
 
 end
