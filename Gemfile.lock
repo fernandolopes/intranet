@@ -44,6 +44,8 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.0.0)
+    chronic_duration (0.9.4)
+      numerizer (~> 0.1.1)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 1.0.2)
@@ -64,6 +66,7 @@ GEM
     net-ssh (2.1.0)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
+    numerizer (0.1.1)
     pg (0.10.1)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -104,6 +107,7 @@ DEPENDENCIES
   brcpfcnpj
   brdata
   capistrano
+  chronic_duration
   devise (= 1.1.5)
   pg
   rails (= 3.0.3)
