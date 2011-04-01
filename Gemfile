@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 gem 'devise', '1.1.5'
-gem 'mysql2'
+gem 'pg'    
 gem 'capistrano'
 gem 'whenever'
 gem "will_paginate", "~> 3.0.pre2"
