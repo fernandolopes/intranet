@@ -3,8 +3,8 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    #@frequencia_frequencias = Frequencia::Frequencia.order('id ASC').paginate :page => params[:page], :per_page => 10
-    @frequencia_frequencias = Frequencia::Frequencia.sel_usuario(current_usuario.matricula)
+    @frequencia_frequencias = Ponto.order('id ASC').paginate :page => params[:page], :per_page => 10
+    #@frequencia_frequencias = Frequencia::Frequencia.sel_usuario(current_usuario.matricula)
     @total = @frequencia_frequencias.count
 
     respond_to do |format|
@@ -77,6 +77,7 @@ class Frequencia::FrequenciasController < TemplateController
     end
     #destroi o arquivo.txt
     cleanup
+    sel_usuario('789672')
 
     respond_to do |format|
       format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
@@ -112,6 +113,56 @@ class Frequencia::FrequenciasController < TemplateController
   end
 
 private
+  #espelha a tabela frequencia_frequencias em pontos
+  def salvarPonto(c)
+    #raise c.inspect
+    ponto = Ponto.create(c)
+    p = Ponto.all
+    return p
+  end
+
+  #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
+  def sel_usuario(matricula)
+
+    b = Frequencia::Frequencia.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
+
+    datas = []
+    b.each do |data|
+      datas << data.data.strftime("%Y-%m-%d") unless datas.include?(data.data.strftime("%Y-%m-%d"))
+    end
+    c = []
+
+    datas.each do |p|
+      i = 0
+      f = 0
+      a = {:matricula => matricula}
+      hora = []
+      total = 0
+      b.each do |z|
+        if (z.data.strftime("%Y-%m-%d") == p)
+          i = i+1
+          a[("hora#{i}").to_sym] = z.data.strftime("%H:%M:%S")
+          hora << ChronicDuration.parse(a[("hora#{i}").to_sym])
+          if (hora.count % 2) == 0
+            f = f+1
+
+            calcHora = (hora[i-1] - hora[i-2])
+            horaTotal = ChronicDuration.output(calcHora, :format => :chrono)
+            a[("total#{i-f}").to_sym] = horaTotal
+          end
+        end
+        a[:data] = p
+      end
+      total =  total + ChronicDuration.parse(a[:total1]) if a[:total1]
+      total =  total + ChronicDuration.parse(a[:total2]) if a[:total2]
+      total =  total + ChronicDuration.parse(a[:total3]) if a[:total3]
+      a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
+      c << a
+    end
+
+    return salvarPonto(c)
+  end
+
   #muda a data para o padrão americano.
   def mudar_data(data)
     d = data

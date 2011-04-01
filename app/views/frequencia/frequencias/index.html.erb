@@ -1,7 +1,7 @@
   <%= link_to image_tag("/images/icons/add.png", :title => "Inserir")+" Enviar Arquivo", new_frequencia_frequencia_path %><br /><br />
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="9">Lista de Frequências</td>
+    <td colspan="13">Lista de Frequências de <%= current_usuario.nome %></td>
   </tr>
   <tr>
     <td class="grid_label center">Data</td>
@@ -11,28 +11,43 @@
     <td class="grid_label center">Matricula</td>
     <td class="grid_label center">Hora 1</td>
     <td class="grid_label center">Hora 2</td>
-    <td class="grid_label center">Total 1</td>
+    <td class="grid_label center">Hora 3</td>
+    <td class="grid_label center">Hora 4</td>
+    <td class="grid_label center">Hora 5</td>
+    <td class="grid_label center">Hora 6</td>
+    <td class="grid_label center">Total Geral</td>
     <td class="grid_label center">Ações</td>
   </tr>
 
 <% @frequencia_frequencias.each do |frequencia_frequencia| %>
-  <tr>                                          <%#  raise frequencia_frequencia.inspect %>
+  <tr>
     <% usuario = Usuario.find_by_matricula(frequencia_frequencia[:matricula]) %>
      <td class="grid_value center"><%= frequencia_frequencia[:data] %></td>
     <td class="grid_value center"><%= usuario.nome %></td>
     <td class="grid_value center"><%= usuario.setor.setor %></td>
     <td class="grid_value center"><%= usuario.profissao.profissao %></td>
     <td class="grid_value center"><%= frequencia_frequencia[:matricula] %></td>
-    <td class="grid_value center"><%= frequencia_frequencia[:hora1] %></td>
-    <td class="grid_value center"><%= frequencia_frequencia[:hora2] %></td>
-    <td class="grid_value center"><%= frequencia_frequencia[:total1] %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora1])? frequencia_frequencia[:hora1].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora2])? frequencia_frequencia[:hora2].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora3])? frequencia_frequencia[:hora3].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora4])? frequencia_frequencia[:hora4].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora5])? frequencia_frequencia[:hora5].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:hora6])? frequencia_frequencia[:hora6].strftime("%H:%M:%S") : '-' %></td>
+    <td class="grid_value center"><%= (frequencia_frequencia[:total_geral])? frequencia_frequencia[:total_geral].strftime("%H:%M:%S") : '-' %></td>
     <td class="grid_action center">
-        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_frequencia %>
-        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_frequencia, :confirm => 'Você tem certeza?', :method => :delete %>
+        <%#= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_frequencia %>
+        <%#= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_frequencia, :confirm => 'Você tem certeza?', :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+<% if paginacao = will_paginate(@frequencia_frequencias, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="3" style="text-align: center;">
+      <%= paginacao %>
     </td>
   </tr>
 <% end %>
   <tr>
-    <td class="grid_footer" colspan="9"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+    <td class="grid_footer" colspan="13"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>
