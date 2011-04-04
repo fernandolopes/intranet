@@ -3,10 +3,26 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    @frequencia_frequencias = Ponto.order('id ASC').paginate :page => params[:page], :per_page => 10
-    #@frequencia_frequencias = Frequencia::Frequencia.sel_usuario(current_usuario.matricula)
-    @total = @frequencia_frequencias.count
 
+    #@datas = Ponto.group(:data).select(:data)
+    #filtro"=>{"data(1i)"=>"", "data(2i)"=>"", "data(3i)"=>""}"
+formar_data("03","2011")
+
+    datas = false
+    if params[:filtro]
+      unless params[:filtro]['data(3i)'] == '' or params[:filtro]['data(2i)'] == '' or params[:filtro]['data(1i)'] == ' '
+        @data = "#{params[:filtro]['data(3i)']}/#{params[:filtro]['data(2i)']}/#{params[:filtro]['data(1i)']}"
+        datas = true
+      end
+    end
+
+    if datas == false
+      @frequencia_frequencias = Ponto.order('data ASC').paginate :page => params[:page], :per_page => 10
+    else
+      @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data).paginate :page => params[:page], :per_page => 10
+    end
+
+    @total = @frequencia_frequencias.count
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @frequencia_frequencias }
@@ -77,7 +93,8 @@ class Frequencia::FrequenciasController < TemplateController
     end
     #destroi o arquivo.txt
     cleanup
-    sel_usuario('789672')
+    @matricula = current_usuario.matricula
+    sel_usuario(@matricula)
 
     respond_to do |format|
       format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
@@ -173,5 +190,18 @@ private
   #destroi o arquivo.
   def cleanup
     File.delete(@path) if File.exist?(@path)
+  end
+
+  #forma um Array com os dias úteis de um determinado mês
+  def formar_data(mes,ano)
+    datas = []
+
+    for i in (1..31)
+      d = Date.new(ano.to_i, mes.to_i, i)
+      if Date.valid?("#{i}/#{mes}/#{ano}") and !(d.feriado?) and !(d.wday == 6 or d.wday == 0)
+        data = Date.new(ano.to_i, mes.to_i, i)
+        datas << data.to_s_br
+      end
+    end
   end
 end

@@ -3,6 +3,37 @@
   <tr class="grid_title">
     <td colspan="13">Lista de Frequências de <%= current_usuario.nome %></td>
   </tr>
+  <% form_tag('frequencias', :method => 'get') do |f| %>
+
+  <tr>
+	    <td class="grid_label center">Filtro</td>
+	    <td colspan="11" class="grid_action form_filter">
+
+        <div class="input_container">
+          <%= label :filtro, :data %>
+          <%#= select( :filtro, :data, @datas.collect{ |z| [z.data.to_s_br, z.data]}, :prompt => "Selecine uma data") %>
+          <%= date_select :filtro, :data,
+                          :start_year => Date.current.year,
+                          :end_year => 2000,
+                          :order => [:day, :month, :year],
+                          :prompt => { :day => 'Escolha um dia', :month => 'Escolha um mês', :year => 'Escolha um ano' }
+          %>
+        </div>
+    <!--
+        <div class="input_container">
+          <label for="titulo">Título:</label>
+          <input type="text" class="text_input" value="" name="titulo" id="titulo">
+        </div>
+        <div class="input_container">
+          <label for="corpo">Corpo:</label>
+          <input type="text" class="text_input" value="" name="corpo" id="corpo">
+        </div>
+    -->
+  </td>
+	    <td class="grid_action center">
+		<input type="submit" value="Filtrar" name="filter" id="filter">	    </td>
+	</tr>
+  <% end %>
   <tr>
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Usuário</td>
@@ -22,10 +53,10 @@
 <% @frequencia_frequencias.each do |frequencia_frequencia| %>
   <tr>
     <% usuario = Usuario.find_by_matricula(frequencia_frequencia[:matricula]) %>
-     <td class="grid_value center"><%= frequencia_frequencia[:data] %></td>
-    <td class="grid_value center"><%= usuario.nome %></td>
-    <td class="grid_value center"><%= usuario.setor.setor %></td>
-    <td class="grid_value center"><%= usuario.profissao.profissao %></td>
+     <td class="grid_value center"><%= frequencia_frequencia[:data].to_s_br %></td>
+    <td class="grid_value center"><%= (usuario.nome)? usuario.nome : '-' %></td>
+    <td class="grid_value center"><%= (usuario.setor.setor)? usuario.setor.setor : '-' %></td>
+    <td class="grid_value center"><%= (usuario.profissao.profissao)? usuario.profissao.profissao : '-' %></td>
     <td class="grid_value center"><%= frequencia_frequencia[:matricula] %></td>
     <td class="grid_value center"><%= (frequencia_frequencia[:hora1])? frequencia_frequencia[:hora1].strftime("%H:%M:%S") : '-' %></td>
     <td class="grid_value center"><%= (frequencia_frequencia[:hora2])? frequencia_frequencia[:hora2].strftime("%H:%M:%S") : '-' %></td>
