@@ -3,10 +3,19 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
+    if params[:filtro]
+      dia = params[:filtro]['data(1i)']
+      mes = params[:filtro]['data(2i)']
+      ano = params[:filtro]['data(3i)']
+    else
+      data_atual = Time.now
+      dia = data_atual.strftime("%d").to_s
+      mes = "03"
+      #mes = data_atual.strftime("%m").to_s
+      ano = data_atual.strftime("%Y").to_s
+    end
 
-    #@datas = Ponto.group(:data).select(:data)
-    #filtro"=>{"data(1i)"=>"", "data(2i)"=>"", "data(3i)"=>""}"
-formar_data("03","2011")
+    @datas = formar_data(mes,ano)
 
     datas = false
     if params[:filtro]
@@ -20,6 +29,15 @@ formar_data("03","2011")
       @frequencia_frequencias = Ponto.order('data ASC').paginate :page => params[:page], :per_page => 10
     else
       @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data).paginate :page => params[:page], :per_page => 10
+    end
+
+    @datas.each do |x|
+      if @frequencia_frequencias[0][:data] != x
+        ponto = Ponto.new
+        ponto[:matricula] = current_usuario.matricula
+        ponto[:data] = x
+        @frequencia_frequencias << ponto
+      end
     end
 
     @total = @frequencia_frequencias.count
@@ -194,14 +212,20 @@ private
 
   #forma um Array com os dias úteis de um determinado mês
   def formar_data(mes,ano)
-    datas = []
-
+    @datas = []
+    if mes.to_i > 9
+      mes = "0#{mes}"
+    end
     for i in (1..31)
-      d = Date.new(ano.to_i, mes.to_i, i)
-      if Date.valid?("#{i}/#{mes}/#{ano}") and !(d.feriado?) and !(d.wday == 6 or d.wday == 0)
+      valida_data = Date.valid?("#{i}/#{mes}/#{ano}")
+      d = Date.new(ano.to_i, mes.to_i, i) if valida_data
+
+      if valida_data and !(d.feriado?) and !(d.wday == 6 or d.wday == 0)
         data = Date.new(ano.to_i, mes.to_i, i)
-        datas << data.to_s_br
+        @datas << data
       end
     end
+    return @datas
+   # raise @datas.inspect
   end
 end
