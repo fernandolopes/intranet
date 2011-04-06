@@ -10,41 +10,70 @@ class Frequencia::FrequenciasController < TemplateController
     else
       data_atual = Time.now
       dia = data_atual.strftime("%d").to_s
-      mes = "03"
-      #mes = data_atual.strftime("%m").to_s
+      #mes = "03"
+      mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
     end
 
     @datas = formar_data(mes,ano)
 
-    datas = false
-    if params[:filtro]
+    if params[:filtro] != nil
       unless params[:filtro]['data(3i)'] == '' or params[:filtro]['data(2i)'] == '' or params[:filtro]['data(1i)'] == ' '
         @data = "#{params[:filtro]['data(3i)']}/#{params[:filtro]['data(2i)']}/#{params[:filtro]['data(1i)']}"
-        datas = true
+        @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data)
+      else
+        @frequencia_frequencias = monta_tabela @datas
       end
-    end
-
-    if datas == false
-      @frequencia_frequencias = Ponto.order('data ASC').paginate :page => params[:page], :per_page => 10
     else
-      @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data).paginate :page => params[:page], :per_page => 10
+        @frequencia_frequencias = monta_tabela @datas
     end
 
-    @datas.each do |x|
-      if @frequencia_frequencias[0][:data] != x
-        ponto = Ponto.new
-        ponto[:matricula] = current_usuario.matricula
-        ponto[:data] = x
-        @frequencia_frequencias << ponto
-      end
-    end
+    #datas = false
+    #if params[:filtro]
+    #  unless params[:filtro]['data(3i)'] == '' or params[:filtro]['data(2i)'] == '' or params[:filtro]['data(1i)'] == ' '
+    #    @data = "#{params[:filtro]['data(3i)']}/#{params[:filtro]['data(2i)']}/#{params[:filtro]['data(1i)']}"
+    #    datas = true
+    #  end
+    #end
+
+    #if datas == false
+    #  @frequencia_frequencias = Ponto.order('data ASC').paginate :page => params[:page], :per_page => 10
+    #else
+    #  @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data).paginate :page => params[:page], :per_page => 10
+    #end
+
+
+   # @datas.each do |x|
+   #   ponto = Ponto.new
+   #    ponto[:matricula] = current_usuario.matricula
+   #    ponto[:data] = x
+   #    @frequencia_frequencias << ponto
+   # end
+
+
 
     @total = @frequencia_frequencias.count
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @frequencia_frequencias }
     end
+  end
+
+  def monta_tabela datas
+    frequencias = []
+    datas.each do |date|
+      ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
+
+      if ponto != nil
+        frequencias << ponto
+      else
+         ponto = Ponto.new
+         ponto[:matricula] = current_usuario.matricula
+         ponto[:data] = date
+         frequencias << ponto
+      end
+    end
+    return frequencias
   end
 
 

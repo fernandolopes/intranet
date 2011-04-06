@@ -70,14 +70,6 @@
     </td>
   </tr>
 <% end %>
-  
-<% if paginacao = will_paginate(@frequencia_frequencias, :previous_label => "< Anterior", :next_label => "Próximo") %>
-  <tr>
-    <td class="grid_action center" colspan="3" style="text-align: center;">
-      <%= paginacao %>
-    </td>
-  </tr>
-<% end %>
   <tr>
     <td class="grid_footer" colspan="13"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
