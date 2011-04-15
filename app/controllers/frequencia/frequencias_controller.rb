@@ -1,56 +1,37 @@
 class Frequencia::FrequenciasController < TemplateController
   before_filter :authenticate_usuario!
+
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
-    if params[:filtro]
-      dia = params[:filtro]['data(1i)']
+
+    # Filtro para tabela
+    if params.has_key?("filtro")
+      dia = params[:filtro]['data(3i)']
       mes = params[:filtro]['data(2i)']
-      ano = params[:filtro]['data(3i)']
-    else
-      data_atual = Time.now
-      dia = data_atual.strftime("%d").to_s
-      #mes = "03"
-      mes = data_atual.strftime("%m").to_s
-      ano = data_atual.strftime("%Y").to_s
-    end
-
-    @datas = formar_data(mes,ano)
-
-    if params[:filtro] != nil
-      unless params[:filtro]['data(3i)'] == '' or params[:filtro]['data(2i)'] == '' or params[:filtro]['data(1i)'] == ' '
-        @data = "#{params[:filtro]['data(3i)']}/#{params[:filtro]['data(2i)']}/#{params[:filtro]['data(1i)']}"
+      ano = params[:filtro]['data(1i)']
+      if !dia.empty? and !mes.empty? and !ano.empty?
+        @data = "#{dia}/#{mes}/#{ano}"
         @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data)
-      else
+      elsif dia.empty? and !mes.empty? and !ano.empty?
+        @datas = formar_data("0#{mes}",ano)
         @frequencia_frequencias = monta_tabela @datas
+      elsif dia.empty? and mes.empty? and ano.empty?
+        data_atual = Time.now
+        mes = data_atual.strftime("%m").to_s
+        ano = data_atual.strftime("%Y").to_s
+        @datas = formar_data(mes,ano)
+        @frequencia_frequencias = monta_tabela @datas
+      else
+        @frequencia_frequencias = []
       end
     else
-        @frequencia_frequencias = monta_tabela @datas
+      data_atual = Time.now
+      mes = data_atual.strftime("%m").to_s
+      ano = data_atual.strftime("%Y").to_s
+      @datas = formar_data(mes,ano)
+      @frequencia_frequencias = monta_tabela @datas
     end
-
-    #datas = false
-    #if params[:filtro]
-    #  unless params[:filtro]['data(3i)'] == '' or params[:filtro]['data(2i)'] == '' or params[:filtro]['data(1i)'] == ' '
-    #    @data = "#{params[:filtro]['data(3i)']}/#{params[:filtro]['data(2i)']}/#{params[:filtro]['data(1i)']}"
-    #    datas = true
-    #  end
-    #end
-
-    #if datas == false
-    #  @frequencia_frequencias = Ponto.order('data ASC').paginate :page => params[:page], :per_page => 10
-    #else
-    #  @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data).paginate :page => params[:page], :per_page => 10
-    #end
-
-
-   # @datas.each do |x|
-   #   ponto = Ponto.new
-   #    ponto[:matricula] = current_usuario.matricula
-   #    ponto[:data] = x
-   #    @frequencia_frequencias << ponto
-   # end
-
-
 
     @total = @frequencia_frequencias.count
     respond_to do |format|
@@ -58,24 +39,6 @@ class Frequencia::FrequenciasController < TemplateController
       format.xml  { render :xml => @frequencia_frequencias }
     end
   end
-
-  def monta_tabela datas
-    frequencias = []
-    datas.each do |date|
-      ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
-
-      if ponto != nil
-        frequencias << ponto
-      else
-         ponto = Ponto.new
-         ponto[:matricula] = current_usuario.matricula
-         ponto[:data] = date
-         frequencias << ponto
-      end
-    end
-    return frequencias
-  end
-
 
   # GET /frequencia/frequencias/1
   # GET /frequencia/frequencias/1.xml
@@ -126,14 +89,17 @@ class Frequencia::FrequenciasController < TemplateController
     a = []
 
     file.each do |c|
+
       x = c.split("\,")
+
       y = mudar_data(x[0])+' '+x[1]
       a << {"data" => y.to_datetime, "matricula" => x[3].strip}
     end
 
     #Aqui é salvo todas as linhas do hash
-    a.each do |l|  
-      unless Frequencia::Frequencia.find(:all, :conditions => ["data = ?", l['data']]).count > 0
+    a.each do |l|
+      consultaData = Frequencia::Frequencia.find(:all, :conditions => ["data = ?", l['data']])
+      if consultaData.empty?
         @frequencia = Frequencia::Frequencia.new(l)
         @frequencia.save
       end
@@ -142,6 +108,8 @@ class Frequencia::FrequenciasController < TemplateController
     cleanup
     @matricula = current_usuario.matricula
     sel_usuario(@matricula)
+
+
 
     respond_to do |format|
       format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
@@ -178,41 +146,38 @@ class Frequencia::FrequenciasController < TemplateController
 
 private
   #espelha a tabela frequencia_frequencias em pontos
-  def salvarPonto(c)
-    #raise c.inspect
-    ponto = Ponto.create(c)
-    p = Ponto.all
-    return p
+  def salvarPonto(hash_final)
+    ponto = Ponto.create(hash_final)
   end
 
   #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
   def sel_usuario(matricula)
 
-    b = Frequencia::Frequencia.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
+    matricula_ponto = Frequencia::Frequencia.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
 
-    datas = []
-    b.each do |data|
-      datas << data.data.strftime("%Y-%m-%d") unless datas.include?(data.data.strftime("%Y-%m-%d"))
+    hash_datas = []
+    matricula_ponto.each do |matriculas|
+      hash_datas << matriculas.data.strftime("%Y-%m-%d") unless hash_datas.include?(matriculas.data.strftime("%Y-%m-%d"))
     end
-    c = []
+    hash_final = []
 
-    datas.each do |p|
+    hash_datas.each do |p|
       i = 0
       f = 0
       a = {:matricula => matricula}
       hora = []
       total = 0
-      b.each do |z|
-        if (z.data.strftime("%Y-%m-%d") == p)
+      matricula_ponto.each do |dados|
+        if (dados.data.strftime("%Y-%m-%d") == p)
           i = i+1
-          a[("hora#{i}").to_sym] = z.data.strftime("%H:%M:%S")
+          a[("hora#{i}").to_sym] = dados.data.strftime("%H:%M:%S")
           hora << ChronicDuration.parse(a[("hora#{i}").to_sym])
           if (hora.count % 2) == 0
             f = f+1
 
-            calcHora = (hora[i-1] - hora[i-2])
-            horaTotal = ChronicDuration.output(calcHora, :format => :chrono)
-            a[("total#{i-f}").to_sym] = horaTotal
+            calculo_hora = (hora[i-1] - hora[i-2])
+            hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
+            a[("total#{i-f}").to_sym] = hora_total
           end
         end
         a[:data] = p
@@ -221,17 +186,17 @@ private
       total =  total + ChronicDuration.parse(a[:total2]) if a[:total2]
       total =  total + ChronicDuration.parse(a[:total3]) if a[:total3]
       a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
-      c << a
+      hash_final << a
     end
 
-    return salvarPonto(c)
+    return salvarPonto(hash_final)
   end
 
   #muda a data para o padrão americano.
   def mudar_data(data)
     d = data
 		d =~ /(\d{2})\/(\d{2})\/(\d{2})/
-		d = "20#{$3}-#{$2}-#{$1}"
+		d = "20#{$2}-#{$3}-#{$1}"
   end
 
   #destroi o arquivo.
@@ -255,6 +220,24 @@ private
       end
     end
     return @datas
-   # raise @datas.inspect
+  end
+
+  # Método para montar a tabela de Ponto
+  def monta_tabela datas
+
+    frequencias = []
+    datas.each do |date|
+      ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
+
+      if ponto != nil
+        frequencias << ponto
+      else
+         ponto = Ponto.new
+         ponto[:matricula] = current_usuario.matricula
+         ponto[:data] = date
+         frequencias << ponto
+      end
+    end
+    return frequencias
   end
 end

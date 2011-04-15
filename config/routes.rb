@@ -1,6 +1,7 @@
 Intranet::Application.routes.draw do  resources :home
 
   get "fichario/index/index"
+  get "frequencia/frequencias/index"
 
   namespace :fichario do
     resources :fichas
@@ -22,7 +23,7 @@ Intranet::Application.routes.draw do  resources :home
     resources :conhecimentos
   end
 
-  #match 'usuarios' => 'usuarios/Lista#index'
+  match 'frequencia/frequencias/index' => 'frequencia/frequencias#index'
   match 'usuarios/lista' => "usuarios/Lista#index"
 
   match 'usuarios/:id(.:format)/destroy' => "usuarios/Lista#destroy"
