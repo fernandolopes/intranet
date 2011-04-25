@@ -149,7 +149,7 @@ private
   def salvarPonto(hash_final)
     ponto = Ponto.create(hash_final)
   end
-
+=begin
   #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
   def sel_usuario(matricula)
 
@@ -190,7 +190,7 @@ private
     end
 
     return salvarPonto(hash_final)
-  end
+=end
 
   #muda a data para o padrão americano.
   def mudar_data(data)
