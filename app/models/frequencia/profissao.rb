@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Frequencia::Profissao < ActiveRecord::Base
   has_many :usuarios
 

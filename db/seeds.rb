@@ -1,3 +1,4 @@
+# encoding: utf-8
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -49,6 +50,8 @@ orgao = Frequencia::Orgao.create([ {:orgao => 'PGM', :descricao => 'Procuradoria
 setor = Frequencia::Setor.create([ { :orgao_id => '1', :setor => 'CPD', :descricao => 'Central de Processamentos de Dados' } ])
 
 profissao = Frequencia::Profissao.create([ { :profissao => 'Programador', :descricao => 'Desenvolvedor Web em Ruby'} ])
+
+usuario = Usuario.create([{:nome => 'Fernando', :password => 'master', :password_confirmation => 'master', :matricula => '789672', :setor_id => 1, :profissao_id => 1}])
 
 
 

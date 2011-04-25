@@ -14,13 +14,13 @@ class Frequencia::FrequenciasController < TemplateController
         @data = "#{dia}/#{mes}/#{ano}"
         @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data)
       elsif dia.empty? and !mes.empty? and !ano.empty?
-        @datas = formar_data("0#{mes}",ano)
+        @datas = Frequencia::DiasUteis.new("0{mes}",ano) # formar_data("0#{mes}",ano)
         @frequencia_frequencias = monta_tabela @datas
       elsif dia.empty? and mes.empty? and ano.empty?
         data_atual = Time.now
         mes = data_atual.strftime("%m").to_s
         ano = data_atual.strftime("%Y").to_s
-        @datas = formar_data(mes,ano)
+        @datas = Frequencia::DiasUteis.new(mes,ano) # formar_data(mes,ano)
         @frequencia_frequencias = monta_tabela @datas
       else
         @frequencia_frequencias = []
@@ -29,7 +29,7 @@ class Frequencia::FrequenciasController < TemplateController
       data_atual = Time.now
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
-      @datas = formar_data(mes,ano)
+      @datas = Frequencia::DiasUteis.new(mes,ano) # formar_data(mes,ano)
       @frequencia_frequencias = monta_tabela @datas
     end
 
@@ -43,7 +43,7 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias/1
   # GET /frequencia/frequencias/1.xml
   def show
-    @frequencia_frequencia = Frequencia::Frequencia.find(params[:id])
+    @frequencia_frequencia = Frequencia::Ponto.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -55,7 +55,7 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias/new.xml
   def new
 
-   @frequencia_frequencia = Frequencia::Frequencia.new
+   @frequencia_frequencia = Frequencia::Ponto.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -65,7 +65,7 @@ class Frequencia::FrequenciasController < TemplateController
 
   # GET /frequencia/frequencias/1/edit
   def edit
-    @frequencia_frequencia = Frequencia::Frequencia.find(params[:id])
+    @frequencia_frequencia = Frequencia::Ponto.find(params[:id])
   end
 
   # POST /frequencia/frequencias
@@ -73,7 +73,7 @@ class Frequencia::FrequenciasController < TemplateController
   def create
 
     #Faz o upload do arquivo txt
-    post = Frequencia::Frequencia.save(params[:upload])
+    post = Frequencia::Ponto.save(params[:upload])
     @path = "public/txt/#{params['upload']['datafile'].original_filename}"
 
     #Quebra as linhas do arquivo.txt e as envia para um Array
@@ -98,16 +98,16 @@ class Frequencia::FrequenciasController < TemplateController
 
     #Aqui é salvo todas as linhas do hash
     a.each do |l|
-      consultaData = Frequencia::Frequencia.find(:all, :conditions => ["data = ?", l['data']])
+      consultaData = Frequencia::Ponto.find(:all, :conditions => ["data = ?", l['data']])
       if consultaData.empty?
-        @frequencia = Frequencia::Frequencia.new(l)
+        @frequencia = Frequencia::Ponto.new(l)
         @frequencia.save
       end
     end
     #destroi o arquivo.txt
     cleanup
-    @matricula = current_usuario.matricula
-    sel_usuario(@matricula)
+    #@matricula = current_usuario.matricula
+    #sel_usuario(@matricula)
 
 
 
@@ -119,7 +119,7 @@ class Frequencia::FrequenciasController < TemplateController
   # PUT /frequencia/frequencias/1
   # PUT /frequencia/frequencias/1.xml
   def update
-    @frequencia_frequencia = Frequencia::Frequencia.find(params[:id])
+    @frequencia_frequencia = Frequencia::Ponto.find(params[:id])
 
     respond_to do |format|
       if @frequencia_frequencia.update_attributes(params[:frequencia_frequencia])
@@ -135,7 +135,7 @@ class Frequencia::FrequenciasController < TemplateController
   # DELETE /frequencia/frequencias/1
   # DELETE /frequencia/frequencias/1.xml
   def destroy
-    @frequencia_frequencia = Frequencia::Frequencia.find(params[:id])
+    @frequencia_frequencia = Frequencia::Ponto.find(params[:id])
     @frequencia_frequencia.destroy
 
     respond_to do |format|
@@ -153,7 +153,7 @@ private
   #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
   def sel_usuario(matricula)
 
-    matricula_ponto = Frequencia::Frequencia.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
+    matricula_ponto = Frequencia::Ponto.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
 
     hash_datas = []
     matricula_ponto.each do |matriculas|
@@ -196,7 +196,7 @@ private
   def mudar_data(data)
     d = data
 		d =~ /(\d{2})\/(\d{2})\/(\d{2})/
-		d = "20#{$2}-#{$3}-#{$1}"
+		d = "20#{$3}-#{$1}-#{$2}"
   end
 
   #destroi o arquivo.
@@ -205,6 +205,7 @@ private
   end
 
   #forma um Array com os dias úteis de um determinado mês
+=begin
   def formar_data(mes,ano)
     @datas = []
     if mes.to_i > 9
@@ -220,24 +221,26 @@ private
       end
     end
     return @datas
-  end
+=end
 
   # Método para montar a tabela de Ponto
   def monta_tabela datas
-
+=begin
     frequencias = []
     datas.each do |date|
-      ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
+      #ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
 
       if ponto != nil
         frequencias << ponto
       else
-         ponto = Ponto.new
-         ponto[:matricula] = current_usuario.matricula
-         ponto[:data] = date
-         frequencias << ponto
+         #ponto = []
+         #ponto[:matricula] = current_usuario.matricula
+         #ponto[:data] = date
+         #frequencias << ponto
       end
     end
     return frequencias
+=end
+
   end
 end

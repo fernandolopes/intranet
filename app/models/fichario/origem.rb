@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Fichario::Origem < ActiveRecord::Base
   has_many :fichas
   before_save :deixar_maiusculo

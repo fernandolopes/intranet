@@ -1,7 +1,6 @@
 # encoding: utf-8
-class Frequencia::Frequencia < ActiveRecord::Base
-
-  def self.save(upload)
+class Frequencia::Ponto < ActiveRecord::Base
+    def self.save(upload)
       name =  upload['datafile'].original_filename
       #if name == /^.*\.(txt)$/
         directory = "public/txt"
@@ -13,5 +12,4 @@ class Frequencia::Frequencia < ActiveRecord::Base
       #  errors.add_to_base("Arquivo","tipo inválido") unless datafile.empty?
       #end
   end
-
 end

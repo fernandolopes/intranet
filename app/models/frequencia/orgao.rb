@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Frequencia::Orgao < ActiveRecord::Base
   has_many :setores
   before_save :deixar_maiusculo

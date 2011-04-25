@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Usuario < ActiveRecord::Base
   # Include default usuarios modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
