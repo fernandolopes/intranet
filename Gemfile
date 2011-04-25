@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.6'
 gem 'devise', '1.1.5'
-gem 'pg'
+gem 'mysql2'
 gem 'capistrano'
 gem 'whenever'
 gem "will_paginate", "~> 3.0.pre2"
