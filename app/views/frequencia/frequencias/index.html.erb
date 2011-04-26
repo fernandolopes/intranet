@@ -28,7 +28,6 @@
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Usuário</td>
     <td class="grid_label center">Matricula</td>
-
     <% @frequencias.each do |s| %>
         <% if @datas[0].to_s_br == s.data.strftime("%d/%m/%Y") %>
             <td class="grid_label center"><%= "Hora #{a +=1}" %></td>
