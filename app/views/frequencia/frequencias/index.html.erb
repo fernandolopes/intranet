@@ -1,13 +1,14 @@
-  <%= link_to image_tag("/images/icons/add.png", :title => "Inserir")+" Enviar Arquivo", new_frequencia_frequencia_path %><br /><br />
+<% a = 0 %>
+<%= link_to image_tag("/images/icons/add.png", :title => "Inserir")+" Enviar Arquivo", new_frequencia_frequencia_path %><br /><br />
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="13">Lista de Frequências de <%= current_usuario.nome %></td>
+    <td colspan="6">Lista de Frequências de <%= current_usuario.nome %></td>
   </tr>
-  <% form_for(:filtro, :method => 'post', :url => {:action => 'index'}) do |f| %>
+  <%= form_for(:filtro, :method => 'post', :url => {:action => 'index'}) do |f| %>
 
   <tr>
 	    <td class="grid_label center">Filtro</td>
-	    <td colspan="11" class="grid_action form_filter">
+	    <td colspan="4" class="grid_action form_filter">
 
         <div class="input_container">
           <%= f.label :data %>
@@ -15,7 +16,7 @@
                           :start_year => Date.current.year,
                           :end_year => 2000,
                           :order => [:day, :month, :year],
-                          :prompt => { :day => 'Escolha um dia', :month => 'Escolha um mês', :year => 'Escolha um ano' }
+                          :prompt => { :day => 'Dia', :month => 'Mês', :year => 'Ano' }
           %>
         </div>
   </td>
@@ -26,40 +27,44 @@
   <tr>
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Usuário</td>
-    <td class="grid_label center">Setor</td>
-    <td class="grid_label center">Profissão</td>
     <td class="grid_label center">Matricula</td>
-    <td class="grid_label center">Hora 1</td>
-    <td class="grid_label center">Hora 2</td>
-    <td class="grid_label center">Hora 3</td>
-    <td class="grid_label center">Hora 4</td>
-    <td class="grid_label center">Hora 5</td>
-    <td class="grid_label center">Hora 6</td>
+
+    <% @frequencias.each do |s| %>
+        <% if @datas[0].to_s_br == s.data.strftime("%d/%m/%Y") %>
+            <td class="grid_label center"><%= "Hora #{a +=1}" %></td>
+        <% end %>
+    <% end %>
+
     <td class="grid_label center">Total Geral</td>
-    <td class="grid_label center">Ações</td>
   </tr>
-<% @frequencia_frequencias.each do |ponto| %>
+<% @datas.each do |ponto| %>
   <tr>
-    <% usuario = Usuario.find_by_matricula(ponto[:matricula]) %>
-     <td class="grid_value center"><%= ponto[:data].to_s_br %></td>
-     <td class="grid_value center"><%= (usuario.nil?)? '-' : usuario.nome %></td>
-     <td class="grid_value center"><%= (usuario.nil?)? '-' : usuario.setor.setor %></td>
-     <td class="grid_value center"><%= (usuario.nil?)? '-' : usuario.profissao.profissao %></td>
-     <td class="grid_value center"><%= ponto[:matricula] %></td>
-     <td class="grid_value center"><%= (ponto[:hora1])? ponto[:hora1].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:hora2])? ponto[:hora2].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:hora3])? ponto[:hora3].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:hora4])? ponto[:hora4].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:hora5])? ponto[:hora5].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:hora6])? ponto[:hora6].strftime("%H:%M:%S") : '-' %></td>
-     <td class="grid_value center"><%= (ponto[:total_geral])? ponto[:total_geral].strftime("%H:%M:%S") : 'PONTO INCONSISTENTE' %></td>
-     <td class="grid_action center">
-        <%#= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), ponto %>
-        <%#= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), ponto, :confirm => 'Você tem certeza?', :method => :delete %>
-    </td>
+    <%
+       q = 0
+       total = 0
+    %>
+     <td class="grid_value center"><%= ponto.strftime("%d/%m/%Y") %></td>
+     <td class="grid_value center"><%= (current_usuario.nome.nil?)? '-' : current_usuario.nome %></td>
+     <td class="grid_value center"><%= current_usuario.matricula %></td>
+    <% @frequencias.each do |z| %>
+        <% if ponto.to_s_br == z.data.strftime("%d/%m/%Y") %>
+            <td class="grid_value center"><%= z.data.strftime("%H:%M") %></td>
+            <% total = ChronicDuration.parse(z.data.strftime("%H:%M")) - total  %>
+        <% elsif q <= 1 and (ponto.to_s_br != z.data.strftime("%d/%m/%Y"))  %>
+            <% q +=1 %>
+            <td class="grid_value center"> - </td>
+        <% end %>
+    <% end %>
+     <td class="grid_value center">
+       <% if total > 0 %>
+         <%= ChronicDuration.output(total, :format => :chrono) %>
+       <% else %>
+         Inconsistente
+       <% end %>
+     </td>
   </tr>
 <% end %>
   <tr>
-    <td class="grid_footer" colspan="13"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+    <td class="grid_footer" colspan="6"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>

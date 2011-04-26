@@ -51,9 +51,13 @@ setor = Frequencia::Setor.create([ { :orgao_id => '1', :setor => 'CPD', :descric
 
 profissao = Frequencia::Profissao.create([ { :profissao => 'Programador', :descricao => 'Desenvolvedor Web em Ruby'} ])
 
-usuario = Usuario.create([{:nome => 'Fernando', :password => 'master', :password_confirmation => 'master', :matricula => '789672', :setor_id => 1, :profissao_id => 1}])
-
-
+usuario = Usuario.create( {:email => 'fernandolopes.s@gmail.com',
+                          :password =>'master',
+                          :password_confirmation => 'master',
+                          :nome => 'Fernando',
+                          :setor_id => 1,
+                          :profissao_id => 1,
+                          :matricula => '789672' } )
 
 
 

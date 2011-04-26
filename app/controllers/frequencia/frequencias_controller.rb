@@ -11,29 +11,34 @@ class Frequencia::FrequenciasController < TemplateController
       mes = params[:filtro]['data(2i)']
       ano = params[:filtro]['data(1i)']
       if !dia.empty? and !mes.empty? and !ano.empty?
-        @data = "#{dia}/#{mes}/#{ano}"
-        @frequencia_frequencias = Ponto.order('data ASC').find_all_by_data(@data)
+        data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}"
+        @datas = [data]
+        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '789672' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
       elsif dia.empty? and !mes.empty? and !ano.empty?
-        @datas = Frequencia::DiasUteis.new("0{mes}",ano) # formar_data("0#{mes}",ano)
-        @frequencia_frequencias = monta_tabela @datas
+        @datas = Frequencia::DiasUteis.new("0#{mes}",ano).data_util # formar_data("0#{mes}",ano)
+        data_atual = "#{ano}-#{mes}-01".to_date
+        @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
       elsif dia.empty? and mes.empty? and ano.empty?
         data_atual = Time.now
         mes = data_atual.strftime("%m").to_s
         ano = data_atual.strftime("%Y").to_s
-        @datas = Frequencia::DiasUteis.new(mes,ano) # formar_data(mes,ano)
-        @frequencia_frequencias = monta_tabela @datas
-      else
-        @frequencia_frequencias = []
+        @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
+        @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
       end
     else
-      data_atual = Time.now
+      data_atual = '2011-02-01'.to_date #Time.now
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
-      @datas = Frequencia::DiasUteis.new(mes,ano) # formar_data(mes,ano)
-      @frequencia_frequencias = monta_tabela @datas
+      @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
+      @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
     end
 
-    @total = @frequencia_frequencias.count
+    #raise @datas.inspect
+    #@frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{'2011-02-01'.to_datetime.beginning_of_month}' and data <= '#{'2011-02-01'.to_datetime.end_of_month}'")
+    @total = @datas.count
+
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @frequencia_frequencias }
@@ -224,7 +229,8 @@ private
 =end
 
   # Método para montar a tabela de Ponto
-  def monta_tabela datas
+  def monta_tabela
+
 =begin
     frequencias = []
     datas.each do |date|
