@@ -13,31 +13,29 @@ class Frequencia::FrequenciasController < TemplateController
       if !dia.empty? and !mes.empty? and !ano.empty?
         data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}"
         @datas = [data]
-        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '789672' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
+        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{current_usuario.matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
       elsif dia.empty? and !mes.empty? and !ano.empty?
         @datas = Frequencia::DiasUteis.new("0#{mes}",ano).data_util # formar_data("0#{mes}",ano)
         data_atual = "#{ano}-#{mes}-01".to_date
-        @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
       elsif dia.empty? and mes.empty? and ano.empty?
         data_atual = Time.now
         mes = data_atual.strftime("%m").to_s
         ano = data_atual.strftime("%Y").to_s
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-        @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
       end
     else
       data_atual = '2011-02-01'.to_date #Time.now
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
       @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-      @frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
     end
 
-    #raise @datas.inspect
-    #@frequencias = Frequencia::Ponto.where("matricula = #{current_usuario.matricula} and data >='#{'2011-02-01'.to_datetime.beginning_of_month}' and data <= '#{'2011-02-01'.to_datetime.end_of_month}'")
     @total = @datas.count
 
-
+    @hash_final = hash_ponto(@frequencias,@datas)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -154,26 +152,20 @@ private
   def salvarPonto(hash_final)
     ponto = Ponto.create(hash_final)
   end
-=begin
+
   #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def sel_usuario(matricula)
+  def hash_ponto(select, datas)
 
-    matricula_ponto = Frequencia::Ponto.order('data ASC').find(:all, :conditions => ["matricula = '#{matricula}' "])
-
-    hash_datas = []
-    matricula_ponto.each do |matriculas|
-      hash_datas << matriculas.data.strftime("%Y-%m-%d") unless hash_datas.include?(matriculas.data.strftime("%Y-%m-%d"))
-    end
     hash_final = []
 
-    hash_datas.each do |p|
+    datas.each do |p|
       i = 0
       f = 0
-      a = {:matricula => matricula}
+      a = {}
       hora = []
       total = 0
-      matricula_ponto.each do |dados|
-        if (dados.data.strftime("%Y-%m-%d") == p)
+      select.each do |dados|
+        if (dados.data.strftime("%Y-%m-%d").to_date == p)
           i = i+1
           a[("hora#{i}").to_sym] = dados.data.strftime("%H:%M:%S")
           hora << ChronicDuration.parse(a[("hora#{i}").to_sym])
@@ -194,8 +186,8 @@ private
       hash_final << a
     end
 
-    return salvarPonto(hash_final)
-=end
+    return hash_final
+end
 
   #muda a data para o padrão americano.
   def mudar_data(data)
@@ -227,11 +219,10 @@ private
     end
     return @datas
 =end
-
+=begin
   # Método para montar a tabela de Ponto
   def monta_tabela
 
-=begin
     frequencias = []
     datas.each do |date|
       #ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
@@ -248,5 +239,5 @@ private
     return frequencias
 =end
 
-  end
+
 end
