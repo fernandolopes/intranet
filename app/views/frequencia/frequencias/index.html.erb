@@ -28,39 +28,19 @@
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Usuário</td>
     <td class="grid_label center">Matricula</td>
-    <% @frequencias.each do |s| %>
-        <% if '15/02/2011' == s.data.strftime("%d/%m/%Y") %>
-            <td class="grid_label center"><%= "Hora #{a +=1}" %></td>
-        <% end %>
-    <% end %>
+    <td class="grid_label center">Hora 1</td>
+    <td class="grid_label center">Hora 2</td>
 
     <td class="grid_label center">Total Geral</td>
   </tr>
-<% @datas.each do |ponto| %>
+<% @hash_final.each do |ponto| %>
   <tr>
-    <%
-       q = 0
-       total = 0
-    %>
-     <td class="grid_value center"><%= ponto.strftime("%d/%m/%Y") %></td>
-     <td class="grid_value center"><%= (current_usuario.nome.nil?)? '-' : current_usuario.nome %></td>
+     <td class="grid_value center"><%= ponto[:data].strftime("%d/%m/%Y") %></td>
+     <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
      <td class="grid_value center"><%= current_usuario.matricula %></td>
-    <% @frequencias.each do |z| %>
-        <% if ponto.to_s_br == z.data.strftime("%d/%m/%Y") %>
-            <td class="grid_value center"><%= z.data.strftime("%H:%M") %></td>
-            <% total = ChronicDuration.parse(z.data.strftime("%H:%M")) - total  %>
-        <% elsif q <= 1 and (ponto.to_s_br != z.data.strftime("%d/%m/%Y"))  %>
-            <% q +=1 %>
-            <td class="grid_value center"> - </td>
-        <% end %>
-    <% end %>
-     <td class="grid_value center">
-       <% if total > 0 %>
-         <%= ChronicDuration.output(total, :format => :chrono) %>
-       <% else %>
-         Inconsistente
-       <% end %>
-     </td>
+     <td class="grid_value center"><%= ponto[:hora1] %></td>
+     <td class="grid_value center"><%= ponto[:hora2] %></td>
+     <td class="grid_value center"><%= ponto[:total_geral] %></td>
   </tr>
 <% end %>
   <tr>
