@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Frequencia::ProfissoesController < TemplateController
   before_filter :authenticate_usuario!
   # GET /frequencia/profissoes

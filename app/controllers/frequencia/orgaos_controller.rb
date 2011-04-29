@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Frequencia::OrgaosController < TemplateController
   before_filter :authenticate_usuario!
   # GET /frequencia/orgaos

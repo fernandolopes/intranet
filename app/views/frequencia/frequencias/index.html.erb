@@ -38,9 +38,9 @@
      <td class="grid_value center"><%= ponto[:data].strftime("%d/%m/%Y") %></td>
      <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
      <td class="grid_value center"><%= current_usuario.matricula %></td>
-     <td class="grid_value center"><%= ponto[:hora1] %></td>
-     <td class="grid_value center"><%= ponto[:hora2] %></td>
-     <td class="grid_value center"><%= ponto[:total_geral] %></td>
+     <td class="grid_value center"><%= ponto[:hora1].blank? ? '-' : ponto[:hora1] %></td>
+     <td class="grid_value center"><%= ponto[:hora2].blank? ? '-' : ponto[:hora2] %></td>
+     <td class="grid_value center"><%= ponto[:total_geral].blank? ? 'Inconsistente' : ponto[:total_geral] %></td>
   </tr>
 <% end %>
   <tr>

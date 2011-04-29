@@ -1,7 +1,9 @@
 source 'http://rubygems.org'
+source 'http://gems.github.com'
 
 gem 'rails', '3.0.6'
 gem 'devise', '1.1.5'
+gem 'pg'
 gem 'mysql2'
 gem 'capistrano'
 gem 'whenever'
@@ -11,6 +13,7 @@ gem 'tiny_mce','0.1.4'
 gem 'brcpfcnpj'
 gem 'chronic_duration'
 #gem 'brazilian-rails'
+gem 'rails-erd' 
 
 
 # Bundle edge Rails instead:

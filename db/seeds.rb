@@ -59,6 +59,13 @@ usuario = Usuario.create( {:email => 'fernandolopes.s@gmail.com',
                           :profissao_id => 1,
                           :matricula => '789672' } )
 
+usuario = Usuario.create( {:email => 'herminio.torres@pgm.fortaleza.ce.gov.br',
+                           :password =>'master',
+                           :password_confirmation => 'master',
+                           :nome => 'Herminio',
+                           :setor_id => 1,
+                           :profissao_id => 1,
+                           :matricula => '884411' } )
 
 
 
