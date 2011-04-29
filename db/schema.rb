@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110425131544) do
+ActiveRecord::Schema.define(:version => 20110429142804) do
 
   create_table "base_conhecimentos", :force => true do |t|
     t.string   "titulo"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(:version => 20110425131544) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "frequencia_justificadas", :force => true do |t|
+    t.string   "matricula"
+    t.date     "data"
+    t.integer  "justificativa_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "frequencia_justificadas", ["justificativa_id"], :name => "index_frequencia_justificadas_on_justificativa_id"
 
   create_table "frequencia_justificativas", :force => true do |t|
     t.string   "descricao"

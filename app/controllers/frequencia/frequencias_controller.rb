@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Frequencia::FrequenciasController < TemplateController
   before_filter :authenticate_usuario!
 
@@ -175,6 +176,11 @@ private
             calculo_hora = (hora[i-1] - hora[i-2])
             hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
             a[("total#{i-f}").to_sym] = hora_total
+          else
+            justificada = Frequencia::Justificada.where("data = '#{dados.data.strftime("%Y-%m-%d")}' and matricula = '#{current_usuario.matricula}'")
+            if !justificada.empty?
+              a[:justificativa] = justificada[0].justificativa.descricao
+            end
           end
         end
         a[:data] = p
