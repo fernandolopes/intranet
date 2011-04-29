@@ -30,16 +30,24 @@
     <td class="grid_label center">Hora 1</td>
     <td class="grid_label center">Hora 2</td>
 
-    <td class="grid_label center">Total Geral</td>
+    <td class="grid_label center" style="">Total Geral</td>
   </tr>
 <% @hash_final.each do |ponto| %>
-  <tr>
+  <tr>                        <%= raise @hash_final.inspect %>
      <td class="grid_value center"><%= ponto[:data].strftime("%d/%m/%Y") %></td>
      <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
      <td class="grid_value center"><%= current_usuario.matricula %></td>
      <td class="grid_value center"><%= ponto[:hora1].blank? ? '-' : ponto[:hora1] %></td>
      <td class="grid_value center"><%= ponto[:hora2].blank? ? '-' : ponto[:hora2] %></td>
-     <td class="grid_value center"><%= ponto[:total_geral].blank? ? 'Inconsistente' : ponto[:total_geral] %></td>
+     <td class="grid_value center">
+       <% if ponto[:total_geral].blank? %>
+           <%= 'Inconsistente' %>
+       <% elsif ponto[:justificativa].blank? %>
+           <%= ponto[:justificativa] %>
+       <% else %>
+           <%=  ponto[:total_geral] %>
+       <% end %>
+     </td>
   </tr>
 <% end %>
   <tr>
