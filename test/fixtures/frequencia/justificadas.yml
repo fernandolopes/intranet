@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  matricula: MyString
+  data: 2011-04-29
+  frequencia_justificativa_id: 1
+
+two:
+  matricula: MyString
+  data: 2011-04-29
+  frequencia_justificativa_id: 1
