@@ -25,9 +25,13 @@ class Frequencia::FrequenciasController < TemplateController
         ano = data_atual.strftime("%Y").to_s
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
         @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      elsif !dia.empty? and (mes.empty? or ano.empty?)
+        redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!"
+)
+        return
       end
     else
-      data_atual = '2011-02-01'.to_date #Time.now
+      data_atual = Time.now #'2011-02-01'.to_date
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
       @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
@@ -158,8 +162,9 @@ private
   def hash_ponto(select, datas)
 
     hash_final = []
-
     datas.each do |p|
+      justificativa = Frequencia::Justificada.find_by_data(p)
+
       i = 0
       f = 0
       a = {}
@@ -178,14 +183,16 @@ private
             a[("total#{i-f}").to_sym] = hora_total
           end
         end
-        a[:data] = p
       end
+      a[:data] = p
+
       total =  total + ChronicDuration.parse(a[:total1]) if a[:total1]
       total =  total + ChronicDuration.parse(a[:total2]) if a[:total2]
       total =  total + ChronicDuration.parse(a[:total3]) if a[:total3]
       a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
-
+      a[:justificativa] = justificativa.justificativa.descricao if !justificativa.blank?
       hash_final << a
+
     end
 
 

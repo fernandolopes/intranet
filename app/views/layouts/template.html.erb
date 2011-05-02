@@ -49,6 +49,11 @@
             <% if alert %><div class="error_message"><%= alert %></div> <% end %>
         </div>
       <% end %>
+      <% if params.has_key?("flash") %>
+        <div class="system_message">
+            <div class="error_message"><%= params["flash"] %></div>
+        </div>
+      <% end %>
     <%= yield %>
 
     </div> <!-- main -->

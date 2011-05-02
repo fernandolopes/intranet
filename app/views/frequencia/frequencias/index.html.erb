@@ -6,22 +6,23 @@
   <%= form_for(:filtro, :method => 'post', :url => {:action => 'index'}) do |f| %>
 
   <tr>
-	    <td class="grid_label center">Filtro</td>
-	    <td colspan="4" class="grid_action form_filter">
+	<td class="grid_label center">Filtro</td>
+	<td colspan="4" class="grid_action form_filter">
 
         <div class="input_container">
-          <%= f.label :data %>
-          <%= f.date_select :data,
-                          :start_year => Date.current.year,
-                          :end_year => 2000,
-                          :order => [:day, :month, :year],
-                          :prompt => { :day => 'Dia', :month => 'Mês', :year => 'Ano' }
-          %>
+           <%= f.label :data %>
+           <%= f.date_select :data,
+                           :start_year => Date.current.year,
+                           :end_year => 2000,
+                           :order => [:day, :month, :year],
+                           :prompt => { :day => 'Dia', :month => 'Mês', :year => 'Ano' }
+           %>
         </div>
-  </td>
-	    <td class="grid_action center">
-		<input type="submit" value="Filtrar" name="filter" id="filter">	    </td>
-	</tr>
+    </td>
+    <td class="grid_action center">
+	  <input type="submit" value="Filtrar" name="filter" id="filter">
+    </td>
+  </tr>
   <% end %>
   <tr>
     <td class="grid_label center">Data</td>
@@ -33,16 +34,16 @@
     <td class="grid_label center" style="">Total Geral</td>
   </tr>
 <% @hash_final.each do |ponto| %>
-  <tr>                        <%= raise @hash_final.inspect %>
-     <td class="grid_value center"><%= ponto[:data].strftime("%d/%m/%Y") %></td>
+  <tr>                        <%#= raise @hash_final.inspect %>
+     <td class="grid_value center"><%= ponto[:data].blank? ? '-' : ponto[:data].strftime("%d/%m/%Y") %></td>
      <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
      <td class="grid_value center"><%= current_usuario.matricula %></td>
      <td class="grid_value center"><%= ponto[:hora1].blank? ? '-' : ponto[:hora1] %></td>
      <td class="grid_value center"><%= ponto[:hora2].blank? ? '-' : ponto[:hora2] %></td>
      <td class="grid_value center">
-       <% if ponto[:total_geral].blank? %>
+       <% if ponto[:total_geral].blank? and ponto[:justificativa].blank? %>
            <%= 'Inconsistente' %>
-       <% elsif ponto[:justificativa].blank? %>
+       <% elsif !ponto[:justificativa].blank? %>
            <%= ponto[:justificativa] %>
        <% else %>
            <%=  ponto[:total_geral] %>
