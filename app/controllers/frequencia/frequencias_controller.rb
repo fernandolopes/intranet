@@ -25,7 +25,7 @@ class Frequencia::FrequenciasController < TemplateController
         ano = data_atual.strftime("%Y").to_s
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
         @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
-      elsif !dia.empty? and (mes.empty? or ano.empty?)
+      elsif (!dia.empty? and (mes.empty? or ano.empty?) ) or mes.empty? or ano.empty?
         redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!"
 )
         return
@@ -114,10 +114,6 @@ class Frequencia::FrequenciasController < TemplateController
     end
     #destroi o arquivo.txt
     cleanup
-    #@matricula = current_usuario.matricula
-    #sel_usuario(@matricula)
-
-
 
     respond_to do |format|
       format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
@@ -194,11 +190,8 @@ private
       hash_final << a
 
     end
-
-
-
     return hash_final
-end
+  end
 
   #muda a data para o padrão americano.
   def mudar_data(data)
@@ -211,44 +204,5 @@ end
   def cleanup
     File.delete(@path) if File.exist?(@path)
   end
-
-  #forma um Array com os dias úteis de um determinado mês
-=begin
-  def formar_data(mes,ano)
-    @datas = []
-    if mes.to_i > 9
-      mes = "0#{mes}"
-    end
-    for i in (1..31)
-      valida_data = Date.valid?("#{i}/#{mes}/#{ano}")
-      d = Date.new(ano.to_i, mes.to_i, i) if valida_data
-
-      if valida_data and !(d.feriado?) and !(d.wday == 6 or d.wday == 0)
-        data = Date.new(ano.to_i, mes.to_i, i)
-        @datas << data
-      end
-    end
-    return @datas
-=end
-=begin
-  # Método para montar a tabela de Ponto
-  def monta_tabela
-
-    frequencias = []
-    datas.each do |date|
-      #ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
-
-      if ponto != nil
-        frequencias << ponto
-      else
-         #ponto = []
-         #ponto[:matricula] = current_usuario.matricula
-         #ponto[:data] = date
-         #frequencias << ponto
-      end
-    end
-    return frequencias
-=end
-
 
 end

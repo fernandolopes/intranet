@@ -3,7 +3,7 @@
   <tr class="grid_title">
     <td colspan="6">Lista de frequências de <%= @datas[0].strftime("%B") +' do usuário: '+ current_usuario.nome %></td>
   </tr>
-  <%= form_for(:filtro, :method => 'post', :url => {:action => 'index'}) do |f| %>
+<%= form_for(:filtro, :method => 'post', :url => {:action => 'index'}) do |f| %>
 
   <tr>
 	<td class="grid_label center">Filtro</td>
@@ -23,7 +23,7 @@
 	  <input type="submit" value="Filtrar" name="filter" id="filter">
     </td>
   </tr>
-  <% end %>
+<% end %>
   <tr>
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Usuário</td>
@@ -34,7 +34,7 @@
     <td class="grid_label center" style="">Total Geral</td>
   </tr>
 <% @hash_final.each do |ponto| %>
-  <tr>                        <%#= raise @hash_final.inspect %>
+  <tr>
      <td class="grid_value center"><%= ponto[:data].blank? ? '-' : ponto[:data].strftime("%d/%m/%Y") %></td>
      <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
      <td class="grid_value center"><%= current_usuario.matricula %></td>
