@@ -2,11 +2,11 @@ class Frequencia::HashPonto
   attr_accessor :hash_final
   
 #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def initialize(select, datas)
+  def initialize(select, datas, matricula)
 
     @hash_final = []
     datas.each do |data|
-      justificativa = Frequencia::Justificada.find_by_data(data)
+      justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{matricula}'")
 
       i = 0
       f = 0
@@ -31,7 +31,7 @@ class Frequencia::HashPonto
       total += ChronicDuration.parse(a[:total2]) if a[:total2]
       total += ChronicDuration.parse(a[:total3]) if a[:total3]
       a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
-      a[:justificativa] = justificativa.justificativa.descricao if !justificativa.blank?
+      a[:justificativa] = justificativa[0].justificativa.descricao if !justificativa[0].blank?
       @hash_final << a
 
     end
@@ -49,20 +49,18 @@ class Frequencia::HashPonto
     return has
   end
 
-  #fazer consulta para contar as colunas de horas
+  #retorna o número de colunas para horas
   def quant_horas
     maior = 0
     @hash_final.each do |array|
       i = 1
       array.each_key do |key|
-
-        if key == "hora#{i}"
+        if key == ("hora#{i}").to_sym
           if i > maior
             maior = i
           end
           i+=1
         end
-
       end
     end
     return maior

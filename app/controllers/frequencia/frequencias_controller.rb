@@ -12,7 +12,7 @@ class Frequencia::FrequenciasController < TemplateController
       mes = params[:filtro]['data(2i)']
       ano = params[:filtro]['data(1i)']
       if !dia.empty? and !mes.empty? and !ano.empty?
-        data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}"
+        data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}" matricula de teste 6048402
         @datas = [data]
         @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{current_usuario.matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
       elsif dia.empty? and !mes.empty? and !ano.empty?
@@ -39,7 +39,7 @@ class Frequencia::FrequenciasController < TemplateController
 
     @total = @datas.count
 
-    @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas)
+    @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,current_usuario.matricula)
 
     respond_to do |format|
       format.html # index.html.erb
