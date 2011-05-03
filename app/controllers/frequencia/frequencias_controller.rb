@@ -26,8 +26,7 @@ class Frequencia::FrequenciasController < TemplateController
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
         @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
       elsif (!dia.empty? and (mes.empty? or ano.empty?) ) or mes.empty? or ano.empty?
-        redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!"
-)
+        redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!")
         return
       end
     else
@@ -40,7 +39,7 @@ class Frequencia::FrequenciasController < TemplateController
 
     @total = @datas.count
 
-    @hash_final = hash_ponto(@frequencias,@datas)
+    @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -149,50 +148,6 @@ class Frequencia::FrequenciasController < TemplateController
   end
 
 private
-  #espelha a tabela frequencia_frequencias em pontos
-  def salvarPonto(hash_final)
-    ponto = Ponto.create(hash_final)
-  end
-
-  #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def hash_ponto(select, datas)
-
-    hash_final = []
-    datas.each do |p|
-      justificativa = Frequencia::Justificada.find_by_data(p)
-
-      i = 0
-      f = 0
-      a = {}
-      hora = []
-      total = 0
-      select.each do |dados|
-        if (dados.data.strftime("%Y-%m-%d").to_date == p)
-          i = i+1
-          a[("hora#{i}").to_sym] = dados.data.strftime("%H:%M:%S")
-          hora << ChronicDuration.parse(a[("hora#{i}").to_sym])
-          if (hora.count % 2) == 0
-            f = f+1
-
-            calculo_hora = (hora[i-1] - hora[i-2])
-            hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
-            a[("total#{i-f}").to_sym] = hora_total
-          end
-        end
-      end
-      a[:data] = p
-
-      total =  total + ChronicDuration.parse(a[:total1]) if a[:total1]
-      total =  total + ChronicDuration.parse(a[:total2]) if a[:total2]
-      total =  total + ChronicDuration.parse(a[:total3]) if a[:total3]
-      a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
-      a[:justificativa] = justificativa.justificativa.descricao if !justificativa.blank?
-      hash_final << a
-
-    end
-    return hash_final
-  end
-
   #muda a data para o padrão americano.
   def mudar_data(data)
     d = data

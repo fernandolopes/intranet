@@ -17,7 +17,7 @@
                            :order => [:day, :month, :year],
                            :prompt => { :day => 'Dia', :month => 'Mês', :year => 'Ano' }
            %>
-        </div>
+        </div>          <%= raise @obj_ponto.quant_horas.inspect %>
     </td>
     <td class="grid_action center">
 	  <input type="submit" value="Filtrar" name="filter" id="filter">
@@ -30,27 +30,31 @@
     <td class="grid_label center">Matricula</td>
     <td class="grid_label center">Hora 1</td>
     <td class="grid_label center">Hora 2</td>
-
     <td class="grid_label center" style="">Total Geral</td>
   </tr>
-<% @hash_final.each do |ponto| %>
-  <tr>
-     <td class="grid_value center"><%= ponto[:data].blank? ? '-' : ponto[:data].strftime("%d/%m/%Y") %></td>
-     <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
-     <td class="grid_value center"><%= current_usuario.matricula %></td>
-     <td class="grid_value center"><%= ponto[:hora1].blank? ? '-' : ponto[:hora1] %></td>
-     <td class="grid_value center"><%= ponto[:hora2].blank? ? '-' : ponto[:hora2] %></td>
-     <td class="grid_value center">
-       <% if ponto[:total_geral].blank? and ponto[:justificativa].blank? %>
-           <%= 'Inconsistente' %>
-       <% elsif !ponto[:justificativa].blank? %>
-           <%= ponto[:justificativa] %>
-       <% else %>
-           <%=  ponto[:total_geral] %>
-       <% end %>
-     </td>
-  </tr>
+<% unless @obj_ponto.hash_nulo? %>
+    <% @obj_ponto.hash_final.each do |ponto| %>
+      <tr>
+         <td class="grid_value center"><%= ponto[:data].blank? ? '-' : ponto[:data].strftime("%d/%m/%Y") %></td>
+         <td class="grid_value center"><%= current_usuario.nome.nil? ? '-' : current_usuario.nome %></td>
+         <td class="grid_value center"><%= current_usuario.matricula %></td>
+         <td class="grid_value center"><%= ponto[:hora1].blank? ? '-' : ponto[:hora1] %></td>
+         <td class="grid_value center"><%= ponto[:hora2].blank? ? '-' : ponto[:hora2] %></td>
+         <td class="grid_value center">
+           <% if ponto[:total_geral].blank? and ponto[:justificativa].blank? %>
+               <%= 'Inconsistente' %>
+           <% elsif !ponto[:justificativa].blank? %>
+               <%= ponto[:justificativa] %>
+           <% else %>
+               <%=  ponto[:total_geral] %>
+           <% end %>
+         </td>
+      </tr>
+    <% end %>
+<% else %>
+    <td class="grid_value center" colspan="6">nenhum dado encontrado</td>
 <% end %>
+
   <tr>
     <td class="grid_footer" colspan="6"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
