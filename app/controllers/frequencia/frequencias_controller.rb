@@ -6,25 +6,37 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias.xml
   def index
 
+    matricula = current_usuario.matricula
+    @usuario = current_usuario
+
     # Filtro para tabela
     if params.has_key?("filtro")
       dia = params[:filtro]['data(3i)']
       mes = params[:filtro]['data(2i)']
       ano = params[:filtro]['data(1i)']
       if !dia.empty? and !mes.empty? and !ano.empty?
+
         data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}" matricula de teste 6048402
         @datas = [data]
-        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{current_usuario.matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
+        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula,true)
+
       elsif dia.empty? and !mes.empty? and !ano.empty?
+
         @datas = Frequencia::DiasUteis.new("0#{mes}",ano).data_util # formar_data("0#{mes}",ano)
         data_atual = "#{ano}-#{mes}-01".to_date
-        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
+
       elsif dia.empty? and mes.empty? and ano.empty?
+
         data_atual = Time.now
         mes = data_atual.strftime("%m").to_s
         ano = data_atual.strftime("%Y").to_s
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
+
       elsif (!dia.empty? and (mes.empty? or ano.empty?) ) or mes.empty? or ano.empty?
         redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!")
         return
@@ -34,16 +46,15 @@ class Frequencia::FrequenciasController < TemplateController
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
       @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-      @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
     end
 
     @total = @datas.count
 
-    @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,current_usuario.matricula)
-
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @frequencia_frequencias }
+      format.xml  { render :xml => @hash_ponto }
     end
   end
 
