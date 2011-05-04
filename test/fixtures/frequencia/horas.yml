@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  horas: 1
+  entrada: 2011-05-04 14:19:20
+  saida: 2011-05-04 14:19:20
+  almoco: false
+
+two:
+  horas: 1
+  entrada: 2011-05-04 14:19:20
+  saida: 2011-05-04 14:19:20
+  almoco: false

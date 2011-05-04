@@ -4,6 +4,7 @@ class Usuario < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   belongs_to :setor, :class_name => 'Frequencia::Setor'
   belongs_to :profissao, :class_name => 'Frequencia::Profissao'
+  belongs_to :hora, :class_name => 'Frequencia::Hora'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -11,7 +12,7 @@ class Usuario < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessor :login
 
-  attr_accessible :login, :matricula, :setor_id, :profissao_id, :nome, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :login, :matricula, :setor_id, :profissao_id, :hora_id, :nome, :email, :password, :password_confirmation, :remember_me
 
 protected
 
