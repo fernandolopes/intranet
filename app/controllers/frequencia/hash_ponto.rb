@@ -7,8 +7,9 @@ class Frequencia::HashPonto
     @select = select
     @unico = unico
     @hash_final = []
+    @matricula = matricula
     datas.each do |data|
-      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{matricula}'")
+      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{@matricula}'")
 
       i = 0
       f = 0
@@ -32,11 +33,11 @@ class Frequencia::HashPonto
       else
         a = {:hora1 => '-', :hora2 => '-', :total_geral => 'Inconsistente'}
       end
-      #if data == "2011-02-08".to_date
+      if data == "2011-02-08".to_date
       #a.delete :hora3
-      #b = regra_horas(a)
+      a = regra_horas(a)
 
-      #end
+      end
 
       a[:data] = data
       total += ChronicDuration.parse(a[:total1]) if a[:total1]
@@ -80,11 +81,56 @@ class Frequencia::HashPonto
 
 private
   def regra_horas(a)
+    usuario = Usuario.find_all_by_matricula(@matricula)
+    usuario = usuario[0]
+
+
+    hora_trabalho = usuario.hora.horas
+    entrada = ChronicDuration.parse(usuario.hora.entrada.strftime("%H:%M:%S"))
+    saida = ChronicDuration.parse(usuario.hora.saida.strftime("%H:%M:%S"))
+    arr = []
+    maior = 0
+    menor = 100000
     for i in (1..10)
-      if a["hora#{i}".to_sym]
-        ChronicDuration.parse(a["hora#{i}".to_sym]).between?(27000,37800)
+      if !a["hora#{i}".to_sym].blank?
+
+        if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(entrada,(entrada+8900))
+
+            arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+            a.delete("hora#{i}".to_sym)
+        end
       end
+
     end
+
+    arr.each do |z|
+      maior = z if z > maior
+      menor = z if z < menor
+    end
+
+    a[:hora1] = ChronicDuration.output(menor, :format => :chrono)
+
+    maior = 0
+    menor = 100000
+    for i in (1..10)
+      if !a["hora#{i}".to_sym].blank?
+
+        if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(saida,(saida+8900))
+
+            arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+            a.delete("hora#{i}".to_sym)
+        end
+      end
+
+    end
+
+    arr.each do |z|
+      maior = z if z > maior
+      menor = z if z < menor
+    end
+    a[:hora2] = ChronicDuration.output(maior, :format => :chrono)
+
+    return a
 
   end
 
