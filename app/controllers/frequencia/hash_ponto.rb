@@ -33,11 +33,11 @@ class Frequencia::HashPonto
       else
         a = {:hora1 => '-', :hora2 => '-', :total_geral => 'Inconsistente'}
       end
-      if data == "2011-02-08".to_date
+      #if data == "2011-02-08".to_date
       #a.delete :hora3
       a = regra_horas(a)
 
-      end
+      #end
 
       a[:data] = data
       total += ChronicDuration.parse(a[:total1]) if a[:total1]
@@ -81,54 +81,55 @@ class Frequencia::HashPonto
 
 private
   def regra_horas(a)
-    usuario = Usuario.find_all_by_matricula(@matricula)
-    usuario = usuario[0]
+
+      usuario = Usuario.find_all_by_matricula(@matricula)
+      usuario = usuario[0]
 
 
-    hora_trabalho = usuario.hora.horas
-    entrada = ChronicDuration.parse(usuario.hora.entrada.strftime("%H:%M:%S"))
-    saida = ChronicDuration.parse(usuario.hora.saida.strftime("%H:%M:%S"))
-    arr = []
-    maior = 0
-    menor = 100000
-    for i in (1..10)
-      if !a["hora#{i}".to_sym].blank?
+      hora_trabalho = usuario.hora.horas
+      entrada = ChronicDuration.parse(usuario.hora.entrada.strftime("%H:%M:%S"))
+      saida = ChronicDuration.parse(usuario.hora.saida.strftime("%H:%M:%S"))
+      arr = []
+      maior = 0
+      menor = 100000
+      for i in (1..10)
+        if !a["hora#{i}".to_sym].blank? and a["hora#{i}".to_sym] != '-'
 
-        if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(entrada,(entrada+8900))
+          if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(entrada-8900,(entrada+8900))
+              arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+              a.delete("hora#{i}".to_sym)
+          end
+        end
 
-            arr << ChronicDuration.parse(a["hora#{i}".to_sym])
-            a.delete("hora#{i}".to_sym)
+      end
+
+      arr.each do |z|
+        maior = z if z > maior
+        menor = z if z < menor
+      end
+
+      a[:hora1] = ChronicDuration.output(menor, :format => :chrono) if (menor != 100000)
+
+      maior = 0
+      menor = 100000
+      for i in (1..10)
+        if !a["hora#{i}".to_sym].blank? and a["hora#{i}".to_sym] != '-'
+
+          if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(saida-8900,(saida+8900))
+
+              arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+              a.delete("hora#{i}".to_sym)
+          end
         end
       end
 
-    end
-
-    arr.each do |z|
-      maior = z if z > maior
-      menor = z if z < menor
-    end
-
-    a[:hora1] = ChronicDuration.output(menor, :format => :chrono)
-
-    maior = 0
-    menor = 100000
-    for i in (1..10)
-      if !a["hora#{i}".to_sym].blank?
-
-        if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(saida,(saida+8900))
-
-            arr << ChronicDuration.parse(a["hora#{i}".to_sym])
-            a.delete("hora#{i}".to_sym)
-        end
+      arr.each do |z|
+        maior = z if z > maior
+        menor = z if z < menor
       end
+      a[:hora2] = ChronicDuration.output(maior, :format => :chrono)
 
-    end
-
-    arr.each do |z|
-      maior = z if z > maior
-      menor = z if z < menor
-    end
-    a[:hora2] = ChronicDuration.output(maior, :format => :chrono)
+      a.delete(:hora2) if a[:hora1] == a[:hora2]
 
     return a
 
