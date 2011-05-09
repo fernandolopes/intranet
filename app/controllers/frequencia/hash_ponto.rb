@@ -16,6 +16,7 @@ class Frequencia::HashPonto
       a = {}
       hora = []
       total = 0
+
       unless @select.blank?
         select.each do |dados|
           if (dados.data.strftime("%Y-%m-%d").to_date == data)
@@ -25,8 +26,9 @@ class Frequencia::HashPonto
             if (hora.count % 2) == 0
               f += 1
               calculo_hora = (hora[i-1] - hora[i-2])
-              hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
-              a[("total#{i-f}").to_sym] = hora_total
+              #hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
+              #a[("total#{i-f}").to_sym] = hora_total
+              total += calculo_hora
             end
           end
         end
@@ -36,13 +38,12 @@ class Frequencia::HashPonto
       #if data == "2011-02-08".to_date
       #a.delete :hora3
       a = regra_horas(a)
-
       #end
 
       a[:data] = data
-      total += ChronicDuration.parse(a[:total1]) if a[:total1]
-      total += ChronicDuration.parse(a[:total2]) if a[:total2]
-      total += ChronicDuration.parse(a[:total3]) if a[:total3]
+      #total += ChronicDuration.parse(a[:total1]) if a[:total1]
+      #total += ChronicDuration.parse(a[:total2]) if a[:total2]
+      #total += ChronicDuration.parse(a[:total3]) if a[:total3]
       a[:total_geral] = ChronicDuration.output(total, :format => :chrono) if a[:total_geral].blank?
       a[:justificativa] = @justificativa[0].justificativa.descricao if !@justificativa[0].blank?
       @hash_final << a
@@ -80,8 +81,20 @@ class Frequencia::HashPonto
   end
 
 private
+  # Remove os pontos batidos duas vezes.
   def regra_horas(a)
 
+    if !a.blank? && a[:total_geral] != "Inconsistente"
+      a.each_value do |z|
+        a.each do |y|
+          if ChronicDuration.parse(y[1]).between?(ChronicDuration.parse(z)+1,(ChronicDuration.parse(z)+800))
+             a.delete(y[0])
+          end
+        end
+      end
+    end
+
+=begin
       usuario = Usuario.find_all_by_matricula(@matricula)
       usuario = usuario[0]
 
@@ -130,7 +143,7 @@ private
       a[:hora2] = ChronicDuration.output(maior, :format => :chrono)
 
       a.delete(:hora2) if a[:hora1] == a[:hora2]
-
+=end
     return a
 
   end
