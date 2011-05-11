@@ -6,28 +6,39 @@ class Frequencia::FrequenciasController < TemplateController
   # GET /frequencia/frequencias.xml
   def index
 
+    matricula = current_usuario.matricula
+    @usuario = current_usuario
+
     # Filtro para tabela
     if params.has_key?("filtro")
       dia = params[:filtro]['data(3i)']
       mes = params[:filtro]['data(2i)']
       ano = params[:filtro]['data(1i)']
       if !dia.empty? and !mes.empty? and !ano.empty?
-        data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}"
+
+        data = "#{ano}-#{mes}-#{dia}".to_date # "#{dia}/#{mes}/#{ano}" matricula de teste 6048402
         @datas = [data]
-        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{current_usuario.matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
+        @frequencias = Frequencia::Ponto.find_by_sql("SELECT * FROM frequencia_pontos where matricula = '#{matricula}' and date_format(data,'%Y-%m-%e') = '#{data.strftime("%Y-%m-%d")}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula,true)
+
       elsif dia.empty? and !mes.empty? and !ano.empty?
+
         @datas = Frequencia::DiasUteis.new("0#{mes}",ano).data_util # formar_data("0#{mes}",ano)
         data_atual = "#{ano}-#{mes}-01".to_date
-        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
+
       elsif dia.empty? and mes.empty? and ano.empty?
+
         data_atual = Time.now
         mes = data_atual.strftime("%m").to_s
         ano = data_atual.strftime("%Y").to_s
         @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-        @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
-      elsif !dia.empty? and (mes.empty? or ano.empty?)
-        redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!"
-)
+        @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+        @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
+
+      elsif (!dia.empty? and (mes.empty? or ano.empty?) ) or mes.empty? or ano.empty?
+        redirect_to(:controller => "frequencia/frequencias", :action => "index", :status=> :found, :flash => "Erro ao escolher uma data!")
         return
       end
     else
@@ -35,16 +46,15 @@ class Frequencia::FrequenciasController < TemplateController
       mes = data_atual.strftime("%m").to_s
       ano = data_atual.strftime("%Y").to_s
       @datas = Frequencia::DiasUteis.new(mes,ano).data_util # formar_data(mes,ano)
-      @frequencias = Frequencia::Ponto.where("matricula = '#{current_usuario.matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      @frequencias = Frequencia::Ponto.where("matricula = '#{matricula}' and data >='#{data_atual.to_datetime.beginning_of_month}' and data <= '#{data_atual.to_datetime.end_of_month}'")
+      @obj_ponto = Frequencia::HashPonto.new(@frequencias,@datas,matricula)
     end
 
     @total = @datas.count
 
-    @hash_final = hash_ponto(@frequencias,@datas)
-
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @frequencia_frequencias }
+      format.xml  { render :xml => @hash_ponto }
     end
   end
 
@@ -114,10 +124,6 @@ class Frequencia::FrequenciasController < TemplateController
     end
     #destroi o arquivo.txt
     cleanup
-    #@matricula = current_usuario.matricula
-    #sel_usuario(@matricula)
-
-
 
     respond_to do |format|
       format.html { redirect_to(frequencia_frequencias_path, :notice => 'Lista de frequencia enviada com sucesso.') }
@@ -153,53 +159,6 @@ class Frequencia::FrequenciasController < TemplateController
   end
 
 private
-  #espelha a tabela frequencia_frequencias em pontos
-  def salvarPonto(hash_final)
-    ponto = Ponto.create(hash_final)
-  end
-
-  #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def hash_ponto(select, datas)
-
-    hash_final = []
-    datas.each do |p|
-      justificativa = Frequencia::Justificada.find_by_data(p)
-
-      i = 0
-      f = 0
-      a = {}
-      hora = []
-      total = 0
-      select.each do |dados|
-        if (dados.data.strftime("%Y-%m-%d").to_date == p)
-          i = i+1
-          a[("hora#{i}").to_sym] = dados.data.strftime("%H:%M:%S")
-          hora << ChronicDuration.parse(a[("hora#{i}").to_sym])
-          if (hora.count % 2) == 0
-            f = f+1
-
-            calculo_hora = (hora[i-1] - hora[i-2])
-            hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
-            a[("total#{i-f}").to_sym] = hora_total
-          end
-        end
-      end
-      a[:data] = p
-
-      total =  total + ChronicDuration.parse(a[:total1]) if a[:total1]
-      total =  total + ChronicDuration.parse(a[:total2]) if a[:total2]
-      total =  total + ChronicDuration.parse(a[:total3]) if a[:total3]
-      a[:total_geral] = ChronicDuration.output(total, :format => :chrono)
-      a[:justificativa] = justificativa.justificativa.descricao if !justificativa.blank?
-      hash_final << a
-
-    end
-
-
-
-    return hash_final
-end
-
   #muda a data para o padrão americano.
   def mudar_data(data)
     d = data
@@ -211,44 +170,5 @@ end
   def cleanup
     File.delete(@path) if File.exist?(@path)
   end
-
-  #forma um Array com os dias úteis de um determinado mês
-=begin
-  def formar_data(mes,ano)
-    @datas = []
-    if mes.to_i > 9
-      mes = "0#{mes}"
-    end
-    for i in (1..31)
-      valida_data = Date.valid?("#{i}/#{mes}/#{ano}")
-      d = Date.new(ano.to_i, mes.to_i, i) if valida_data
-
-      if valida_data and !(d.feriado?) and !(d.wday == 6 or d.wday == 0)
-        data = Date.new(ano.to_i, mes.to_i, i)
-        @datas << data
-      end
-    end
-    return @datas
-=end
-=begin
-  # Método para montar a tabela de Ponto
-  def monta_tabela
-
-    frequencias = []
-    datas.each do |date|
-      #ponto = Ponto.find_by_data(date.strftime("%Y-%m-%d"))
-
-      if ponto != nil
-        frequencias << ponto
-      else
-         #ponto = []
-         #ponto[:matricula] = current_usuario.matricula
-         #ponto[:data] = date
-         #frequencias << ponto
-      end
-    end
-    return frequencias
-=end
-
 
 end

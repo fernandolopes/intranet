@@ -14,6 +14,7 @@ gem 'brcpfcnpj'
 gem 'chronic_duration'
 #gem 'brazilian-rails'
 gem 'rails-erd' 
+gem 'redcar'
 
 
 # Bundle edge Rails instead:
