@@ -1,4 +1,5 @@
 class Usuarios::ListaController < TemplateController
+	#load_and_authorize_resource
   before_filter :authenticate_usuario!
 
   # GET /fichario/fichas
@@ -6,6 +7,8 @@ class Usuarios::ListaController < TemplateController
   def index
      @usuarios = Usuario.order('id ASC').paginate :page => params[:page], :per_page => 10
      @total = Usuario.all.count
+
+		 unauthorized! if cannot? :index
 
     respond_to do |format|
       format.html # index.html.erb

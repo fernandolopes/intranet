@@ -21,7 +21,9 @@
         <div id="menu">
             <%= link_to "Início", home_index_path %>
             <%= link_to "Fichário", fichario_index_index_path %>
-            <%= link_to "Usuários", usuarios_lista_path %>
+<% if current_usuario.role.eql?("administrador") || current_usuario.role.eql?("moderador") %>
+  <%= link_to "Usuários", usuarios_lista_path %>
+<% end %>
             <%= link_to "Frequência", frequencia_path %>
             <%= link_to "Conhecimento", base_conhecimentos_path %>
 

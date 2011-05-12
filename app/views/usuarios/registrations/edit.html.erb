@@ -28,6 +28,8 @@
         <p><%= f.label :current_password, "Senha atual" %> <i>(precisamos de sua senha atual para confirmar as alterações)</i><br />
         <%= f.password_field :current_password %></p>
 
+				<%= f.collection_select :role, Usuario::ROLES, :to_s, :humanize %>
+
         <p><%= f.submit "Atualizar" %></p>
     <% end %>
 

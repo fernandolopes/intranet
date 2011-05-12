@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110504172023) do
+ActiveRecord::Schema.define(:version => 20110504171919) do
 
   create_table "base_conhecimentos", :force => true do |t|
     t.string   "titulo"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(:version => 20110504172023) do
 
   create_table "fichario_origens", :force => true do |t|
     t.string   "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "frequencia_frequencias", :force => true do |t|
+    t.datetime "data"
+    t.string   "matricula"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,11 +151,9 @@ ActiveRecord::Schema.define(:version => 20110504172023) do
     t.integer  "setor_id"
     t.integer  "profissao_id"
     t.string   "matricula"
-    t.integer  "hora_id"
   end
 
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
-  add_index "usuarios", ["hora_id"], :name => "index_usuarios_on_hora_id"
   add_index "usuarios", ["profissao_id"], :name => "index_usuarios_on_profissao_id"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
   add_index "usuarios", ["setor_id"], :name => "index_usuarios_on_setor_id"
