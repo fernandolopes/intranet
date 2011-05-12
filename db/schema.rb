@@ -70,6 +70,13 @@ ActiveRecord::Schema.define(:version => 20110504172023) do
     t.datetime "updated_at"
   end
 
+  create_table "frequencia_frequencias", :force => true do |t|
+    t.datetime "data"
+    t.string   "matricula"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "frequencia_horas", :force => true do |t|
     t.integer  "horas"
     t.time     "entrada"
