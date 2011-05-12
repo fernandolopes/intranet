@@ -2,6 +2,9 @@
 class Usuario < ActiveRecord::Base
   # Include default usuarios modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
+
+	ROLES = %w[administrador moderator usuario]
+
   belongs_to :setor, :class_name => 'Frequencia::Setor'
   belongs_to :profissao, :class_name => 'Frequencia::Profissao'
   belongs_to :hora, :class_name => 'Frequencia::Hora'

@@ -65,7 +65,7 @@ usuario = Usuario.create( {:email => 'herminio.torres@pgm.fortaleza.ce.gov.br',
                            :nome => 'Herminio',
                            :setor_id => 1,
                            :profissao_id => 1,
-                           :matricula => '884411' } )
+                           :matricula => '84411' } )
 
 
 

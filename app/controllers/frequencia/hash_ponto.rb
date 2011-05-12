@@ -7,14 +7,16 @@ class Frequencia::HashPonto
     @select = select
     @unico = unico
     @hash_final = []
+    @matricula = matricula
     datas.each do |data|
-      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{matricula}'")
+      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{@matricula}'")
 
       i = 0
       f = 0
       a = {}
       hora = []
       total = 0
+
       unless @select.blank?
         select.each do |dados|
           if (dados.data.strftime("%Y-%m-%d").to_date == data)
@@ -24,8 +26,9 @@ class Frequencia::HashPonto
             if (hora.count % 2) == 0
               f += 1
               calculo_hora = (hora[i-1] - hora[i-2])
-              hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
-              a[("total#{i-f}").to_sym] = hora_total
+              #hora_total = ChronicDuration.output(calculo_hora, :format => :chrono)
+              #a[("total#{i-f}").to_sym] = hora_total
+              total += calculo_hora
             end
           end
         end
@@ -34,14 +37,13 @@ class Frequencia::HashPonto
       end
       #if data == "2011-02-08".to_date
       #a.delete :hora3
-      #b = regra_horas(a)
-
+      a = regra_horas(a)
       #end
 
       a[:data] = data
-      total += ChronicDuration.parse(a[:total1]) if a[:total1]
-      total += ChronicDuration.parse(a[:total2]) if a[:total2]
-      total += ChronicDuration.parse(a[:total3]) if a[:total3]
+      #total += ChronicDuration.parse(a[:total1]) if a[:total1]
+      #total += ChronicDuration.parse(a[:total2]) if a[:total2]
+      #total += ChronicDuration.parse(a[:total3]) if a[:total3]
       a[:total_geral] = ChronicDuration.output(total, :format => :chrono) if a[:total_geral].blank?
       a[:justificativa] = @justificativa[0].justificativa.descricao if !@justificativa[0].blank?
       @hash_final << a
@@ -79,12 +81,70 @@ class Frequencia::HashPonto
   end
 
 private
+  # Remove os pontos batidos duas vezes.
   def regra_horas(a)
-    for i in (1..10)
-      if a["hora#{i}".to_sym]
-        ChronicDuration.parse(a["hora#{i}".to_sym]).between?(27000,37800)
+
+    if !a.blank? && a[:total_geral] != "Inconsistente"
+      a.each_value do |z|
+        a.each do |y|
+          if ChronicDuration.parse(y[1]).between?(ChronicDuration.parse(z)+1,(ChronicDuration.parse(z)+800))
+             a.delete(y[0])
+          end
+        end
       end
     end
+
+=begin
+      usuario = Usuario.find_all_by_matricula(@matricula)
+      usuario = usuario[0]
+
+
+      hora_trabalho = usuario.hora.horas
+      entrada = ChronicDuration.parse(usuario.hora.entrada.strftime("%H:%M:%S"))
+      saida = ChronicDuration.parse(usuario.hora.saida.strftime("%H:%M:%S"))
+      arr = []
+      maior = 0
+      menor = 100000
+      for i in (1..10)
+        if !a["hora#{i}".to_sym].blank? and a["hora#{i}".to_sym] != '-'
+
+          if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(entrada-8900,(entrada+8900))
+              arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+              a.delete("hora#{i}".to_sym)
+          end
+        end
+
+      end
+
+      arr.each do |z|
+        maior = z if z > maior
+        menor = z if z < menor
+      end
+
+      a[:hora1] = ChronicDuration.output(menor, :format => :chrono) if (menor != 100000)
+
+      maior = 0
+      menor = 100000
+      for i in (1..10)
+        if !a["hora#{i}".to_sym].blank? and a["hora#{i}".to_sym] != '-'
+
+          if ChronicDuration.parse(a["hora#{i}".to_sym]).between?(saida-8900,(saida+8900))
+
+              arr << ChronicDuration.parse(a["hora#{i}".to_sym])
+              a.delete("hora#{i}".to_sym)
+          end
+        end
+      end
+
+      arr.each do |z|
+        maior = z if z > maior
+        menor = z if z < menor
+      end
+      a[:hora2] = ChronicDuration.output(maior, :format => :chrono)
+
+      a.delete(:hora2) if a[:hora1] == a[:hora2]
+=end
+    return a
 
   end
 
