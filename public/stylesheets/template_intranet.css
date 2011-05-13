@@ -71,9 +71,10 @@ div#main h2 {
 }
 
 div#barra_tarefas {
-	border: 1px solid #333;
+/*	border: 1px solid #333;
 	padding: 0px 10px;
 	background: #FFF url("../images/menu_background.jpg") left bottom repeat-x;
+  */
 }
 
 div#barra_tarefas a:hover{

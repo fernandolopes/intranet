@@ -1,9 +1,9 @@
-# Use this hook to configure usuarios mailer, warden hooks and so forth. The first
+# Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "please-change-me@config-initializers-usuarios.com"
+  config.mailer_sender = "please-change-me@config-initializers-devise.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -20,7 +20,7 @@ Devise.setup do |config|
   # authenticating an user, both parameters are required. Remember that those
   # parameters are used only when authenticating and not when retrieving from
   # session. If you need permissions, you should implement that in a before filter.
-   config.authentication_keys = [ :login ]
+  config.authentication_keys = [ :login ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
@@ -46,7 +46,7 @@ Devise.setup do |config|
   config.encryptor = :bcrypt
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "31675305b23ee520df7bfd6e4097b7d99ceba0aa32f789b497ef0ed218b4c7422d5306aac868eccd120e0d4e81f90a0a686c404d96463bad973508a2fa42dd38"
+  config.pepper = "ec3eafc40448aa840ac8468345c04af54a98412089e9451d2581ad7e155215990261cb1632a76724ac5fb23794b213daddffcf859bf25e7cc3f2155f7ede9a80"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
@@ -110,7 +110,7 @@ Devise.setup do |config|
   # config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
-  # usuarios role declared in your routes.
+  # devise role declared in your routes.
   # config.default_scope = :user
 
   # Configure sign_out behavior. 

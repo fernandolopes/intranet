@@ -1,5 +1,5 @@
 class Frequencia::JustificativasController < TemplateController
-    before_filter :authenticate_usuario!
+    before_filter :authenticate_user!
   # GET /frequencia/justificativas
   # GET /frequencia/justificativas.xml
   def index

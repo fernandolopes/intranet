@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Frequencia::OrgaosController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   # GET /frequencia/orgaos
   # GET /frequencia/orgaos.xml
   def index

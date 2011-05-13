@@ -95,13 +95,13 @@ private
     end
 
 =begin
-      usuario = Usuario.find_all_by_matricula(@matricula)
-      usuario = usuario[0]
+      user = user.find_all_by_matricula(@matricula)
+      user = user[0]
 
 
-      hora_trabalho = usuario.hora.horas
-      entrada = ChronicDuration.parse(usuario.hora.entrada.strftime("%H:%M:%S"))
-      saida = ChronicDuration.parse(usuario.hora.saida.strftime("%H:%M:%S"))
+      hora_trabalho = user.hora.horas
+      entrada = ChronicDuration.parse(user.hora.entrada.strftime("%H:%M:%S"))
+      saida = ChronicDuration.parse(user.hora.saida.strftime("%H:%M:%S"))
       arr = []
       maior = 0
       menor = 100000

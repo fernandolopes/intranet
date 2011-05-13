@@ -1,0 +1,49 @@
+<div style="width:800px;height:500px;">
+
+    <div class="tela2">
+
+    </div>
+    <div id="tela">
+
+      <h2>Acesso</h2>
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <table class="form">
+        <tr>
+          <td class="form_title" colspan="2">Informações de Login</td>
+        </tr>
+        <% if alert %>
+            <tr>
+              <td colspan="2" class="alert">
+                <%= alert %>
+              </td>
+            </tr>
+        <% elsif notice %>
+            <tr>
+              <td colspan="2" class="notice">
+                <%= notice %>
+              </td>
+            </tr>
+        <% end %>
+        <tr>
+          <td class="form_label right">Matrícula:</td>
+          <td class="form_field">
+            <input type="text" value="" size="" name="user[login]" id="user_login" />
+          </td>
+        </tr>
+        <tr>
+          <td class="form_label right">Senha:</td>
+          <td class="form_field">
+            <input type="password" size="" name="user[password]" id="user_password" />
+          </td>
+        </tr>
+        <tr>
+          <td class="form_footer" colspan="2">
+            <%= f.submit "Entrar" %>
+              
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+
+</div>

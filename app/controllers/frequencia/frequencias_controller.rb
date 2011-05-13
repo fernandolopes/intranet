@@ -1,13 +1,13 @@
 # encoding: utf-8
 class Frequencia::FrequenciasController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
 
   # GET /frequencia/frequencias
   # GET /frequencia/frequencias.xml
   def index
 
-    matricula = current_usuario.matricula
-    @usuario = current_usuario
+    matricula = current_user.matricula
+    @user = current_user
 
     # Filtro para tabela
     if params.has_key?("filtro")

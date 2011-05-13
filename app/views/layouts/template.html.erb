@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :all %>
   <%= csrf_meta_tag %>
+  
   <link href="/favicon.ico" type="image/x-icon" rel="icon">
 </head>
 <body>
@@ -18,27 +19,73 @@
 
     <div id="barra_tarefas">
 
-        <div id="menu">
-            <%= link_to "Início", home_index_path %>
-            <%= link_to "Fichário", fichario_index_index_path %>
-<% if current_usuario.role.eql?("administrador") || current_usuario.role.eql?("moderador") %>
-  <%= link_to "Usuários", usuarios_lista_path %>
-<% end %>
-            <%= link_to "Frequência", frequencia_path %>
-            <%= link_to "Conhecimento", base_conhecimentos_path %>
+<!--    <div id="menu">
+            <%#= link_to "Início", home_index_path %>
+            <%#= link_to "Fichário", fichario_index_index_path %>
+            <%# if current_user.role.eql?("administrador") || current_user.role.eql?("moderador") %>
+  <%#= link_to "Usuários", users_lista_path %>
+<%# end %>
+            <%#= link_to "Frequência", frequencia_path %>
+            <%#= link_to "Conhecimento", base_conhecimentos_path %>
 
             <div class="clear"></div>
         </div>
 
         <div id="session_info">
-          <%= link_to image_tag("/images/icons/status_online.png")+current_usuario.email,
-                      edit_usuario_registration_path %>
-          <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
-                      destroy_usuario_session_path %>
+          <%#= link_to image_tag("/images/icons/status_online.png")+current_user.email,
+                      edit_user_registration_path %>
+          <%#= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
+                      destroy_user_session_path %>
 
             <div class="clear"></div>
-        </div>
-
+        </div> -->
+        
+<ul style="left: 0; top: 250px; width: 99.9%;" class="jd_menu jd_menu_slate jd_menu_flag_root">
+				<li class="">Item One »
+					<ul>
+						<li>Item One » 
+						<ul>
+							<li>Item One » 
+							<ul>
+								<li>Item One</li>
+								<li>Item Two</li>
+								<li>Item Three</li>
+								<li>Item Four</li>
+								<li>Item Five</li>
+							</ul>
+							</li>
+							<li>Item Two</li>
+							<li>Item Three</li>
+							<li>Item Four</li>
+							<li>Item Five</li>
+						</ul>
+						</li>
+						<li>Item Two</li>
+						<li>Item Three</li>
+						<li>Item Four</li>
+						<li>Item Five</li>
+					</ul>
+				</li>
+				<li class="">Item Two »
+					<ul>
+						<li>Item One</li>
+						<li>Item Two</li>
+						<li>Item Three</li>
+						<li>Item Four</li>
+						<li>Item Five</li>
+					</ul>
+				</li>
+				<li>Item Three »
+					<ul>
+						<li>Item One</li>
+						<li>Item Two</li>
+						<li>Item Three</li>
+						<li>Item Four</li>
+						<li>Item Five</li>
+					</ul>
+				</li>
+			</ul>
+      
         <div class="clear"></div>
 
     </div> <!-- barra_tarefas -->

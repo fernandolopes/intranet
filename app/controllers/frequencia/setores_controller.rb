@@ -1,5 +1,5 @@
 class Frequencia::SetoresController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   # GET /frequencia/setores
   # GET /frequencia/setores.xml
   def index

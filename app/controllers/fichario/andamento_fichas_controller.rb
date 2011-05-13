@@ -1,5 +1,5 @@
 class Fichario::AndamentoFichasController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   # GET /fichario/andamento_fichas
   # GET /fichario/andamento_fichas.xml
   def index

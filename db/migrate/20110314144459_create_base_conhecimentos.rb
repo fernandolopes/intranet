@@ -3,11 +3,11 @@ class CreateBaseConhecimentos < ActiveRecord::Migration
     create_table :base_conhecimentos do |t|
       t.string :titulo
       t.text :descricao
-      t.integer :usuario_id
+      t.integer :user_id
 
       t.timestamps
     end
-    add_index(:base_conhecimentos, :usuario_id)
+    add_index(:base_conhecimentos, :user_id)
   end
 
   def self.down

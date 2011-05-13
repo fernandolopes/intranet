@@ -1,5 +1,5 @@
 class Base::ConhecimentosController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   uses_tiny_mce
   # GET /base/conhecimentos
   # GET /base/conhecimentos.xml

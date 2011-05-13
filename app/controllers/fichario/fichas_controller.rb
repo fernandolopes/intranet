@@ -1,5 +1,5 @@
 class Fichario::FichasController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   before_filter :load_assuntos, :only => [:new, :edit, :create, :update]
   before_filter :load_origens, :only => [:new, :edit, :create, :update]
   

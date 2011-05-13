@@ -1,11 +1,11 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(usuario)
-
-		@usuario = usuario || Usuario.new
+  def initialize(user)
+  
+		@user = user || User.new
 		
-		can :manage, :all if @usuario.role == "administrador"
+		can :manage, :all if @user.role == "administrador"
 
     # Define abilities for the passed in user here. For example:
     #

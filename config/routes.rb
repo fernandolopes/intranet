@@ -24,16 +24,16 @@ Intranet::Application.routes.draw do  resources :home
   end
 
   match 'frequencia/frequencias/index' => 'frequencia/frequencias#index'
-  match 'usuarios/lista' => "usuarios/Lista#index"
+  match 'users/lista' => "users/lista#index"
 
-  match 'usuarios/:id(.:format)/destroy' => "usuarios/Lista#destroy"
+  match 'users/:id(.:format)/destroy' => "users/lista#destroy"
 
-  match 'frequencia' => "frequencia/Index#index"
-  match 'fichario' => "fichario/Index#index"
+  match 'frequencia' => "frequencia/index#index"
+  match 'fichario' => "fichario/index#index"
 
-  #devise_for :usuarios, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" }
-  devise_for :usuarios, :path_names => { :edit => "editar", :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" },
-             :controllers => { :sessions => "usuarios/sessions", :registrations => "usuarios/registrations" }
+  #devise_for :users, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" }
+  devise_for :users, :path_names => { :edit => "editar", :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" },
+             :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }
 
 
 

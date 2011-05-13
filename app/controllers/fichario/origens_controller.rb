@@ -1,5 +1,5 @@
 class Fichario::OrigensController < TemplateController
-  before_filter :authenticate_usuario!
+  before_filter :authenticate_user!
   # GET /fichario/origens
   # GET /fichario/origens.xml
   def index
