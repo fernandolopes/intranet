@@ -2,9 +2,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #before_filter :authenticate_user!
   prepend_before_filter :require_no_authentication, :only => [ :cancel ]
   prepend_before_filter :authenticate_scope!, :only => [:edit, :new, :create, :update, :destroy]
+ #load_and_authorize_resource
 
   # GET /resource/sign_up
   def new
+    #@user = current_user
+    #unauthorized! if cannot? :index, @user
+    authorize! :index, @puser
+
     build_resource({})
     render_with_scope :new
   end

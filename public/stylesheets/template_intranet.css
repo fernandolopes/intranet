@@ -75,6 +75,12 @@ div#barra_tarefas {
 	padding: 0px 10px;
 	background: #FFF url("../images/menu_background.jpg") left bottom repeat-x;
   */
+
+    background: url("../images/menu_background.jpg") repeat-x scroll left bottom #FFFFFF;
+    border-style: solid;
+    border-width: 1px;
+    clear: both;
+    height: 19px;
 }
 
 div#barra_tarefas a:hover{
@@ -97,14 +103,13 @@ div#menu a {
 div#session_info {
 	display: block;
 	float: right;
-  font-weight: bold;
 }
 
 div#session_info a {
 	display: block;
 	float: left;
 	padding: 4px 6px;
-	color: #FFF;
+	color: #000;
 }
 
 div#session_info a img {

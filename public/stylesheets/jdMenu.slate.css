@@ -1,10 +1,8 @@
 ul.jd_menu_slate {
 	height: 19px;
-	background-color: #DDF;
+
 	background: url("../images/menu_background.jpg") repeat-x scroll left bottom #FFFFFF;
-	border: 1px solid #70777D;
-	border-top: 1px solid #A5AFB8;
-	border-left: 1px solid #A5AFB8;
+
 	clear: both;
 }
 

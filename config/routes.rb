@@ -1,6 +1,6 @@
 Intranet::Application.routes.draw do  resources :home
 
-  get "fichario/index/index"
+ # get "fichario/index/index"
   get "frequencia/frequencias/index"
 
   namespace :fichario do
@@ -23,13 +23,13 @@ Intranet::Application.routes.draw do  resources :home
     resources :conhecimentos
   end
 
-  match 'frequencia/frequencias/index' => 'frequencia/frequencias#index'
+  #match 'frequencia/frequencias/index' => 'frequencia/frequencias#index'
   match 'users/lista' => "users/lista#index"
 
   match 'users/:id(.:format)/destroy' => "users/lista#destroy"
 
-  match 'frequencia' => "frequencia/index#index"
-  match 'fichario' => "fichario/index#index"
+  #match 'frequencia' => "frequencia/index#index"
+  #match 'fichario' => "fichario/index#index"
 
   #devise_for :users, :path_names => { :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" }
   devise_for :users, :path_names => { :edit => "editar", :sign_in => "login", :sign_up => "registrar", :sign_out => "sair" },

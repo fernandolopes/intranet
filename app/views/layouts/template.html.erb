@@ -1,102 +1,93 @@
+<!-- Designer: Fernando Lopes -->
+<!-- Programador> Fernando Lopes -->
+<!-- Email: fernandolopes.s@gmail.com -->
+<!-- Twitter: fernandolopes11 -->
+
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+  <meta charset="UTF-8">
   <title>Intranet</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :all %>
   <%= csrf_meta_tag %>
-    <%= favicon_link_tag %>
- <!--  <link href="/favicon.ico" type="image/x-icon" rel="icon"> -->
+  <%= favicon_link_tag %>
 </head>
 <body>
-<div id="container">
-    <div id="header">
+    <div id="container">
+        <div id="header">
 
-        <!--<h1>Intranet da Procuradoria Geral do Município</h1>-->
-<div id="session_info">
-          <%= link_to image_tag("/images/icons/status_online.png")+current_user.email,
-                      edit_user_registration_path %>
-          <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
-                      destroy_user_session_path %>
-
-            <div class="clear"></div>
-        </div>
-    </div> <!-- header -->
-    <div class="clear"></div>
-
-    <div id="barra_tarefas">
-
-<!--    <div id="menu">
-            <%#= link_to "Início", home_index_path %>
-            <%#= link_to "Fichário", fichario_index_index_path %>
-            <%# if current_user.role.eql?("administrador") || current_user.role.eql?("moderador") %>
-  <%#= link_to "Usuários", users_lista_path %>
-<%# end %>
-            <%#= link_to "Frequência", frequencia_path %>
-            <%#= link_to "Conhecimento", base_conhecimentos_path %>
-
-            <div class="clear"></div>
-        </div>
-
-        <div id="session_info">
-          <%#= link_to image_tag("/images/icons/status_online.png")+current_user.email,
-                      edit_user_registration_path %>
-          <%#= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
-                      destroy_user_session_path %>
-
-            <div class="clear"></div>
-        </div> -->
-<ul style="left: 0; top: 250px; width: 99.9%;" class="jd_menu jd_menu_slate jd_menu_flag_root">
-  <li><%= link_to "Início", home_index_path %></li>
-				<li class="">Fichário »
-					<ul>
-            <li><%= link_to "Fichas", fichario_fichas_path %></li>
-						<li><%= link_to "Andamentos", fichario_andamento_fichas_path %></li>
-						<li><%= link_to "Assuntos", fichario_assuntos_path %></li>
-						<li><%= link_to "Origens", fichario_origens_path %></li>
-						<li><%= link_to "Tipos de andamentos", fichario_andamentos_path %></li>
-					</ul>
-				</li>
-        <% if current_user.role.eql?("administrador") || current_user.role.eql?("moderador") %>
-          <li><%= link_to "Usuários", users_lista_path %></li>
-        <% end %>
-				<li class="">Frequência »
-					<ul>
-            <li><%= link_to "Cadastrar Orgãos", frequencia_orgaos_path %></li>
-            <li><%= link_to "Cadastrar Setores", frequencia_setores_path %></li>
-            <li><%= link_to "Cadastrar Profissões", frequencia_profissoes_path %></li>
-            <li><%= link_to "Cadastrar Justificativas", frequencia_justificativas_path %></li>
-            <li><%= link_to "Lista Frequência", frequencia_frequencias_path%></li>
-					</ul>
-				</li>
-        <li><%= link_to "Conhecimento", base_conhecimentos_path %></li>
-			</ul>
+        </div> <!-- header -->
         <div class="clear"></div>
 
-    </div> <!-- barra_tarefas -->
-    <div class="clear"></div>
+        <div id="barra_tarefas">
 
-    <div id="main">
-      <% if notice or alert %>
-        <div class="system_message">
-            <% if notice %><div class="success_message"><%= notice %></div> <% end %>
-            <% if alert %><div class="error_message"><%= alert %></div> <% end %>
-        </div>
-      <% end %>
-      <% if params.has_key?("flash") %>
-        <div class="system_message">
-            <div class="error_message"><%= params["flash"] %></div>
-        </div>
-      <% end %>
-    <%= yield %>
+          <!-- Barra de menu begin -->
+            <div style="float: left; width: 70%; background-color: black">
+                <ul class="jd_menu jd_menu_slate jd_menu_flag_root" style="left: 0; top: 250px; width: 100%;">
+                    <li><%= link_to "Início", home_index_path %></li>
+                    <% if can? :delete, Fichario::Ficha %>
+                        <li class="">Fichário »
+                            <ul>
+                                <li><%= link_to "Fichas", fichario_fichas_path %></li>
+                                <li><%= link_to "Andamentos", fichario_andamento_fichas_path %></li>
+                                <li><%= link_to "Assuntos", fichario_assuntos_path %></li>
+                                <li><%= link_to "Origens", fichario_origens_path %></li>
+                                <li><%= link_to "Tipos de andamentos", fichario_andamentos_path %></li>
+                            </ul>
+                        </li>
+                    <% end %>
+                    <% if can? :delete, current_user %>
+                        <li><%= link_to "Usuários", users_lista_path %></li>
+                    <% end %>
+                    <li>Frequência »
+                        <ul>
+                            <li><%= link_to "Cadastrar Orgãos", frequencia_orgaos_path %></li>
+                            <li><%= link_to "Cadastrar Setores", frequencia_setores_path %></li>
+                            <li><%= link_to "Cadastrar Profissões", frequencia_profissoes_path %></li>
+                            <li><%= link_to "Cadastrar Justificativas", frequencia_justificativas_path %></li>
+                            <li><%= link_to "Lista Frequência", frequencia_frequencias_path%></li>
+                        </ul>
+                    </li>
+                    <li><%= link_to "Conhecimento", base_conhecimentos_path %></li>
+                </ul>
+                <div class="clear"></div>
+            </div> <!-- Barra de menu end -->
 
-    </div> <!-- main -->
+            <!-- Barra de sessão begin -->
+            <div id="session_info">
+              <%= link_to image_tag("/images/icons/status_online.png")+current_user.email,
+                          edit_user_registration_path %>
+              <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
+                          destroy_user_session_path %>
 
-    <div id="footer">
-				Copyright <%= Time.now.strftime("%Y") %> PGM - Procuradoria Geral do Municipio - Fortaleza, todos os direitos reservados
-    </div> <!-- footer -->
+                <div class="clear"></div>
+            </div> <!-- Barra de menu end -->
 
-</div> <!-- container -->
+        </div> <!-- barra_tarefas -->
+        <div class="clear"></div>
+
+        <div id="main">
+          <% if notice or alert %>
+            <div class="system_message">
+                <% if notice %><div class="success_message"><%= notice %></div> <% end %>
+                <% if alert %><div class="error_message"><%= alert %></div> <% end %>
+            </div>
+          <% end %>
+          <% if params.has_key?("flash") %>
+            <div class="system_message">
+                <div class="error_message"><%= params["flash"] %></div>
+            </div>
+          <% end %>
+        <%= yield %>
+
+        </div> <!-- main -->
+
+        <div id="footer">
+                    Copyright <%= Time.now.strftime("%Y") %> PGM - Procuradoria Geral do Municipio - Fortaleza, todos os direitos reservados
+        </div> <!-- footer -->
+
+    </div> <!-- container -->
 
 </body>
 </html>

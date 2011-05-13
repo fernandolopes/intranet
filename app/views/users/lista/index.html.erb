@@ -11,7 +11,9 @@
     <td class="grid_label center">Email</td>
     <td class="grid_label center">Setor</td>
     <td class="grid_label center">Profissão</td>
-    <td class="grid_label center">Ações</td>
+    <% if can? :delete, @users[0] %>
+        <td class="grid_label center">Ações</td>
+    <% end %>
   </tr>
 <% @users.each do |user| %>
 
@@ -22,9 +24,11 @@
     <td class="grid_value center"><%= user.email %></td>
     <td class="grid_value center"><%= user.setor.setor  %></td>
     <td class="grid_value center"><%= user.profissao.profissao %></td>
-    <td class="grid_action" style="text-align:center;">
-      <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), "/users/#{user.id}/destroy", :confirm => 'Deseja realmente apagar?', :method => :delete %>
-    </td>
+    <% if can? :delete, user %>
+        <td class="grid_action" style="text-align:center;">
+          <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), "/users/#{user.id}/destroy", :confirm => 'Deseja realmente apagar?', :method => :delete %>
+        </td>
+    <% end %>
   </tr>
 <% end %>
  <% if paginacao = will_paginate(@users, :previous_label => "< Anterior", :next_label => "Próximo") %>

@@ -1,2 +1,0 @@
-module Fichario::IndexHelper
-end

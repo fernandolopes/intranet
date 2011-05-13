@@ -8,7 +8,6 @@ class Users::ListaController < TemplateController
      @users = User.order('id ASC').paginate :page => params[:page], :per_page => 10
      @total = User.all.count
 
-		# unauthorized! if cannot? :index
 
     respond_to do |format|
       format.html # index.html.erb

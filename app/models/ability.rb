@@ -4,8 +4,15 @@ class Ability
   def initialize(user)
   
 		@user = user || User.new
-		
-		can :manage, :all if @user.role == "administrador"
+
+    if @user.role == "administrador"
+		  can :manage, :all # if @user.role == "administrador"
+    elsif @user.role == "moderador"
+      can :manage, User
+    else
+      can :read, :all
+      cannot :destroy
+    end
 
     # Define abilities for the passed in user here. For example:
     #
