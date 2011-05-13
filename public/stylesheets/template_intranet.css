@@ -97,13 +97,14 @@ div#menu a {
 div#session_info {
 	display: block;
 	float: right;
+  font-weight: bold;
 }
 
 div#session_info a {
 	display: block;
 	float: left;
 	padding: 4px 6px;
-	color: #000;
+	color: #FFF;
 }
 
 div#session_info a img {
