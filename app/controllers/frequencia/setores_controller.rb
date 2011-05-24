@@ -18,7 +18,7 @@ class Frequencia::SetoresController < TemplateController
     @frequencia_setor = Frequencia::Setor.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @frequencia_setor }
     end
   end

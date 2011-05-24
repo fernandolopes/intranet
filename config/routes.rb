@@ -1,7 +1,7 @@
 Intranet::Application.routes.draw do  resources :home
 
  # get "fichario/index/index"
-  get "frequencia/frequencias/index"
+ get "frequencia/admins/show"
 
   namespace :fichario do
     resources :fichas
@@ -16,14 +16,17 @@ Intranet::Application.routes.draw do  resources :home
     resources :setores
     resources :profissoes
     resources :justificativas
-    resources :frequencias
+    resources :admins
   end
 
   namespace :base do
     resources :conhecimentos
   end
 
-  #match 'frequencia/frequencias/index' => 'frequencia/frequencias#index'
+
+
+  match 'frequencia/admins/show' => 'frequencia/admins#show'
+
   match 'users/lista' => "users/lista#index"
 
   match 'users/:id(.:format)/destroy' => "users/lista#destroy"
@@ -78,9 +81,9 @@ Intranet::Application.routes.draw do  resources :home
   #   end
 
   # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  #   namespace :admins do
+  #     # Directs /admins/products/* to Admin::ProductsController
+  #     # (app/controllers/admins/products_controller.rb)
   #     resources :products
   #   end
 

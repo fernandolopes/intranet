@@ -19,7 +19,7 @@ class Frequencia::ProfissoesController < TemplateController
     @frequencia_profissao = Frequencia::Profissao.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @frequencia_profissao }
     end
   end

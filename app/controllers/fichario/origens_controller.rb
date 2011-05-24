@@ -22,7 +22,7 @@ class Fichario::OrigensController < TemplateController
     @fichario_origem = Origem.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @fichario_origem }
     end
   end

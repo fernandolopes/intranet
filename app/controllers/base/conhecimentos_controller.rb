@@ -19,7 +19,7 @@ class Base::ConhecimentosController < TemplateController
     @base_conhecimento = Base::Conhecimento.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @base_conhecimento }
     end
   end

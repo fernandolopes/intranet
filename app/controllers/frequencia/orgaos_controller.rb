@@ -19,7 +19,7 @@ class Frequencia::OrgaosController < TemplateController
     @frequencia_orgao = Frequencia::Orgao.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @frequencia_orgao }
     end
   end

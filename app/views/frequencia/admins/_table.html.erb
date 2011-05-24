@@ -1,0 +1,71 @@
+<%= javascript_include_tag "calendar/calendar" %>
+<%= javascript_include_tag "calendar/calendar-setup" %>
+<%= javascript_include_tag "calendar/lang/calendar-br" %>
+<%= stylesheet_link_tag "calendar/calendar-blue" %>
+<table class="grid">
+  <%= form_for(:ponto, :method => 'post', :url => {:action => 'show'}, :html => {:name => 'form1'}) do |f| %>
+  <tr class="grid_title">
+    <td colspan="5">Frequências</td>
+  </tr>
+  <tr>
+    <td class="grid_label center"><%= f.label :data_init, "Data Inicial" %></td>
+    <td class="grid_action form_filter">
+          <div class="field">
+
+            <%= f.text_field :data_init,  :maxlength => 10, :onKeyPress => "formataCampo(form1.ponto_data_init, '00/00/0000', event);" %>
+
+            <img src="/images/icons/calendar_view_month.png" id="trigger_ponto_data_init"
+                 style ="margin: 0 0 -4px 3px;  cursor: pointer;"
+                 onmouseover="this.style.background='#F7FBD7';"
+                 onmouseout="this.style.background='';"
+                 alt="calendario" title="Selecione a data">
+            <%= javascript_tag '
+              Calendar.setup({
+                    inputField     :    "ponto_data_init",         // id of the input field
+                    ifFormat       :    "dd/mm/y",                 // format of the input field
+                    button         :    "trigger_ponto_data_init", // trigger for the calendar (button ID)
+                    singleClick    :    true                       // double-click mode
+                });' %>
+          </div>
+    </td>
+
+  </tr>
+  <tr>
+    <td class="grid_label center"><%= f.label :data_final, "Data Final" %></td>
+    <td class="grid_action form_filter">
+          <div class="field">
+
+            <%= f.text_field :data_final,  :maxlength => 10, :onKeyPress => "formataCampo(form1.ponto_data_final, '00/00/0000', event);" %>
+
+            <img src="/images/icons/calendar_view_month.png" id="trigger_ponto_data_final"
+                 style ="margin: 0 0 -4px 3px;  cursor: pointer;"
+                 onmouseover="this.style.background='#F7FBD7';"
+                 onmouseout="this.style.background='';"
+                 alt="calendario" title="Selecione a data">
+            <%= javascript_tag '
+              Calendar.setup({
+                    inputField     :    "ponto_data_final",         // id of the input field
+                    ifFormat       :    "dd/mm/y",                 // format of the input field
+                    button         :    "trigger_ponto_data_final", // trigger for the calendar (button ID)
+                    singleClick    :    true                       // double-click mode
+                });' %>
+          </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="grid_label center">
+      <%= f.label :matricula %>
+    </td>
+    <td class="grid_action form_filter">
+      <% if current_user.role != "administrador" and current_user.role != 'moderador'  %>
+        <%= f.text_field :matricula, :size => "15", :value=> current_user.matricula, :disabled => true  %>
+      <% else %>
+        <%= f.text_field :matricula, :size => "15" %>
+      <% end %>
+    </td>
+  </tr>
+  <tr class="grid_footer">
+    <td colspan="2"><%= f.submit 'Pesquisar' %></td>
+  </tr>
+  <% end %>
+</table>

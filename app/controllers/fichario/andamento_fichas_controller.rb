@@ -22,7 +22,7 @@ class Fichario::AndamentoFichasController < TemplateController
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @fichario_andamento_ficha }
     end
   end
