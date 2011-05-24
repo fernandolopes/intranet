@@ -3,6 +3,8 @@ class Fichario::OrigensController < TemplateController
   # GET /fichario/origens
   # GET /fichario/origens.xml
   def index
+		authorize! :index, @user
+
     @fichario_origens = Fichario::Origem.order('created_at ASC').paginate :page => params[:page], :per_page => 10
     @total =  Fichario::Origem.all.count
 
@@ -15,6 +17,8 @@ class Fichario::OrigensController < TemplateController
   # GET /fichario/origens/1
   # GET /fichario/origens/1.xml
   def show
+		authorize! :index, @user
+
     @fichario_origem = Origem.find(params[:id])
 
     respond_to do |format|
@@ -26,6 +30,8 @@ class Fichario::OrigensController < TemplateController
   # GET /fichario/origens/new
   # GET /fichario/origens/new.xml
   def new
+		authorize! :index, @user
+
     @fichario_origem = Origem.new
 
     respond_to do |format|
@@ -36,12 +42,16 @@ class Fichario::OrigensController < TemplateController
 
   # GET /fichario/origens/1/edit
   def edit
+		authorize! :index, @user
+
     @fichario_origem = Origem.find(params[:id])
   end
 
   # POST /fichario/origens
   # POST /fichario/origens.xml
   def create
+		authorize! :index, @user
+
     @fichario_origem = Origem.new(params[:fichario_origem])
 
     respond_to do |format|
@@ -58,6 +68,8 @@ class Fichario::OrigensController < TemplateController
   # PUT /fichario/origens/1
   # PUT /fichario/origens/1.xml
   def update
+		authorize! :index, @user
+
     @fichario_origem = Origem.find(params[:id])
 
 
@@ -75,6 +87,8 @@ class Fichario::OrigensController < TemplateController
   # DELETE /fichario/origens/1
   # DELETE /fichario/origens/1.xml
   def destroy
+		authorize! :index, @user
+
     @fichario_origem = Origem.find(params[:id])
     @fichario_origem.destroy
 

@@ -3,6 +3,8 @@ class Fichario::AndamentoFichasController < TemplateController
   # GET /fichario/andamento_fichas
   # GET /fichario/andamento_fichas.xml
   def index
+		authorize! :index, @user
+
     @fichario_andamento_fichas = Fichario::AndamentoFicha.order('created_at DESC').paginate :page => params[:page], :per_page => 5
     @total = Fichario::AndamentoFicha.all.count
 
@@ -15,6 +17,8 @@ class Fichario::AndamentoFichasController < TemplateController
   # GET /fichario/andamento_fichas/1
   # GET /fichario/andamento_fichas/1.xml
   def show
+		authorize! :index, @user
+
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
 
     respond_to do |format|
@@ -26,6 +30,8 @@ class Fichario::AndamentoFichasController < TemplateController
   # GET /fichario/andamento_fichas/new
   # GET /fichario/andamento_fichas/new.xml
   def new
+		authorize! :index, @user
+
     @fichario_andamento_ficha = Fichario::AndamentoFicha.new
 
     respond_to do |format|
@@ -36,12 +42,16 @@ class Fichario::AndamentoFichasController < TemplateController
 
   # GET /fichario/andamento_fichas/1/edit
   def edit
+		authorize! :index, @user
+
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
   end
 
   # POST /fichario/andamento_fichas
   # POST /fichario/andamento_fichas.xml
   def create
+		authorize! :index, @user
+
     params[:fichario_andamento_ficha][:data] = params[:fichario_andamento_ficha][:data].to_date
     @fichario_andamento_ficha = Fichario::AndamentoFicha.new(params[:fichario_andamento_ficha])
 
@@ -59,6 +69,8 @@ class Fichario::AndamentoFichasController < TemplateController
   # PUT /fichario/andamento_fichas/1
   # PUT /fichario/andamento_fichas/1.xml
   def update
+		authorize! :index, @user
+
     params[:fichario_andamento_ficha][:data] = params[:fichario_andamento_ficha][:data].to_date
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
 
@@ -76,6 +88,8 @@ class Fichario::AndamentoFichasController < TemplateController
   # DELETE /fichario/andamento_fichas/1
   # DELETE /fichario/andamento_fichas/1.xml
   def destroy
+		authorize! :index, @user
+
     @fichario_andamento_ficha = Fichario::AndamentoFicha.find(params[:id])
     @fichario_andamento_ficha.destroy
 

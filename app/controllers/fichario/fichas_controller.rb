@@ -6,6 +6,8 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
+		authorize! :index, @user
+
     @fichario_ficha = Fichario::Ficha.order('updated_at ASC').paginate :page => params[:page], :per_page => 10
     @total = Fichario::Ficha.all.count
 
@@ -18,6 +20,8 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas/1
   # GET /fichario/fichas/1.xml
   def show
+		authorize! :index, @user
+
     @fichario_ficha = Fichario::Ficha.find(params[:id])
 
     respond_to do |format|
@@ -29,6 +33,8 @@ class Fichario::FichasController < TemplateController
   # GET /fichario/fichas/new
   # GET /fichario/fichas/new.xml
   def new
+		authorize! :index, @user
+
     @fichario_ficha = Fichario::Ficha.new
 
     respond_to do |format|
@@ -39,12 +45,16 @@ class Fichario::FichasController < TemplateController
 
   # GET /fichario/fichas/1/edit
   def edit
+		authorize! :index, @user
+
     @fichario_ficha = Fichario::Ficha.find(params[:id])
   end
 
   # POST /fichario/fichas
   # POST /fichario/fichas.xml
   def create
+		authorize! :index, @user
+
     params[:fichario_ficha][:fone].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
@@ -67,6 +77,8 @@ class Fichario::FichasController < TemplateController
   # PUT /fichario/fichas/1
   # PUT /fichario/fichas/1.xml
   def update
+		authorize! :index, @user
+
     params[:fichario_ficha][:fone].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:celular].gsub!(/\-|\.|\/|\(|\)| /,"")
     params[:fichario_ficha][:cpf].gsub!(/\-|\.|\/|\(|\)| /,"")
@@ -89,6 +101,8 @@ class Fichario::FichasController < TemplateController
   # DELETE /fichario/fichas/1
   # DELETE /fichario/fichas/1.xml
   def destroy
+		authorize! :index, @user
+
     @fichario_ficha = Fichario::Ficha.find(params[:id])
     @fichario_ficha.destroy
 
