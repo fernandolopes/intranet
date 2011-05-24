@@ -66,10 +66,11 @@ class Frequencia::HashPonto
   #retorna o número de colunas para horas
   def quant_horas
     maior = 0
+
     @hash_final.each do |array|
       i = 1
       array.each_key do |key|
-        if key == ("hora#{i}").to_sym
+        if key.to_s.match /(hora)/
           if i > maior
             maior = i
           end

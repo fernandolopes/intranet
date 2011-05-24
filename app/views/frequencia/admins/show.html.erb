@@ -1,0 +1,39 @@
+<%= render :partial => 'table' %>
+
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="<%= @obj_ponto.quant_horas+4 %>">Lista de frequências</td>
+  </tr>
+
+<% unless @obj_ponto.hash_nulo?  %>
+  <tr>
+    <td class="grid_label center">Data</td>
+    <td class="grid_label center">Usuário</td>
+    <td class="grid_label center">Matricula</td>
+    <% for i in (1..@obj_ponto.quant_horas) %>
+    <td class="grid_label center">Hora <%= i %></td>
+    <% end %>
+    <td class="grid_label center" style="">Horas Trabalhadas</td>
+  </tr>
+    <% @obj_ponto.hash_final.each do |ponto| %>
+      <tr>
+         <td class="grid_value center"><%= ponto[:data].blank? ? '-' : ponto[:data].strftime("%d/%m/%Y") %></td>
+         <td class="grid_value center"><%= @user.nome.nil?  ? '-' : @user.nome if !@user.nil? %></td>
+         <td class="grid_value center"><%= @user.matricula.nil? ? '-' : @user.matricula if !@user.nil? %></td>
+         <% for i in (1..@obj_ponto.quant_horas) %>
+            <td class="grid_value center"><%= ponto[("hora#{i}").to_sym].blank? ? '-' : ponto[("hora#{i}").to_sym] %></td>
+         <% end %>
+         <td class="grid_value center">
+            <%= meu_valor(ponto,@obj_ponto.quant_horas) %>
+         </td>
+      </tr>
+    <% end %>
+<% else %>
+    <td class="grid_value center" colspan="<%= @obj_ponto.quant_horas+4 %>">nenhum dado encontrado</td>
+<% end %>
+  <tr>
+    <td class="grid_footer" colspan="<%= @obj_ponto.quant_horas+4 %>"><strong>Total: </strong><%= @obj_ponto.hash_nulo? ? 0 : @total %></td>
+  </tr>
+</table>
+
+<%= link_to image_tag('/images/icons/arrow_left.png')+' Voltar', :back %>

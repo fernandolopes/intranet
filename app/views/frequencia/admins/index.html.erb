@@ -1,0 +1,5 @@
+<% if current_user.role == "administrador" or current_user.role == 'moderador'  %>
+    <%= link_to image_tag("/images/icons/add.png", :title => "Inserir")+" Enviar Arquivo", new_frequencia_admin_path %>
+<% end %>
+<br /><br />
+<%= render :partial => 'table' %>

@@ -17,7 +17,7 @@ class Fichario::AssuntosController < TemplateController
     @fichario_assunto = Fichario::Assunto.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @fichario_assunto }
     end
   end

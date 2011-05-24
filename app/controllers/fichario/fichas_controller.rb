@@ -21,7 +21,7 @@ class Fichario::FichasController < TemplateController
     @fichario_ficha = Fichario::Ficha.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb.erb
       format.xml  { render :xml => @fichario_ficha }
     end
   end
