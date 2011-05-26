@@ -2,12 +2,12 @@ class Frequencia::HashPonto
   attr_accessor :hash_final
   
 #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def initialize(select, datas, matricula, unico = false)
+  def initialize(select, datas, user, unico = false)
     #raise select.inspect
     @select = select
     @unico = unico
     @hash_final = []
-    @matricula = matricula
+    @user = user
     datas.each do |data|
       @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{@matricula}'")
 
