@@ -1,7 +1,7 @@
 <%= form_for(@frequencia_justificada) do |f| %>
   <% if @frequencia_justificada.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@frequencia_justificada.errors.count, "erro") %> justificada não pode ser salvo:</h2>
+      <h2><%= pluralize(@frequencia_justificada.errors.count, "erro") %> Justificar Falta não pôde ser salvo:</h2>
 
       <ul>
       <% @frequencia_justificada.errors.full_messages.each do |msg| %>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :descricao, 'Descrição: ' %>
+    <%= f.label :justificativa_id, 'Motivo da Falta: ' %>
     <%= f.collection_select(:justificativa_id, Frequencia::Justificativa.all, :id, :descricao, :prompt => 'Selecionar') %><br />
   </div>
 

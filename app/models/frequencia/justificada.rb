@@ -2,4 +2,5 @@
 class Frequencia::Justificada < ActiveRecord::Base
   belongs_to :justificativa
 
+
 end
