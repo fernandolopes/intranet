@@ -1,0 +1,17 @@
+<p>
+  <b>Matrícula:</b>
+  <%= @frequencia_justificada.matricula %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= @frequencia_justificada.data %>
+</p>
+
+<p>
+  <b>Justificativa:</b>
+  <%= @frequencia_justificada.justificativa.descricao %>
+</p>
+
+<%= link_to image_tag('/images/icons/editar.png')+' Editar', edit_frequencia_justificada_path(@frequencia_justificada) %> |
+<%= link_to image_tag('/images/icons/arrow_left.png')+' Voltar', frequencia_justificadas_path %>

@@ -15,6 +15,7 @@ Intranet::Application.routes.draw do  resources :home
     resources :orgaos
     resources :setores
     resources :profissoes
+    resources :justificadas
     resources :justificativas
     resources :admins
   end
