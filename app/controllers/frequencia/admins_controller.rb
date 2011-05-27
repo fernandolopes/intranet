@@ -15,7 +15,7 @@ class Frequencia::AdminsController < TemplateController
  # GET /frequencia/frequencias/1
   # GET /frequencia/frequencias/1.xml
   def show
-    authorize! :index, @puser
+    authorize! :index, @user
 
     # Filtro para tabela
     if params.has_key?("ponto")
@@ -34,6 +34,11 @@ class Frequencia::AdminsController < TemplateController
         data_final = params['ponto']['data_final'].to_date
       end
 
+      if data_final < data_init
+        redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Data inicial não pode ser maior que a data final")
+        return
+      end
+
       @datas = Frequencia::DiasUteis.new(data_init,data_final).data_util
       if matricula.empty?
         redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "matricula não pode ser nula")
@@ -46,7 +51,7 @@ class Frequencia::AdminsController < TemplateController
                 and date_format(data,'%Y-%m-%d') <= '#{data_final.strftime("%Y-%m-%d")}')
         ")
       end
-      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, matricula, true)
+      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, @user.id, true)
     else
       redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Erro de rotas!")
       return
