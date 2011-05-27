@@ -51,7 +51,7 @@ class Frequencia::AdminsController < TemplateController
                 and date_format(data,'%Y-%m-%d') <= '#{data_final.strftime("%Y-%m-%d")}')
         ")
       end
-      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, @user.id, true)
+      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, matricula, true)
     else
       redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Erro de rotas!")
       return
