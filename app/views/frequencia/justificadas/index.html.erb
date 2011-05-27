@@ -1,0 +1,37 @@
+<%= link_to image_tag('/images/icons/add.png')+' Nova Justificada', new_frequencia_justificada_path %><br /><br />
+
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="3">Lista de Justificadas</td>
+  </tr>
+  <tr>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Matrícula</td>
+    <td class="grid_label center">Data</td>
+    <td class="grid_label center">Justificativa</td>
+  </tr>
+
+<% @frequencia_justificadas.each do |frequencia_justificada| %>
+  <tr>
+    <td class="grid_value"><%= frequencia_justificada.id %></td>
+    <td class="grid_value"><%= frequencia_justificada.matricula %></td>
+    <td class="grid_value"><%= frequencia_justificada.data %></td>
+    <td class="grid_value"><%= frequencia_justificada.justificativa.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_justificada %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_justificada_path(frequencia_justificada) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_justificada, :confirm => 'Você têm certeza?', :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+ <% if paginacao = will_paginate(@frequencia_justificadas, :previous_label => "< Anterior", :next_label => "Próximo") %>
+  <tr>
+    <td class="grid_action center" colspan="3" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="3"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
+</table>

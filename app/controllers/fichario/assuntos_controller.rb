@@ -3,6 +3,8 @@ class Fichario::AssuntosController < TemplateController
   # GET /fichario/assuntos
   # GET /fichario/assuntos.xml
   def index
+		authorize! :index, @user
+
     @fichario_assuntos = Fichario::Assunto.order('created_at ASC').paginate :page => params[:page], :per_page => 5
     @total =  Fichario::Assunto.all.count
     respond_to do |format|
@@ -14,6 +16,8 @@ class Fichario::AssuntosController < TemplateController
   # GET /fichario/assuntos/1
   # GET /fichario/assuntos/1.xml
   def show
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.find(params[:id])
 
     respond_to do |format|
@@ -25,6 +29,8 @@ class Fichario::AssuntosController < TemplateController
   # GET /fichario/assuntos/new
   # GET /fichario/assuntos/new.xml
   def new
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.new
 
     respond_to do |format|
@@ -35,12 +41,16 @@ class Fichario::AssuntosController < TemplateController
 
   # GET /fichario/assuntos/1/edit
   def edit
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.find(params[:id])
   end
 
   # POST /fichario/assuntos
   # POST /fichario/assuntos.xml
   def create
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.new(params[:fichario_assunto])
 
     respond_to do |format|
@@ -57,6 +67,8 @@ class Fichario::AssuntosController < TemplateController
   # PUT /fichario/assuntos/1
   # PUT /fichario/assuntos/1.xml
   def update
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.find(params[:id])
 
     respond_to do |format|
@@ -73,6 +85,8 @@ class Fichario::AssuntosController < TemplateController
   # DELETE /fichario/assuntos/1
   # DELETE /fichario/assuntos/1.xml
   def destroy
+		authorize! :index, @user
+
     @fichario_assunto = Fichario::Assunto.find(params[:id])
     @fichario_assunto.destroy
 

@@ -49,25 +49,27 @@ orgao = Frequencia::Orgao.create([ {:orgao => 'PGM', :descricao => 'Procuradoria
 
 setor = Frequencia::Setor.create([ { :orgao_id => '1', :setor => 'CPD', :descricao => 'Central de Processamentos de Dados' } ])
 
+setorpja = Frequencia::Setor.create([ { :orgao_id => '2', :setor => 'PJA', :descricao => 'Procuradoria Juridico Administrativo' } ])
+
 profissao = Frequencia::Profissao.create([ { :profissao => 'Programador', :descricao => 'Desenvolvedor Web em Ruby'} ])
 
 user = User.create( {:email => 'fernandolopes.s@gmail.com',
                           :password =>'master',
                           :password_confirmation => 'master',
                           :nome => 'Fernando',
-                          :setor_id => 1,
+                          :setor_id => 2,
                           :profissao_id => 1,
                           :matricula => '789672',
-                          :role => 'administrador'} )
+                          :role => 'moderador'} )
 
 user = User.create( {:email => 'herminio.torres@pgm.fortaleza.ce.gov.br',
                            :password =>'master',
                            :password_confirmation => 'master',
                            :nome => 'Herminio',
-                           :setor_id => 1,
+                           :setor_id => 2,
                            :profissao_id => 1,
                            :matricula => '84411',
-                           :role => 'moderador'} )
+                           :role => 'administrador'} )
 
 
 

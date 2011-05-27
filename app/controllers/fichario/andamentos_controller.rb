@@ -3,6 +3,8 @@ class Fichario::AndamentosController < TemplateController
   # GET /fichario/andamentos
   # GET /fichario/andamentos.xml
   def index
+		authorize! :index, @user
+
     @fichario_andamentos = Fichario::Andamento.order('created_at ASC').paginate :page => params[:page], :per_page => 5
     @total = Fichario::Andamento.all.count
 
@@ -15,6 +17,8 @@ class Fichario::AndamentosController < TemplateController
   # GET /fichario/andamentos/1
   # GET /fichario/andamentos/1.xml
   def show
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.find(params[:id])
 
     respond_to do |format|
@@ -26,6 +30,8 @@ class Fichario::AndamentosController < TemplateController
   # GET /fichario/andamentos/new
   # GET /fichario/andamentos/new.xml
   def new
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.new
 
     respond_to do |format|
@@ -36,12 +42,16 @@ class Fichario::AndamentosController < TemplateController
 
   # GET /fichario/andamentos/1/edit
   def edit
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.find(params[:id])
   end
 
   # POST /fichario/andamentos
   # POST /fichario/andamentos.xml
   def create
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.new(params[:fichario_andamento])
 
     respond_to do |format|
@@ -58,6 +68,8 @@ class Fichario::AndamentosController < TemplateController
   # PUT /fichario/andamentos/1
   # PUT /fichario/andamentos/1.xml
   def update
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.find(params[:id])
 
     respond_to do |format|
@@ -74,6 +86,8 @@ class Fichario::AndamentosController < TemplateController
   # DELETE /fichario/andamentos/1
   # DELETE /fichario/andamentos/1.xml
   def destroy
+		authorize! :index, @user
+
     @fichario_andamento = Fichario::Andamento.find(params[:id])
     @fichario_andamento.destroy
 

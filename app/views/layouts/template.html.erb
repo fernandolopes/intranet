@@ -26,17 +26,19 @@
             <div style="float: left; width: 70%; background-color: black">
                 <ul class="jd_menu jd_menu_slate jd_menu_flag_root" style="left: 0; top: 250px; width: 100%;">
                     <li><%= link_to "Início", home_index_path %></li>
-                    <% if can? :delete, Fichario::Ficha %>
-                        <li class="">Fichário »
-                            <ul>
-                                <li><%= link_to "Fichas", fichario_fichas_path %></li>
-                                <li><%= link_to "Andamentos", fichario_andamento_fichas_path %></li>
-                                <li><%= link_to "Assuntos", fichario_assuntos_path %></li>
-                                <li><%= link_to "Origens", fichario_origens_path %></li>
-                                <li><%= link_to "Tipos de andamentos", fichario_andamentos_path %></li>
-                            </ul>
-                        </li>
-                    <% end %>
+										<% if (current_user.setor.setor.eql? "PJA") || (current_user.role.eql? "administrador") %>
+		                  <% if can? :delete, Fichario::Ficha %>
+		                      <li class="">Fichário »
+		                          <ul>
+		                              <li><%= link_to "Fichas", fichario_fichas_path %></li>
+		                              <li><%= link_to "Andamentos", fichario_andamento_fichas_path %></li>
+		                              <li><%= link_to "Assuntos", fichario_assuntos_path %></li>
+		                              <li><%= link_to "Origens", fichario_origens_path %></li>
+		                              <li><%= link_to "Tipos de andamentos", fichario_andamentos_path %></li>
+		                          </ul>
+		                      </li>
+		                  <% end %>
+		                <% end %>
                     <% if can? :delete, current_user %>
                         <li><%= link_to "Usuários", users_lista_path %></li>
                     <% end %>
