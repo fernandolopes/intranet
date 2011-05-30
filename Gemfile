@@ -4,7 +4,6 @@ source 'http://gems.github.com'
 gem 'rails', '3.0.6'
 gem 'devise', '1.1.5'
 gem 'mysql2', '0.2.7'
-gem 'capistrano'
 gem 'whenever'
 gem "will_paginate", "~> 3.0.pre2"
 gem "brdata"
