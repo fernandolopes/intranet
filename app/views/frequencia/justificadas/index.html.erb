@@ -2,20 +2,21 @@
 
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="3">Lista de Justificadas</td>
+    <td colspan="5">Lista de Faltas Justificadas</td>
   </tr>
   <tr>
     <td class="grid_label center">ID</td>
-    <td class="grid_label center">Matrícula</td>
+    <td class="grid_label center">Funcionário</td>
     <td class="grid_label center">Data</td>
     <td class="grid_label center">Justificativa</td>
+    <td class="grid_label center">Ações</td>
   </tr>
 
 <% @frequencia_justificadas.each do |frequencia_justificada| %>
   <tr>
-    <td class="grid_value"><%= frequencia_justificada.id %></td>
+    <td class="grid_value center"><%= frequencia_justificada.id %></td>
     <td class="grid_value"><%= frequencia_justificada.matricula %></td>
-    <td class="grid_value"><%= frequencia_justificada.data %></td>
+    <td class="grid_value"><%= frequencia_justificada.data.to_s_br %></td>
     <td class="grid_value"><%= frequencia_justificada.justificativa.descricao %></td>
     <td class="grid_action">
         <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_justificada %>
@@ -26,12 +27,12 @@
 <% end %>
  <% if paginacao = will_paginate(@frequencia_justificadas, :previous_label => "< Anterior", :next_label => "Próximo") %>
   <tr>
-    <td class="grid_action center" colspan="3" style="text-align: center;">
+    <td class="grid_action center" colspan="5" style="text-align: center;">
       <%= paginacao %>
     </td>
   </tr>
   <% end %>
   <tr>
-    <td class="grid_footer" colspan="3"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+    <td class="grid_footer" colspan="5"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>

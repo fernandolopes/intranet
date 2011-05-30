@@ -1,16 +1,16 @@
 <p>
-  <b>Matrícula:</b>
-  <%= @frequencia_justificada.matricula %>
+  <b>Funcionário:</b>
+  <%= @frequencia_justificada[0].matricula %>
 </p>
 
 <p>
   <b>Data:</b>
-  <%= @frequencia_justificada.data %>
+  <%= @frequencia_justificada[0].data.to_s_br %>
 </p>
 
 <p>
-  <b>Justificativa:</b>
-  <%= @frequencia_justificada.justificativa.descricao %>
+  <b>Motivo da falta:</b>
+  <%= @frequencia_justificada[0].justificativa.descricao %>
 </p>
 
 <%= link_to image_tag('/images/icons/editar.png')+' Editar', edit_frequencia_justificada_path(@frequencia_justificada) %> |

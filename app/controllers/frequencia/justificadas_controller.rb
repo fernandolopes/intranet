@@ -2,7 +2,13 @@ class Frequencia::JustificadasController < TemplateController
   before_filter :authenticate_user!
 
 	def index
-		@frequencia_justificadas = Frequencia::Justificada.all.paginate :page => params[:page], :per_page => 10
+		#@frequencia_justificadas = Frequencia::Justificada.all.paginate :page => params[:page], :per_page => 10
+    @frequencia_justificadas = Frequencia::Justificada.find_by_sql('
+      SELECT b.id, a.nome AS matricula, b.data, b.justificativa_id FROM frequencia_justificadas AS b
+               INNER JOIN users AS a ON a.matricula = b.matricula
+    ').paginate :page => params[:page], :per_page => 10
+
+    @total = @frequencia_justificadas.count
 
 		respond_to do |format|
       format.html # index.html.erb
@@ -11,7 +17,12 @@ class Frequencia::JustificadasController < TemplateController
 	end
 
   def show
-    @frequencia_justificada = Frequencia::Justificada.find(params[:id])
+    #@frequencia_justificada = Frequencia::Justificada.find(params[:id])
+    @frequencia_justificada = Frequencia::Justificada.find_by_sql("
+      SELECT b.id, a.nome AS matricula, b.data, b.justificativa_id FROM frequencia_justificadas AS b
+               INNER JOIN users AS a ON a.matricula = b.matricula
+               WHERE b.id = #{params[:id]}
+    ")
 
     respond_to do |format|
       format.html # show.html.erb.erb
