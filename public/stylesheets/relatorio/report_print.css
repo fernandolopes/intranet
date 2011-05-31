@@ -1,0 +1,79 @@
+body {
+	background-color: white;
+	font-size: 11px;
+	font-family: Helvetica,sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+div#barra_superior {
+	display:none;
+}
+
+table#pagina {
+	background-color: white;
+	width: 190mm;
+	margin: 0;
+	height: auto;
+}
+
+table#pagina td.table_pagina {
+	vertical-align: top;
+	background-color: white;
+	padding: 0;
+}
+
+h1.titulo_relatorio {
+	margin-top: 0px;
+	font-size: 16px;
+	font-family: Helvetica, sans-serif;
+	padding: 0.1em 0;
+}
+
+h2.subtitulo_relatorio {
+	margin-top: 0px;
+	font-size: 14px;
+	font-family: Helvetica, sans-serif;
+	padding: 0.1em 0;
+}
+
+/*--------------- rodrigo petry -----------------------------*/
+
+
+table.tb_relatorio {
+	border-collapse: collapse;
+	background-color: #fff;
+	font-size: 11px;
+    margin: 5px;
+    padding: 0;
+    width: 98%;
+}
+
+table.tb_relatorio td {
+	padding: 3px 6px;
+}
+
+table.tb_relatorio tbody td {
+	padding: 3px 6px;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+table.tb_relatorio thead td {
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 1px solid #333;
+	border-top: 1px solid #333;
+}
+
+table.tb_relatorio tr.tb_relatorio_sub_header td {
+	font-weight: bold;
+	background-image: url('/images/cccccc.gif');
+}
+
+table.tb_relatorio tbody tr.footer td {
+	font-weight: bold;
+	border-top: 2px inset #333;
+	border-bottom: none;
+	font-size: 12px;
+}

@@ -16,7 +16,6 @@ class Frequencia::AdminsController < TemplateController
   # GET /frequencia/frequencias/1.xml
   def show
     authorize! :index, @user
-
     # Filtro para tabela
     if params.has_key?("ponto")
       if current_user.role != "administrador" and current_user != 'moderador'
@@ -26,6 +25,7 @@ class Frequencia::AdminsController < TemplateController
       end
 
       @user =  User.find_by_matricula( matricula)
+
       unless Date.valid?(params['ponto']['data_init']) and Date.valid?(params['ponto']['data_final'])
         redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Data inválida")
         return
@@ -40,6 +40,7 @@ class Frequencia::AdminsController < TemplateController
       end
 
       @datas = Frequencia::DiasUteis.new(data_init,data_final).data_util
+
       if matricula.empty?
         redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "matricula não pode ser nula")
         return

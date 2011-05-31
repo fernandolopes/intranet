@@ -1,0 +1,27 @@
+<div id="barra_superior">
+    <div style="float: right;">
+        <input type="button" name="imprimir" value="Imprimir Relatório" onclick="window.print();" />
+    </div>
+    <%= @titulo %>
+    <div class="clear"></div>
+</div>
+
+<table id="pagina" cellpadding="0" cellspacing="0" align="center">
+    <tr>
+        <td class="table_pagina">
+            <div id="cabecalho">
+                <%= render :partial => "cabecalho" %>
+            </div>
+
+            <div id="conteudo">
+                <div class="clear"></div>
+                <%= render :partial => "content" %>
+            </div>
+
+            <div id="rodape">
+                <%= render :partial => "footer" %>
+            </div>
+        </td>
+    </tr>
+</table>
+<div class="clear"></div>

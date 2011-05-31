@@ -1,0 +1,15 @@
+<div style="border: 1px solid; width: 100%; float: left; padding: 5px;">
+  <div style="float: left;  margin-right: 5px;">
+    <%= image_tag "/images/padrao01.png" %>
+  </div>
+  <div style="text-align:center;">
+    <h2>RELATÓRIO DE PONTO</h2>
+  </div><br />
+  <div>Relatório Analitico de Horas trabalhadas de <%= "#{@dat[:inicial]} até #{@dat[:final]}" %></div>
+
+  <div>
+    <%= raw "<b>MATRICULA:</b> #{@matricula}" %>
+    <br />
+    <%= raw "<b>NOME:</b>#{(@user.blank?)? '' : @user.nome}" %>
+  </div>
+</div>

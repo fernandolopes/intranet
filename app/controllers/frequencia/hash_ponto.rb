@@ -10,7 +10,6 @@ class Frequencia::HashPonto
     @matricula = matricula
     datas.each do |data|
       @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{@matricula}'")
-
       i = 0
       f = 0
       a = {}

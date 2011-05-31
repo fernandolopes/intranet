@@ -1,0 +1,44 @@
+<div style="float: left; width: 70%; background-color: black">
+    <ul class="jd_menu jd_menu_slate jd_menu_flag_root" style="left: 0; top: 250px; width: 100%;">
+        <li><%= link_to "Início", home_index_path %></li>
+                            <% if (current_user.setor.setor.eql? "PJA") || (current_user.role.eql? "administrador") %>
+              <% if can? :delete, Fichario::Ficha %>
+                  <li class="">Fichário »
+                      <ul>
+                          <li><%= link_to "Fichas", fichario_fichas_path %></li>
+                          <li><%= link_to "Andamentos", fichario_andamento_fichas_path %></li>
+                          <li><%= link_to "Assuntos", fichario_assuntos_path %></li>
+                          <li><%= link_to "Origens", fichario_origens_path %></li>
+                          <li><%= link_to "Tipos de andamentos", fichario_andamentos_path %></li>
+                      </ul>
+                  </li>
+              <% end %>
+            <% end %>
+        <% if can? :delete, current_user %>
+            <li><%= link_to "Usuários", users_lista_path %></li>
+        <% end %>
+        <li>Frequência »
+            <ul>
+                <li><%= link_to "Cadastrar Orgãos", frequencia_orgaos_path %></li>
+                <li><%= link_to "Cadastrar Setores", frequencia_setores_path %></li>
+                <li><%= link_to "Cadastrar Profissões", frequencia_profissoes_path %></li>
+                <li><%= link_to "Justificar Faltas", frequencia_justificadas_path %></li>
+                <li><%= link_to "Cadastrar Justificativas", frequencia_justificativas_path %></li>
+                <li><%= link_to "Administrar Freq.", frequencia_admins_path %></li>
+                <li><%= link_to "Relatório de Freq.", frequencia_relatorio_ponto_index_path %></li>
+            </ul>
+        </li>
+        <li><%= link_to "Conhecimento", base_conhecimentos_path %></li>
+    </ul>
+    <div class="clear"></div>
+</div> <!-- Barra de menu end -->
+
+<!-- Barra de sessão begin -->
+<div id="session_info">
+  <%= link_to image_tag("/images/icons/status_online.png")+current_user.email,
+              edit_user_registration_path %>
+  <%= link_to image_tag('/images/icons/disconnect.png', :title => 'Logout')+"Logout",
+              destroy_user_session_path %>
+
+    <div class="clear"></div>
+</div>
