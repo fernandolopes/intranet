@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     #@user = current_user
     #unauthorized! if cannot? :index, @user
-    authorize! :index, @user
+    authorize! :new, @user
 
     build_resource({})
     render_with_scope :new

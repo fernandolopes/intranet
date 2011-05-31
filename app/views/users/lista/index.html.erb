@@ -1,4 +1,6 @@
-<%= link_to image_tag('/images/icons/add.png')+' Novo usuário', new_user_registration_path %><br /><br />
+<% if current_user.role.eql? "administrador" %>
+	<%= link_to image_tag('/images/icons/add.png')+' Novo usuário', new_user_registration_path %><br /><br />
+<% end %>
 
 <table class="grid">
   <tr class="grid_title">

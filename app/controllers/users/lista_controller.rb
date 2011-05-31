@@ -5,6 +5,8 @@ class Users::ListaController < TemplateController
   # GET /fichario/fichas
   # GET /fichario/fichas.xml
   def index
+    authorize! :list, @user
+
      @users = User.order('id ASC').paginate :page => params[:page], :per_page => 10
      @total = User.all.count
 
@@ -18,6 +20,8 @@ class Users::ListaController < TemplateController
   # DELETE /fichario/fichas/1
   # DELETE /fichario/fichas/1.xml
   def destroy
+    authorize! :delete, @user
+
     @user = User.find(params[:id])
     @user.destroy
 
