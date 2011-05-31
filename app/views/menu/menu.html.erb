@@ -25,7 +25,11 @@
                 <li><%= link_to "Justificar Faltas", frequencia_justificadas_path %></li>
                 <li><%= link_to "Cadastrar Justificativas", frequencia_justificativas_path %></li>
                 <li><%= link_to "Administrar Freq.", frequencia_admins_path %></li>
-                <li><%= link_to "Relatório de Freq.", frequencia_relatorio_ponto_index_path %></li>
+                <li>
+                  <% if can? :delete, current_user %>
+                    <%= link_to "Relatório de Freq.", frequencia_relatorio_ponto_index_path %>
+                  <% end %>
+                </li>
             </ul>
         </li>
         <li><%= link_to "Conhecimento", base_conhecimentos_path %></li>

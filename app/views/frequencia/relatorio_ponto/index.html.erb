@@ -15,8 +15,9 @@
         <div id="barra_tarefas">
 
           <!-- Barra de menu begin -->
-            <%= render :template => "menu/menu" %>
+           <%= render :template => "menu/menu" %>
           <!-- Barra de menu end -->
+
 
         </div> <!-- barra_tarefas -->
         <div class="clear"></div>
@@ -35,7 +36,7 @@
           <% end %>
 
 <table class="grid">
-  <%= form_for(:ponto, :method => 'post', :url => {:action => 'show'}, :html => {:name => 'form1'}) do |f| %>
+  <%= form_for(:ponto, :method => 'post', :url => {:action => 'show'}, :html => {:name => 'form1', :target => "_blank"}) do |f| %>
   <tr class="grid_title">
     <td colspan="5">Frequências</td>
   </tr>
@@ -101,6 +102,7 @@
   </tr>
   <% end %>
 </table>
+
         </div> <!-- main -->
 
         <div id="footer">
