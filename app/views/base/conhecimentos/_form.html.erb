@@ -21,7 +21,7 @@
     <%= f.label :descricao, "Descrição" %><br />
     <%= f.text_area :descricao, :class => "mceEditor" %>
   </div>
-  <%= f.hidden_field :usuario_id, :value => current_usuario.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
 
   <div class="actions">
     <%= f.submit "Salvar" %>
