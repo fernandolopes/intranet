@@ -13,6 +13,7 @@ gem 'chronic_duration'
 #gem 'brazilian-rails'
 gem 'rails-erd' 
 gem 'cancan'
+gem "jquery-rails", "~> 1.0.9"
 
 
 # Bundle edge Rails instead:

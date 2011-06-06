@@ -5,6 +5,7 @@ class Frequencia::Setor < ActiveRecord::Base
 
   before_save :deixar_maiusculo
   validates :setor, :orgao_id, :presence => {:message => 'Não pode ser nulo'}
+  validates :setor, :uniqueness => {:message => "Deve ser único"}
 
 private
   def deixar_maiusculo

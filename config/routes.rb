@@ -1,4 +1,6 @@
-Intranet::Application.routes.draw do  resources :home
+Intranet::Application.routes.draw do
+
+  resources :home
 
  # get "fichario/index/index"
  get "frequencia/admins/show"

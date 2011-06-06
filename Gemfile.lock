@@ -48,6 +48,9 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     i18n (0.5.0)
+    jquery-rails (1.0.9)
+      railties (~> 3.0)
+      thor (~> 0.14)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -102,6 +105,7 @@ DEPENDENCIES
   cancan
   chronic_duration
   devise (= 1.1.5)
+  jquery-rails (~> 1.0.9)
   mysql2 (= 0.2.7)
   rails (= 3.0.6)
   rails-erd

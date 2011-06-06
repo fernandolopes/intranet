@@ -1,5 +1,5 @@
 <div style="float: left; width: 70%; background-color: black">
-    <ul class="jd_menu jd_menu_slate jd_menu_flag_root" style="left: 0; top: 250px; width: 100%;">
+    <ul class="jd_menu jd_menu_slate" style="left: 0; top: 250px; width: 100%;">
         <li><%= link_to "Início", home_index_path %></li>
                             <% if (current_user.setor.setor.eql? "PJA") || (current_user.role.eql? "administrador") %>
               <% if can? :delete, Fichario::Ficha %>
@@ -46,3 +46,8 @@
 
     <div class="clear"></div>
 </div>
+<script type="text/javascript">
+  $(function(){
+     $('ul.jd_menu').jdMenu();
+  });
+</script>
