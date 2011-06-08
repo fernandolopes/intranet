@@ -53,6 +53,8 @@ setorpja = Frequencia::Setor.create([ { :orgao_id => '2', :setor => 'PJA', :desc
 
 profissao = Frequencia::Profissao.create([ { :profissao => 'Programador', :descricao => 'Desenvolvedor Web em Ruby'} ])
 
+cargo = Frequencia::TipoDeContratacao.create([{:titulo => 'TERCERIZADO', :descricao => 'Cargo tercerizado'}, {:titulo => 'COMISSIONADO', :descricao => 'Cargo comissionado'}])
+
 user = User.create( {:email => 'fernandolopes.s@gmail.com',
                           :password =>'master',
                           :password_confirmation => 'master',
@@ -60,7 +62,8 @@ user = User.create( {:email => 'fernandolopes.s@gmail.com',
                           :setor_id => 2,
                           :profissao_id => 1,
                           :matricula => '789672',
-                          :role => 'moderador'} )
+                          :role => 'moderador',
+                          :tipo_de_contratacao_id => 2} )
 
 user = User.create( {:email => 'herminio.torres@pgm.fortaleza.ce.gov.br',
                            :password =>'master',
@@ -69,7 +72,8 @@ user = User.create( {:email => 'herminio.torres@pgm.fortaleza.ce.gov.br',
                            :setor_id => 2,
                            :profissao_id => 1,
                            :matricula => '84411',
-                           :role => 'administrador'} )
+                           :role => 'administrador',
+                           :tipo_de_contratacao_id => 2} )
 
 
 
