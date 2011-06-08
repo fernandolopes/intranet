@@ -1,0 +1,36 @@
+<%= link_to image_tag('/images/icons/add.png')+' Novo Tipo de Contratação', new_frequencia_tipo_de_contratacao_path %><br /><br />
+
+<table class="grid">
+  <tr class="grid_title">
+    <td colspan="4">Lista de Tipos de Contratações</td>
+  </tr>
+  <tr>
+    <td class="grid_label center">ID</td>
+    <td class="grid_label center">Título</td>
+    <td class="grid_label center">Descrição</td>
+    <td class="grid_label center">Ações</td>
+  </tr>
+
+<% @frequencia_tipo_de_contratacoes.each do |frequencia_tipo_de_contratacao| %>
+  <tr>
+    <td class="grid_value"><%= frequencia_tipo_de_contratacao.id %></td>
+    <td class="grid_value"><%= frequencia_tipo_de_contratacao.titulo %></td>
+    <td class="grid_value"><%= frequencia_tipo_de_contratacao.descricao %></td>
+    <td class="grid_action">
+        <%= link_to image_tag("/images/icons/lupa.png",   :title => 'Mostrar'), frequencia_tipo_de_contratacao %>
+        <%= link_to image_tag("/images/icons/editar.png", :title => 'Editar'), edit_frequencia_tipo_de_contratacao_path(frequencia_tipo_de_contratacao) %>
+        <%= link_to image_tag("/images/icons/delete.png", :title => 'Apagar'), frequencia_tipo_de_contratacao, :confirm => 'Você tem certeza?', :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+  <% if paginacao = will_paginate(@frequencia_tipo_de_contratacoes, :previous_label => "< Anterior", :next_label => "Próximo")  %>
+  <tr>
+    <td class="grid_action center" colspan="4" style="text-align: center;">
+      <%= paginacao %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td class="grid_footer" colspan="4"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+  </tr>
+</table>

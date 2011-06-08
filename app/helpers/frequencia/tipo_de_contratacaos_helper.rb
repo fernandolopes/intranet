@@ -1,0 +1,2 @@
+module Frequencia::TipoDeContratacaosHelper
+end

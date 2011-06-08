@@ -8,5 +8,6 @@
    inflect.irregular 'origem', 'origens'
    inflect.irregular 'setor', 'setores'
    inflect.irregular 'profissao', 'profissoes'
+   inflect.irregular 'tipo_de_contratacao', 'tipo_de_contratacoes'
 #   inflect.uncountable %w( fish sheep )
  end

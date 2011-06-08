@@ -1,0 +1,25 @@
+<%= form_for(@frequencia_tipo_de_contratacao) do |f| %>
+  <% if @frequencia_tipo_de_contratacao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequencia_tipo_de_contratacao.errors.count, "error") %> prohibited this frequencia_tipo_de_contratacao from being saved:</h2>
+
+      <ul>
+      <% @frequencia_tipo_de_contratacao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :titulo, "Título" %><br />
+    <%= f.text_field :titulo %>
+  </div>
+  <div class="field">
+    <%= f.label :descricao, "Descrição" %><br />
+    <%= f.text_area :descricao %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

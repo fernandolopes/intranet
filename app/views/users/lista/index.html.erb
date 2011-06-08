@@ -4,7 +4,7 @@
 
 <table class="grid">
   <tr class="grid_title">
-    <td colspan="7">Lista de usuários</td>
+    <td colspan="8">Lista de usuários</td>
   </tr>
   <tr>
     <td class="grid_label center">ID</td>
@@ -12,6 +12,7 @@
     <td class="grid_label center">Matricula</td>
     <td class="grid_label center">Email</td>
     <td class="grid_label center">Setor</td>
+    <td class="grid_label center">Tipo de Contratação</td>
     <td class="grid_label center">Profissão</td>
     <% if can? :delete, @users[0] %>
         <td class="grid_label center">Ações</td>
@@ -25,6 +26,7 @@
     <td class="grid_value center"><%= user.matricula %></td>
     <td class="grid_value center"><%= user.email %></td>
     <td class="grid_value center"><%= user.setor.setor  %></td>
+    <td class="grid_value center"><%= user.tipo_de_contratacao.titulo  %></td>
     <td class="grid_value center"><%= user.profissao.profissao %></td>
     <% if can? :delete, user %>
         <td class="grid_action" style="text-align:center;">
@@ -35,12 +37,12 @@
 <% end %>
  <% if paginacao = will_paginate(@users, :previous_label => "< Anterior", :next_label => "Próximo") %>
   <tr>
-    <td class="grid_action center" colspan="7" style="text-align: center;">
+    <td class="grid_action center" colspan="8" style="text-align: center;">
       <%= paginacao %>
     </td>
   </tr>
   <% end %>
   <tr>
-    <td class="grid_footer" colspan="7"><%= raw "<strong>Total:</strong> #{@total}" %></td>
+    <td class="grid_footer" colspan="8"><%= raw "<strong>Total:</strong> #{@total}" %></td>
   </tr>
 </table>

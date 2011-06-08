@@ -1,5 +1,7 @@
 Intranet::Application.routes.draw do
 
+  namespace :frequencia do resources :tipo_de_contratacoes end
+
   resources :home
 
  # get "fichario/index/index"

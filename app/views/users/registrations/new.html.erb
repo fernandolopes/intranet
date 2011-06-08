@@ -17,7 +17,10 @@
         <%= f.select :setor_id, Frequencia::Setor.all.collect{ |c| [c.setor, c.id]}, :prompt => "Selecione um setor" %></p>
 
          <p><%= f.label :profissao_id, "Profissão" %><br />
-        <%= f.select :profissao_id, Frequencia::Profissao.all.collect{ |c| [c.profissao, c.id]}, :prompt => "Selecione uma profissão" %></p>
+        <%= f.select :profissao_id, Frequencia::Profissao.all.collect{ |c| [ c.profissao, c.id]}, :prompt => "Selecione uma profissão" %></p>
+
+        <p><%= f.label 'tipo_de_contratacao_id' %><br />
+        <%= f.select 'tipo_de_contratacao_id', Frequencia::TipoDeContratacao.all.collect{ |c| [ c.titulo, c.id ]}, :prompt => "Selecione um tipo de contratação"%></p>
 
         <p><%= f.label :password, "Senha" %><br />
         <%= f.password_field :password %></p>
@@ -25,7 +28,7 @@
         <p><%= f.label :password_confirmation, "Confirmar Senha" %><br />
         <%= f.password_field :password_confirmation %></p>
 
-				<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+        <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
 
         <p><%= f.submit "Salvar" %></p>
     <% end %>
