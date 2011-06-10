@@ -16,47 +16,49 @@ class Frequencia::AdminsController < TemplateController
   # GET /frequencia/frequencias/1.xml
   def show
     authorize! :index, @user
-    # Filtro para tabela
-    if params.has_key?("ponto")
-      if current_user.role != "administrador" and current_user != 'moderador'
-        matricula = current_user.matricula
+
+      # se o usuario logado não for administrador ou moderador só pega a sua frequencia
+      # mas se for administrador ou moderador pode pegar a sua e a de qualquer outro
+      if (current_user.role != "administrador" || current_user != 'moderador') && !params['ponto']['matricula'].blank?
+        @user = current_user
+      elsif !params['ponto']['matricula'].blank?
+        @user = User.find_by_matricula(params['ponto']['matricula'])
       else
-        matricula =  params['ponto']['matricula']
+        @user = User.all
       end
 
-      @user =  User.find_by_matricula( matricula)
-
-      unless Date.valid?(params['ponto']['data_init']) and Date.valid?(params['ponto']['data_final'])
+      # verifica se a data inicial e a data final são validas se não retorna um erro
+      if not Date.valid?(params['ponto']['data_init']) && Date.valid?(params['ponto']['data_final'])
         redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Data inválida")
         return
+      # verifica se a data inicial é maior que a data final se for retorna erro de que a data inicial é maior que a final
+      elsif params['ponto']['data_final'].to_date < params['ponto']['data_init'].to_date
+        return redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Data inicial não pode ser maior que a data final")
       else
+      # TODO - Lembrar de analisar o que a classe DiasUteis faz com as datas recebidas do parametro
         data_init = params['ponto']['data_init'].to_date
         data_final = params['ponto']['data_final'].to_date
+        @datas = Frequencia::DiasUteis.new(data_init,data_final).data_util
       end
 
-      if data_final < data_init
-        redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Data inicial não pode ser maior que a data final")
-        return
-      end
-
-      @datas = Frequencia::DiasUteis.new(data_init,data_final).data_util
-
-      if matricula.empty?
-        redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "matricula não pode ser nula")
-        return
+      if @user.empty?
+        return redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "matricula não pode ser nula")
       else
+        # FIXME - fudeu tem q ver o pq ele so ta pegando meu usuario e nao todos...
         @frequencias = Frequencia::Ponto.find_by_sql("
             SELECT * FROM frequencia_pontos
-                where matricula = '#{matricula}'
-                and ( date_format(data,'%Y-%m-%d') >= '#{data_init.strftime("%Y-%m-%d")}'
-                and date_format(data,'%Y-%m-%d') <= '#{data_final.strftime("%Y-%m-%d")}')
+                WHERE ( date_format(data,'%Y-%m-%d') >= '#{data_init.strftime("%Y-%m-%d")}'
+                AND date_format(data,'%Y-%m-%d') <= '#{data_final.strftime("%Y-%m-%d")}')
+                AND matricula IN (SELECT users.matricula FROM users)
+                ORDER BY frequencia_pontos.matricula
         ")
       end
-      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, matricula, true)
-    else
-      redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Erro de rotas!")
-      return
-    end
+
+      @obj_ponto = Frequencia::HashPonto.new(@frequencias, @datas, @user, true)
+    #else
+     # redirect_to(:controller => "frequencia/admins", :action => "index", :status=> :found, :flash => "Erro de rotas!")
+     # return
+    #end
 
     @total = @datas.count
 

@@ -1,15 +1,19 @@
 class Frequencia::HashPonto
   attr_accessor :hash_final
   
+  # TODO - não sei o que ela faz bem mas mesmo recebendo um *args funciona
+  # OPTIMIZE - Preciso melhorar essa classe de ponto
 #destrincha a tabela frequencia_frequencias num hash no formato da tabela pontos
-  def initialize(select, datas, matricula, unico = false)
-
+  def initialize(select, datas, usuarios, unico = false)
     @select = select
-    @unico = unico
+    @unico = true
     @hash_final = []
-    @matricula = matricula
+    @usuarios = usuarios
+    @matricula = []
+    @usuarios.each { |u| @matricula.push(u.matricula) }
     datas.each do |data|
-      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula = '#{@matricula}'")
+      @justificativa = Frequencia::Justificada.where("data = '#{data}' and matricula in '#{@matricula.join(',')}'")
+      raise @justificativa.inspect
       i = 0
       f = 0
       a = {}
